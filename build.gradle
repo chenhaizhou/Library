@@ -1,19 +1,22 @@
 apply plugin: 'java'
-apply plugin: 'war'
-apply plugin: 'idea'
-apply plugin: 'maven'
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-}
+sourceCompatibility = 1.5
+version = '1.0'
 
 repositories {
-   mavenCentral()                                      
+    mavenCentral()
 }
 
 dependencies {
+    compile 'org.springframework:spring-webmvc:4.0.3.RELEASE'
+    compile 'org.springframework:spring-core:4.0.3.RELEASE'
+    compile 'org.springframework:spring-aop:4.0.3.RELEASE'
+    compile 'org.springframework:spring-web:4.0.3.RELEASE'
+    compile 'org.springframework:spring-beans:4.0.3.RELEASE'
+    compile 'org.springframework:spring-context:4.0.3.RELEASE'
+    compile 'org.springframework:spring-tx:4.0.3.RELEASE'
+
+    testCompile 'junit:junit-dep:4.11'
 }
 
 task createJavaProject << {
@@ -24,10 +27,4 @@ task createJavaProject << {
 task createWebProject(dependsOn: 'createJavaProject') << {
     def webAppDir = file("$webAppDirName")
     webAppDir.mkdirs()
-}
-
-task copy(type: Copy){
-  from 'src/main/webapp'
-  into 'build'
-  //exclude '*.css'
 }
