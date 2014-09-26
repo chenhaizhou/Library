@@ -16,7 +16,10 @@ dependencies {
     compile 'org.springframework:spring-beans:4.0.3.RELEASE'
     compile 'org.springframework:spring-context:4.0.3.RELEASE'
     compile 'org.springframework:spring-tx:4.0.3.RELEASE'
-
+    compile 'org.springframework:spring-jdbc:4.0.3.RELEASE'
+    compile 'org.mybatis:mybatis:3.2.7'
+    compile 'org.mybatis:mybatis-spring:1.2.2'
+    compile 'mysql:mysql-connector-java:5.1.32'
     testCompile 'junit:junit-dep:4.11'
 }
 
