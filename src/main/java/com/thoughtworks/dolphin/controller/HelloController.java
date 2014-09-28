@@ -24,4 +24,10 @@ public class HelloController {
         return "sample";
     }
 
+    @RequestMapping("list")
+    public String list()
+    {
+        return "list";
+    }
+
 }
