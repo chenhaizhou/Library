@@ -22,18 +22,15 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping(value = "addBook", method = RequestMethod.POST)
-    public  @ResponseBody
-    Map<String, Object> addBook(@RequestBody Book book)
+    @RequestMapping(value = "/addBook", method = RequestMethod.POST)
+    @ResponseBody
+    public String addBook(@RequestBody Book book)
     {
         System.out.println("------------book-----------");
 
         Map<String,Object> resultMap = new HashMap<String,Object>();
 
         resultMap.put("resultCode", "success");
-        return resultMap;
+        return "";
     }
-
-
-
 }
