@@ -7,7 +7,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <!-- 命名空间 -->
     <typeAliases>
          <typeAlias alias="User" type="com.thoughtworks.dolphin.model.User"/>
+         <typeAlias alias="Book" type="com.thoughtworks.dolphin.model.Book"/>
     </typeAliases>
+
 
     <!-- 映射map -->
     <mappers>
