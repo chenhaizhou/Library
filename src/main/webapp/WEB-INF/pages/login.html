@@ -74,32 +74,6 @@
 
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script>
-
-function login(){
-    $.ajax({
-        type : "post",
-        url : "/Library/user/login.do",
-        data : {
-          'username' : $("#inputUsername").text(),
-          'password' : $("#inputPassword").text()
-        },
-        async: false,
-        success : function(data){
-           if(data == false){
-               $("#error-msg").text("The username or password is wrong, please input again.");
-           }else{
-               $('#login-modal').modal('hide');
-           }
-        },
-        error : function (){
-            alert("Oops, something is wrong, we are working on it");
-        }
-
-    })
-}
-
-</script>
-
+<script src="/Library/assets/scripts/login.js"></script>
 </body>
 </html>
