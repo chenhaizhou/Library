@@ -1,5 +1,3 @@
-<script>
-
 function login(){
     $.ajax({
         type : "post",
@@ -21,6 +19,4 @@ function login(){
         }
 
     })
-    }
-
-</script>
+}
