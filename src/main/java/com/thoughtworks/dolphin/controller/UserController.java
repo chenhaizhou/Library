@@ -19,7 +19,7 @@ public class UserController {
     public String input()
     {
         return "input";
-    }  
+    }
 
     @RequestMapping("addUser")
     public String addUser(String nickname, int state)

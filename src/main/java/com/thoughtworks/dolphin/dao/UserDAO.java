@@ -1,6 +1,7 @@
 package com.thoughtworks.dolphin.dao;
 
 import com.thoughtworks.dolphin.model.User;
+import com.thoughtworks.dolphin.model.UserEntity;
 
 import java.util.List;
 
@@ -18,6 +19,8 @@ public interface UserDAO {
     public int deleteUserById(int id);
 
     public int updateUserById(int id);
+
+    public int login(UserEntity userEntity);
 
 }
 

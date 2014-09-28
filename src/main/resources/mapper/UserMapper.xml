@@ -31,4 +31,8 @@
         delete from days_user where id = #{id}
     </delete>
 
+    <select id="login" parameterType="map" resultType="int">
+        select count(*) from users where user_name = #{username} and pass_word = #{password}
+    </select>
+
 </mapper>

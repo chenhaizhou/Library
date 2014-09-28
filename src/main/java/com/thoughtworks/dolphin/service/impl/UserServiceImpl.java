@@ -1,5 +1,6 @@
 package com.thoughtworks.dolphin.service.impl;
 
+import com.thoughtworks.dolphin.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,11 @@ public class UserServiceImpl implements UserService{
 
     public int deleteUserById(int id) {
         return userDAO.deleteUserById(id);
+    }
+
+
+    public boolean login(UserEntity userEntity){
+        return userDAO.login(userEntity) > 0 ;
     }
 
 }

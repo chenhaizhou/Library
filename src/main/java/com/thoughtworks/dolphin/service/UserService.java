@@ -1,6 +1,7 @@
 package com.thoughtworks.dolphin.service;
 
 import com.thoughtworks.dolphin.model.User;
+import com.thoughtworks.dolphin.model.UserEntity;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ public interface UserService {
 
     public int deleteUserById(int id);
 
+    public boolean login(UserEntity userEntity);
+
 }
+
+
