@@ -15,4 +15,6 @@ public interface UserService {
 
     public List<User> queryUserByName(String nickName);
 
+    public int deleteUserById(int id);
+
 }

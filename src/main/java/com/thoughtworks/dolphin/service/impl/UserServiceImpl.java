@@ -32,4 +32,8 @@ public class UserServiceImpl implements UserService{
         return userDAO.queryUserByName(nickName);
     }
 
+    public int deleteUserById(int id) {
+        return userDAO.deleteUserById(id);
+    }
+
 }

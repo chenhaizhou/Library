@@ -62,7 +62,8 @@ public class UserControllerTest {
         user.setState(state);
         userService.insertUser(user);
 
-        User firstUser = userService.queryUserById(1);
+        List<User> userList = userService.queryUserByName(nickName);
+        User firstUser = userService.queryUserById(userList.get(0).getId());
         assertTrue(firstUser != null);
 
     }
@@ -76,5 +77,9 @@ public class UserControllerTest {
         userService.insertUser(user);
         List<User> userList = userService.queryUserByName(nickName);
         assertTrue(userList.size()>0);
+    }
+
+    @Test
+    public void deleteUserByIdTest(){
     }
 }

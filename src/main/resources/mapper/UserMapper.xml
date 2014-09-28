@@ -27,4 +27,8 @@
         select * from days_user where nickname = #{nickname}
     </select>
 
+    <delete id="deleteUserById" parameterType="int">
+        delete from days_user where id = #{id}
+    </delete>
+
 </mapper>
