@@ -22,9 +22,9 @@ public class HelloControllerTest {
 
     @Before
     public void before(){
-        @SuppressWarnings("resource")
-        ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"classpath:conf/spring.xml"
-                ,"classpath:conf/spring-mybatis.xml"});
+
+        ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"conf/spring.xml"
+                ,"conf/spring-mybatis.xml"});
         userService = (UserService) context.getBean("userServiceImpl");
     }
 

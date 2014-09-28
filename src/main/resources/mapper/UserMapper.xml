@@ -15,4 +15,16 @@
         )
     </insert>
 
+    <select id="queryAllUser" resultType="User">
+        select * from days_user
+    </select>
+
+    <select id="queryUserById" parameterType="int" resultType="User">
+        select * from days_user where id = #{id}
+    </select>
+
+    <select id="queryUserByName" parameterType="String" resultType="User">
+        select * from days_user where nickname = #{nickname}
+    </select>
+
 </mapper>
