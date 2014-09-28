@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -46,38 +47,44 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="" class="col-sm-2 control-label">书名</label>
+                        <label for="name" class="col-sm-2 control-label">书名</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control"/>
+                            <input type="text" id="name" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="" class="col-sm-2 control-label">作者</label>
+                        <label for="author" class="col-sm-2 control-label">作者</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control"/>
+                            <input type="text" id="author" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="" class="col-sm-2 control-label">ISBN</label>
+                        <label for="isbn" class="col-sm-2 control-label">ISBN</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control"/>
+                            <input type="text" id="isbn" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="" class="col-sm-2 control-label">出版社</label>
+                        <label for="publisher" class="col-sm-2 control-label">出版社</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control"/>
+                            <input type="text" id="publisher" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="" class="col-sm-2 control-label">封面</label>
+                        <label for="cover" class="col-sm-2 control-label">封面</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control"/>
+                            <input type="file" id="cover" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="introduction" class="col-sm-2 control-label">描述</label>
+                        <div class="col-sm-10">
+                            <textarea name="introduction" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-success">确定</button>
+                            <button type="button" class="btn btn-success" id="submitAdd">确定</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                         </div>
                     </div>
@@ -89,4 +96,5 @@
 </body>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="/Library/assets/scripts/fun.js"></script>
 </html>
