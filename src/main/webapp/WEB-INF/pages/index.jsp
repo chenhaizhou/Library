@@ -79,7 +79,7 @@
                     <div class="form-group">
                         <label for="introduction" class="col-sm-2 control-label">描述</label>
                         <div class="col-sm-10">
-                            <textarea name="introduction" class="form-control"></textarea>
+                            <textarea id="introduction" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
