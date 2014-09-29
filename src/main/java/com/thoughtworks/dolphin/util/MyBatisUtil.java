@@ -1,4 +1,4 @@
-package com.thoughtworks.dolphin.service;
+package com.thoughtworks.dolphin.util;
 
 /**
  * Created by ybhan on 9/26/14.
