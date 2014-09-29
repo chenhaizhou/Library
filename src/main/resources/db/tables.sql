@@ -13,8 +13,3 @@ CREATE TABLE books (
     introduction VARCHAR(500),
     FOREIGN KEY (cover_image_id) REFERENCES images (image_id)
 );
-
-CREATE TABLE users (
-  user_name NVARCHAR(50),
-  pass_word NVARCHAR(50)
-);
