@@ -18,7 +18,13 @@ public interface UserService {
 
     public int deleteUserById(int id);
 
-    public boolean login(UserEntity userEntity);
+    /*
+    return value:
+    1:user not exist;
+    2:user password error;
+    3:user login success.
+     */
+    public String login(UserEntity userEntity);
 
 }
 

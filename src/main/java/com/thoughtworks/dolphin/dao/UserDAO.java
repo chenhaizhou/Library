@@ -22,6 +22,9 @@ public interface UserDAO {
 
     public int login(UserEntity userEntity);
 
+    public int isUserExist(UserEntity userEntity);
+
+    public int isUserInfoRight(UserEntity userEntity);
 }
 
 

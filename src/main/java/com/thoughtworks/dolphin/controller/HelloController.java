@@ -25,9 +25,15 @@ public class HelloController {
     }
 
     @RequestMapping("list")
-    public String list()
+         public String list()
     {
         return "list";
+    }
+
+    @RequestMapping("login")
+    public String login()
+    {
+        return "login";
     }
 
 }

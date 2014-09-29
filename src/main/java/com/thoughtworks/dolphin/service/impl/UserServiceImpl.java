@@ -37,9 +37,17 @@ public class UserServiceImpl implements UserService{
         return userDAO.deleteUserById(id);
     }
 
+    public String login(UserEntity userEntity){
 
-    public boolean login(UserEntity userEntity){
-        return userDAO.login(userEntity) > 0 ;
+        System.out.println("------------UserName: "+ userEntity.getUsername()+ "-----------");
+
+        if(userDAO.isUserExist(userEntity) <1) return"1";
+
+        if(userDAO.isUserInfoRight(userEntity)<1){
+            return "2";
+        }else{
+            return "3";
+        }
     }
 
 }
