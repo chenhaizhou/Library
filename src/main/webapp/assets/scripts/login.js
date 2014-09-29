@@ -17,7 +17,7 @@ $(function() {
                     $(".error-msg").text("The username or password is wrong, please input again.");
                 } else {
                     $(".login-modal").modal("hide");
-                    $(".addBook-btn").show();
+                    $("#addBook-btn").css("display","block");
                     $(".login-btn").hide();
                     $(".login-user").show();
                     $(".login-user").text(loginData.username);
