@@ -5,12 +5,12 @@
 <mapper namespace="com.thoughtworks.dolphin.dao.BookDAO">
 
     <insert id="addBook" parameterType="Book" keyProperty="id">
-        insert into book(
-        name,
+        insert into books(
+        book_name,
         author,
         isbn,
         publisher,
-        cover,
+        cover_image_id,
         introduction)
         values
         (
@@ -18,25 +18,9 @@
         #{author},
         #{isbn},
         #{publisher},
-        #{cover},
+        #{coverImageId},
         #{introduction}
         )
     </insert>
-
-    <!--<select id="queryAllUser" resultType="User">-->
-        <!--select * from days_user-->
-    <!--</select>-->
-
-    <!--<select id="queryUserById" parameterType="int" resultType="User">-->
-        <!--select * from days_user where id = #{id}-->
-    <!--</select>-->
-
-    <!--<select id="queryUserByName" parameterType="String" resultType="User">-->
-        <!--select * from days_user where nickname = #{nickname}-->
-    <!--</select>-->
-
-    <!--<delete id="deleteUserById" parameterType="int">-->
-        <!--delete from days_user where id = #{id}-->
-    <!--</delete>-->
 
 </mapper>

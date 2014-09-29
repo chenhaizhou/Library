@@ -11,9 +11,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by jiezhou on 9/28/14.
- */
 public class BookControllerTest {
 
     private BookService bookService;
@@ -32,7 +29,7 @@ public class BookControllerTest {
         book.setName("TDD book");
         book.setIsbn("122343545454545");
         book.setPublisher("Test Publisher");
-        book.setCover("/book/test.jpg");
+        book.setCoverImageId(1);
         book.setAuthor("Test author");
 
         bookService.insertBook(book);
