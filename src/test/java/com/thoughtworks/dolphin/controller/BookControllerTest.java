@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.sql.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -30,6 +31,7 @@ public class BookControllerTest {
         book.setIsbn("122343545454545");
         book.setPublisher("Test Publisher");
         book.setCoverImageId(1);
+        book.setCreatedTime(new Date(System.currentTimeMillis()));
         book.setAuthor("Test author");
 
         bookService.insertBook(book);

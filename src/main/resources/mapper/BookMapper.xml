@@ -11,7 +11,8 @@
         isbn,
         publisher,
         cover_image_id,
-        introduction)
+        introduction,
+        create_time)
         values
         (
         #{name},
@@ -19,7 +20,8 @@
         #{isbn},
         #{publisher},
         #{coverImageId},
-        #{introduction}
+        #{introduction},
+        #{createdTime}
         )
     </insert>
 

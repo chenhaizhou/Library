@@ -2,9 +2,6 @@ package com.thoughtworks.dolphin.model;
 
 import java.sql.Date;
 
-/**
- * Created by jiezhou on 9/28/14.
- */
 public class Book {
 
     private int id;
@@ -15,6 +12,8 @@ public class Book {
     private String introduction;
 
     private int coverImageId;
+
+    private Date createdTime;
 
     public int getCoverImageId() {
         return coverImageId;
@@ -80,5 +79,14 @@ public class Book {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 }

@@ -13,3 +13,7 @@ CREATE TABLE books (
     introduction VARCHAR(500),
     FOREIGN KEY (cover_image_id) REFERENCES images (image_id)
 );
+
+
+ALTER TABLE `books`
+ADD COLUMN `create_time` DATETIME NOT NULL AFTER `introduction`;
