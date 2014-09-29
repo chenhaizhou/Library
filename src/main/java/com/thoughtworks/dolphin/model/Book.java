@@ -12,8 +12,15 @@ public class Book {
     private String author;
     private String isbn;
     private String publisher;
-    private String cover;
     private String introduction;
+
+    private int coverImageId;
+
+    public int getCoverImageId() {
+        return coverImageId;
+    }
+
+    private Image image;
 
     public int getId() {
         return id;
@@ -55,19 +62,23 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getCover() {
-        return cover;
-    }
-
-    public void setCover(String cover) {
-        this.cover = cover;
-    }
-
     public String getIntroduction() {
         return introduction;
     }
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public String getCoverImageUrl() {
+        return this.image.getImageUrl();
+    }
+
+    public void setCoverImageId(int coverImageId) {
+        this.coverImageId = coverImageId;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }
