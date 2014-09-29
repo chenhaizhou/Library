@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <!-- 映射map -->
     <mappers>
         <!--<mapper resource="resources/mapper/UserMapper.xml"></mapper>-->
+        <!--<mapper resource="resources/mapper/BookMapper.xml"/>-->
     </mappers>
 
 </configuration>

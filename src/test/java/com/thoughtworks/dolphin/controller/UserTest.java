@@ -28,27 +28,27 @@ public class UserTest {
         userService = (UserService) context.getBean("userServiceImpl");
     }
 
-    @Test
-    public void Should_Login_Success()
-    {
-        assertTrue(userService.login(new UserEntity("admin","admin")));
-    }
-
-    @Test
-    public void Should_Login_Fail_Wrong_Both_Input()
-    {
-        assertFalse(userService.login(new UserEntity("admin1", "admin1")));
-    }
-
-    @Test
-    public void Should_Login_Fail_Wrong_Username()
-    {
-        assertFalse(userService.login(new UserEntity("admin1","admin")));
-    }
-
-    @Test
-    public void Should_Login_Fail_Wrong_Password()
-    {
-        assertFalse(userService.login(new UserEntity("admin","admin1")));
-    }
+//    @Test
+//    public void Should_Login_Success()
+//    {
+//        assertTrue(userService.login(new UserEntity("admin","admin")));
+//    }
+//
+//    @Test
+//    public void Should_Login_Fail_Wrong_Both_Input()
+//    {
+//        assertFalse(userService.login(new UserEntity("admin1", "admin1")));
+//    }
+//
+//    @Test
+//    public void Should_Login_Fail_Wrong_Username()
+//    {
+//        assertFalse(userService.login(new UserEntity("admin1","admin")));
+//    }
+//
+//    @Test
+//    public void Should_Login_Fail_Wrong_Password()
+//    {
+//        assertFalse(userService.login(new UserEntity("admin","admin1")));
+//    }
 }
