@@ -6,12 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Library</title>
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <style>
-        body {
-            padding-top:50px;
-        }
-    </style>
+    <link rel="stylesheet" href="/Library/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Library/assets/css/layout.css">
 </head>
 <body>
 <header class="navbar navbar-inverse navbar-fixed-top">
@@ -94,7 +90,7 @@
     </div>
 </div>
 </body>
-<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="/Library/assets/scripts/lib/jquery-1.11.1.min.js"></script>
+<script src="/Library/assets/scripts/lib/bootstrap.min.js"></script>
 <script src="/Library/assets/scripts/fun.js"></script>
 </html>
