@@ -4,12 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.thoughtworks.dolphin.dao.UserDAO">
 
-    <select id="isUserInfoRight" parameterType="map" resultType="int">
-        select count(*) from users where user_name = #{username} and pass_word = #{password}
-    </select>
-
-    <select id="isUserExist" parameterType="map" resultType="int">
-        select  count(*) from users where user_name = #{username}
+    <resultMap id="UserResult" type="UserEntity">
+        <result column="user_name" property="username"/>
+        <result column="pass_word" property="password"/>
+    </resultMap>
+    <select id="selectUserByName" parameterType="map" resultMap="UserResult">
+        select * from users where user_name = #{username}
     </select>
 
 </mapper>

@@ -13,18 +13,13 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDAO userDAO;
 
-
     public String login(UserEntity userEntity){
 
-        System.out.println("------------UserName: "+ userEntity.getUsername()+ "-----------");
+        UserEntity entity = userDAO.selectUserByName(userEntity);
 
-        if(userDAO.isUserExist(userEntity) <1) return"1";
-
-        if(userDAO.isUserInfoRight(userEntity)<1){
-            return "2";
-        }else{
-            return "3";
-        }
+        if(entity ==null) return "UserNameError";
+        if(entity.getPassword().equals(userEntity.getPassword())) return "UserLoginSuccess";
+        return "UserLoginError";
     }
 
 }

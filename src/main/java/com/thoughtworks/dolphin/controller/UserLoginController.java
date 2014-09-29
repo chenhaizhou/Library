@@ -28,19 +28,15 @@ public class UserLoginController {
 
     @RequestMapping("login")
     public String login(){
-
-        System.out.println("------------XXXX-----------");
         return "login";
     }
 
     @RequestMapping(value = "/loginSubmit", method = RequestMethod.POST)
     public @ResponseBody String loginSubmit(@RequestBody UserEntity loginData) {
 
-        System.out.println("------------login :; UserName:"+ loginData.getUsername() +"-----------");
-
         String result = userService.login(new UserEntity(loginData.getUsername(),loginData.getPassword()));
 
-        return "{\"result\":"+ result+ "}";
+        return "{\"result\":\""+ result+ "\"}";
     }
 
 

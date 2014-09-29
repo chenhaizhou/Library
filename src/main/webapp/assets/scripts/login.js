@@ -11,18 +11,18 @@ $(function() {
             data : JSON.stringify(loginData),
             dataType:"json",
             success: function (result) {
-                if (result.result == '1') {
+
+                if (result.result === 'UserNameError') {
                     $(".error-msg").text("The username is not exist.");
-                } else if (result.result =='2') {
+                } else if (result.result ==='UserLoginError') {
                     $(".error-msg").text("The username or password is wrong, please input again.");
-                } else {
+                } else if(result.result ==='UserLoginSuccess') {
                     $(".login-modal").modal("hide");
                     $("#addBook-btn").css("display","block");
                     $(".login-btn").hide();
                     $(".login-user").show();
                     $(".login-user").text(loginData.username);
                 }
-
             }
 
         })
