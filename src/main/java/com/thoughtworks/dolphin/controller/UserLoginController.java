@@ -33,11 +33,6 @@ public class UserLoginController {
         return "login";
     }
 
-    /*public boolean login(String username,String password)
-    {
-        return true;
-    }*/
-
     @RequestMapping(value = "/loginSubmit", method = RequestMethod.POST)
     public @ResponseBody String loginSubmit(@RequestBody UserEntity loginData) {
 
