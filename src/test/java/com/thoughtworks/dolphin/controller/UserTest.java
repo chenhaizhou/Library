@@ -1,8 +1,6 @@
 package com.thoughtworks.dolphin.controller;
 
 
-import com.thoughtworks.dolphin.model.User;
-import com.thoughtworks.dolphin.model.UserEntity;
 import com.thoughtworks.dolphin.service.UserService;
 import org.junit.Before;
 import org.junit.Test;

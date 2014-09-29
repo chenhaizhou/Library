@@ -4,33 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.thoughtworks.dolphin.dao.UserDAO">
 
-    <insert id="insertUser" parameterType="User" keyProperty="id">
-        insert into days_user(
-        state,
-        nickname)
-        values
-        (
-        #{state},
-        #{nickname}
-        )
-    </insert>
-
-    <select id="queryAllUser" resultType="User">
-        select * from days_user
-    </select>
-
-    <select id="queryUserById" parameterType="int" resultType="User">
-        select * from days_user where id = #{id}
-    </select>
-
-    <select id="queryUserByName" parameterType="String" resultType="User">
-        select * from days_user where nickname = #{nickname}
-    </select>
-
-    <delete id="deleteUserById" parameterType="int">
-        delete from days_user where id = #{id}
-    </delete>
-
     <select id="isUserInfoRight" parameterType="map" resultType="int">
         select count(*) from users where user_name = #{username} and pass_word = #{password}
     </select>
