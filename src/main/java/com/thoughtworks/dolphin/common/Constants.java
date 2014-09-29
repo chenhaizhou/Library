@@ -7,6 +7,6 @@ public class Constants {
 
     public static final int ITEM_COUNT_IN_EACH_PAGE = 20;
 
-    public static final int ITEM_COUNT_IN_EACH_LINE = 4;
+    public static final int ITEM_COUNT_IN_EACH_LINE = 5;
 
 }

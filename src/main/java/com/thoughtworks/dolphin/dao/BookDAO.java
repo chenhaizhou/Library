@@ -3,7 +3,6 @@ package com.thoughtworks.dolphin.dao;
 import com.thoughtworks.dolphin.model.Book;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
 
 import java.util.List;
 
