@@ -1,0 +1,5 @@
+@charset "utf-8";
+
+#addBook-btn { display: none; }
+.login-btn { float: right; padding-top: 15px; }
+.error-msg { color: #ff0000; }

@@ -38,8 +38,17 @@ public class UserServiceImpl implements UserService{
     }
 
 
-    public boolean login(UserEntity userEntity){
-        return userDAO.login(userEntity) > 0 ;
+    public String login(UserEntity userEntity){
+
+        if(userDAO.isUserExist(userEntity) <1) return"1";
+
+        if(userDAO.isUserInfoRight(userEntity)<1){
+            return "2";
+        }else{
+            return "3";
+        }
+
+
     }
 
 }

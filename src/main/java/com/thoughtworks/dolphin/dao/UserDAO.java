@@ -20,7 +20,9 @@ public interface UserDAO {
 
     public int updateUserById(int id);
 
-    public int login(UserEntity userEntity);
+
+    public int isUserExist(UserEntity user);
+    public int isUserInfoRight(UserEntity user);
 
 }
 

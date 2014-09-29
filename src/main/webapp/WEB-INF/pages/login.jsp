@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -5,14 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Library</title>
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <style>
-        body {
-            padding-top:50px;
-        }
-        #login-btn { float: right; padding-top: 15px; }
-        #error-msg { color: #ff0000; }
-    </style>
+    <link rel="stylesheet" href="/Library/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Library/assets/css/layout.css">
+    <link rel="stylesheet" href="/Library/assets/css/login.css">
 </head>
 <body>
 <header class="navbar navbar-inverse navbar-fixed-top">
@@ -23,11 +19,9 @@
         <nav class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="">List</a></li>
-                <li><a href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
+                <li><a id="addBook-btn" href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
             </ul>
-            <div id="login-btn">
-                <a href="javascript:void(0)" data-toggle="modal" data-target=".login-modal">Login</a>
-            </div>
+            <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
         </nav>
 
     </div>
@@ -41,7 +35,7 @@
                 <h4 class="modal-title" id="myModalLabel">User login</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" >
                     <div class="form-group">
                         <label for="inputUsername" class="col-sm-2 control-label">User name</label>
                         <div class="col-sm-10">
@@ -57,12 +51,21 @@
 
                     </div>
                     <div class="form-group">
-                        <div id="error-msg" class="col-sm-offset-2 col-sm-10">
+                        <div class="error-msg col-sm-offset-2 col-sm-10">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-success" onclick="login()">Login</button>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="login-submit btn btn-success" >Login</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -71,9 +74,8 @@
         </div>
     </div>
 </div>
-
-<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="/Library/assets/scripts/login.js"></script>
 </body>
+<script src="/Library/assets/scripts/lib/jquery-1.11.1.min.js"></script>
+<script src="/Library/assets/scripts/lib/bootstrap.min.js"></script>
+<script src="/Library/assets/scripts/login.js"></script>
 </html>
