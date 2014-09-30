@@ -2,19 +2,16 @@ package com.thoughtworks.dolphin.controller;
 
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.service.BookService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.Map;
 
-/**
- * Created by jiezhou on 9/28/14.
- */
 @Controller
 @RequestMapping("/")
 public class BookController {
@@ -26,11 +23,16 @@ public class BookController {
     @ResponseBody
     public String addBook(@RequestBody Book book)
     {
-        System.out.println("------------book-----------");
+        int result = bookService.insertBook(book);
+        String resultCode;
+        if(result == 1){
+            resultCode = "success";
+        } else {
+            resultCode = "fail";
+        }
+        JSONObject reponseCode = new JSONObject();
+        reponseCode.put("resultCode", resultCode);
 
-        Map<String,Object> resultMap = new HashMap<String,Object>();
-
-        resultMap.put("resultCode", "success");
-        return "";
+        return reponseCode.toString();
     }
 }
