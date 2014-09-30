@@ -99,9 +99,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <div class="col-sm-offset-2 col-sm-2">
                             <button type="submit" class="btn btn-success" id="submitAdd">确定</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="successTips" class="alert alert-success hide" role="alert">添加成功！</div>
                         </div>
                     </div>
                 </form>

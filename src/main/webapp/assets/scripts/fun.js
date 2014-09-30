@@ -8,11 +8,8 @@ function ajaxFileUpload() {
                 fileElementId: 'cover',
                 dataType: 'json',
                 success: function (result){
-                    console.log(1111111,result)
                     if(result.resultCode === 'success') {
-
                         $('#coverImageId').val(result.coverImageId);
-                        console.log($('#coverImageId'))
                         $("#cover").parent().removeClass('has-error').addClass('has-success');
                         ajaxSubmitForm();
                     }
@@ -40,8 +37,8 @@ function ajaxSubmitForm(){
         data: JSON.stringify(formData),
         success: function (result) {
             if(result.resultCode === 'success'){
-                $('.modal').modal('hide');
-                window.location.reload();
+                $('#successTips').show();
+                setTimeout(closeModal,2000);
             }
         }
     });
@@ -55,9 +52,15 @@ function validateImage(obj) {
     if (/^.*?\.(gif|png|jpg|jpeg)$/.test(tmpFileValue.toLowerCase())) {
         return true;
     } else {
-        alert("只能上传jpg、jpeg、png或gif格式的图片！");
+        $('#cover_error').text("只能上传jpg、jpeg、png或gif格式的图片！")
+            .parent().removeClass('has-success').addClass('has-error');
         return false;
     }
+}
+
+function closeModal(){
+    $('.modal').modal('hide');
+    window.location.reload();
 }
 
 $(function () {
