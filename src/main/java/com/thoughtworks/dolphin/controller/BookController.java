@@ -30,6 +30,7 @@ public class BookController {
         }
         JSONObject reponseCode = new JSONObject();
         reponseCode.put("resultCode", resultCode);
+        reponseCode.put("coverImageId", String.valueOf(book.getCoverImageId()));
 
         return reponseCode.toString();
     }

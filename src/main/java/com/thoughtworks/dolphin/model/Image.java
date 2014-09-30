@@ -18,6 +18,14 @@ public class Image implements Serializable {
         this.imageUrl = imageUrl;
     }
 
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public int getImageId() {
         return imageId;
     }

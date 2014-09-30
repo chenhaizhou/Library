@@ -12,4 +12,9 @@
         select * from images where image_url = #{imageUrl}
     </select>
 
+    <insert id="addImage" parameterType="Image" keyProperty="id">
+         insert into images(image_url) values(#{imageUrl});
+    </insert>
+
+
 </mapper>
