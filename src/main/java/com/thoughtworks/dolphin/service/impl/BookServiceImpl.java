@@ -6,6 +6,7 @@ import com.thoughtworks.dolphin.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ public class BookServiceImpl implements BookService{
     private BookDAO bookMapper;
 
     public int insertBook(Book book) {
+        book.setCoverImageId(book.getCoverImageId());
+        book.setCreatedTime(new Date(System.currentTimeMillis()));
         return bookMapper.addBook(book);
     }
 

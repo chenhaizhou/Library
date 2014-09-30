@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <typeAliases>
          <typeAlias alias="UserEntity" type="com.thoughtworks.dolphin.model.UserEntity"/>
          <typeAlias alias="Book" type="com.thoughtworks.dolphin.model.Book"/>
+         <typeAlias alias="Image" type="com.thoughtworks.dolphin.model.Image"/>
     </typeAliases>
-
 
     <!-- 映射map -->
     <mappers>
