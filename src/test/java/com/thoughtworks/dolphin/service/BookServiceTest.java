@@ -27,7 +27,7 @@ public class BookServiceTest {
     @Test
     public void shouldGetAllDatas() {
         int count = bookService.getAllBookCount();
-        assertEquals(41, count);
+        assertEquals(42, count);
     }
 
     @Test
