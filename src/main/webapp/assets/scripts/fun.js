@@ -1,4 +1,74 @@
+function ajaxFileUpload() {
+    if(validateImage($('#cover'))){
+        $.ajaxFileUpload
+        (
+            {
+                url: '/Library/upload.do',
+                secureuri: false,
+                fileElementId: 'cover',
+                dataType: 'json',
+                success: function (result){
+                    console.log(1111111,result)
+                    if(result.resultCode === 'success') {
+
+                        $('#coverImageId').val(result.coverImageId);
+                        console.log($('#coverImageId'))
+                        $("#cover").parent().removeClass('has-error').addClass('has-success');
+                        ajaxSubmitForm();
+                    }
+                }
+            }
+        )
+    }
+}
+
+function ajaxSubmitForm(){
+    var formData = {
+        name: $('#name').val(),
+        author: $('#author').val(),
+        isbn: $('#isbn').val(),
+        publisher:$('#publisher').val(),
+        coverImageId:$('#coverImageId').val(),
+        introduction: $('#introduction').val()
+    };
+
+    $.ajax({
+        type: "post",
+        url: "/Library/addBook.do",
+        contentType: "application/json; charset=utf-8",
+        dataType:'json',
+        data: JSON.stringify(formData),
+        success: function (result) {
+            if(result.resultCode === 'success'){
+                $('.modal').modal('hide');
+                window.location.reload();
+            }
+        }
+    });
+}
+
+function validateImage(obj) {
+    var file = obj;
+    var tmpFileValue = file.val();
+
+    //校验图片格式
+    if (/^.*?\.(gif|png|jpg|jpeg)$/.test(tmpFileValue.toLowerCase())) {
+        return true;
+    } else {
+        alert("只能上传jpg、jpeg、png或gif格式的图片！");
+        return false;
+    }
+}
+
 $(function () {
+
+    $('#browse').click(function(){
+        $('#cover').click();
+    });
+
+    $('#ocover').change(function() {
+        $('#photocover').val($(this).val());
+    });
 
     $("#addBookForm").validate({
         rules: {
@@ -9,11 +79,11 @@ $(function () {
             cover: "required"
         },
         messages: {
-            name: "必填项",
-            author: "必填项",
-            isbn: "必填项",
-            publisher: "必填项",
-            cover: "必填项"
+            name: "书名不能为空",
+            author: "作者不能为空",
+            isbn: "ISBN不能为空",
+            publisher: "出版社不能为空",
+            cover: "封面未上传"
         },
         onfocusout: function(element) { $(element).valid(); },
         success: function(e){
@@ -23,30 +93,7 @@ $(function () {
             $(e).parent().removeClass('has-success').addClass('has-error');
         },
         submitHandler:function() {
-            ajaxSubmitForm();
+            ajaxFileUpload();
         }
     });
-
-    function ajaxSubmitForm(){
-        var formData = {
-            id: 1,
-            name: $('#name').val(),
-            author: $('#author').val(),
-            isbn: $('#isbn').val(),
-            publisher:$('#publisher').val(),
-            introduction: $('#introduction').val()
-        };
-
-        $.ajax({
-            type: "post",
-            url: "/Library/addBook.do",
-            contentType: "application/json; charset=utf-8",
-            dataType:'json',
-            data: JSON.stringify(formData),
-            success: function (result) {
-                console.log(result);
-                console.log(result.a)
-            }
-        });
-    }
 });

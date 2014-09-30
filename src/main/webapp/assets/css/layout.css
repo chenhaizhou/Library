@@ -44,4 +44,17 @@ h2 {
     width: 100%;
     height: 60px;
     background-color: #ffffff;
+    display:none;
+}
+
+.ver-top .input-group-btn {
+    vertical-align: top;
+}
+
+textarea {
+    resize:none;
+}
+
+#viewCover {
+    width:200px;
 }

@@ -81,7 +81,15 @@
                     <div class="form-group">
                         <label for="cover" class="col-sm-2 control-label"><em>*</em>封面</label>
                         <div class="col-sm-10">
-                            <input type="file" id="cover" name="cover" class="form-control" required>
+                            <%--<input type="file" id="cover" name="cover" class="form-control" required>--%>
+                            <input id="cover" type="file" name="cover" class="hide">
+                            <div class="input-group ver-top">
+                                <input id="photocover" class="form-control" type="text" readonly>
+                                <input type="hidden" id="coverImageId" name="coverImageId">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="browse">浏览</button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -107,6 +115,7 @@
 <script src="/Library/assets/scripts/lib/jquery.validate.min.js"></script>
 <script src="/Library/assets/scripts/lib/smartpaginator.js" type="text/javascript"></script>
 <script src="/Library/assets/scripts/lib/jsrender.js"></script>
+<script src="/Library/assets/scripts/lib/ajaxfileupload.js"></script>
 <script src="/Library/assets/scripts/fun.js"></script>
 <script src="/Library/assets/scripts/booklist.js" type="text/javascript"></script>
 </html>
