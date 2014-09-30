@@ -3,11 +3,20 @@
 <html>
 <head lang="en">
     <meta charset="uft-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Library</title>
     <link rel="stylesheet" href="/Library/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Library/assets/css/layout.css">
+    <link rel="stylesheet" href="/Library/assets/css/smartpaginator.css" type="text/css" />
+    <link rel="stylesheet" href="/Library/assets/css/booklist.css"/>
+
+<script id="bookTmpl" type="text/x-jsrender">
+   <li>
+        <a><img src="{{:coverImageUrl}}"/></a>
+        <br/><a>{{:name}}</a><br/>
+        <span>{{:author}}</span>
+    </li>
+</script>
 </head>
 <body>
 <header class="navbar navbar-inverse navbar-fixed-top">
@@ -23,13 +32,16 @@
         </nav>
     </div>
 </header>
-<section class="container">
-    <ul class="row">
-        <li class="col-sm-6 col-md-4">1</li>
-        <li class="col-sm-6 col-md-4">2</li>
-        <li class="col-sm-6 col-md-4">3</li>
-    </ul>
+<div class="banner">
+    <h2>Book List</h2>
+</div>
+<section class="container container_main">
+    <div class="main" style="width: 980px; margin: 0 auto;">
+        <div id="smart-paginator" > </div>
+        <ul id="booklist" class="clear" style="list-style: none;">
 
+        </ul>
+    </div>
 </section>
 
 
@@ -93,5 +105,8 @@
 <script src="/Library/assets/scripts/lib/jquery-1.11.1.min.js"></script>
 <script src="/Library/assets/scripts/lib/bootstrap.min.js"></script>
 <script src="/Library/assets/scripts/lib/jquery.validate.min.js"></script>
+<script src="/Library/assets/scripts/lib/smartpaginator.js" type="text/javascript"></script>
+<script src="/Library/assets/scripts/lib/jsrender.js"></script>
 <script src="/Library/assets/scripts/fun.js"></script>
+<script src="/Library/assets/scripts/booklist.js" type="text/javascript"></script>
 </html>

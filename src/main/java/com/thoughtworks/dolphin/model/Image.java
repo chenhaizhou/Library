@@ -1,11 +1,17 @@
 package com.thoughtworks.dolphin.model;
 
+import java.io.Serializable;
+
 /**
  * Created by lzwu on 9/28/14.
  */
-public class Image {
+public class Image implements Serializable {
     private int imageId;
     private String imageUrl;
+
+    public Image() {
+
+    }
 
     public Image(int imageId, String imageUrl) {
         this.imageId = imageId;
@@ -18,5 +24,10 @@ public class Image {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "imageId=" + this.imageId + ";imageUrl=" + this.imageUrl;
     }
 }
