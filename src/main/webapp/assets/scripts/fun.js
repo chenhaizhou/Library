@@ -4,6 +4,7 @@ function ajaxFileUpload() {
         (
             {
                 url: '/Library/upload.do',
+                //type:"post",
                 secureuri: false,
                 fileElementId: 'cover',
                 dataType: 'json',
@@ -69,7 +70,7 @@ $(function () {
         $('#cover').click();
     });
 
-    $('#ocover').change(function() {
+    $('#cover').change(function() {
         $('#photocover').val($(this).val());
     });
 
