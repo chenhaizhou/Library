@@ -23,13 +23,9 @@
                 <li class="active"><a href="">List</a></li>
                 <li><a id="addBook-btn" href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
             </ul>
-
-                <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
-
+            <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
             <div class="login-user">username</div>
-
         </nav>
-
     </div>
 </header>
 
@@ -45,16 +41,15 @@
                     <div class="form-group">
                         <label for="inputUsername" class="col-sm-2 control-label">User name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputUsername" placeholder="Enter user name">
+                            <input type="text" class="form-control" id="inputUsername" placeholder="Enter user name" tabindex="1">
                         </div>
 
                     </div>
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password" tabindex="2">
                         </div>
-
                     </div>
                     <div class="form-group">
                         <div class="error-msg col-sm-offset-2 col-sm-10">
@@ -62,8 +57,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="login-submit btn btn-success" >Login</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="login-submit btn btn-success" tabindex="4" >Login</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="5" >Cancel</button>
                         </div>
                     </div>
                 </form>
