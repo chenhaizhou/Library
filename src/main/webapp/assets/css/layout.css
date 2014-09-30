@@ -3,3 +3,15 @@
 body {
     padding-top:50px;
 }
+
+.control-label em {
+    color:#f00;
+    margin-right:5px;
+}
+
+.has-error .error {
+    color:#f00;
+}
+.has-success .error {
+    display:none;
+}
