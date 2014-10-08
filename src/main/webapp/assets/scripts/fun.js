@@ -1,10 +1,8 @@
 function ajaxFileUpload() {
     if(validateImage($('#cover'))){
-        $.ajaxFileUpload
-        (
+        $.ajaxFileUpload(
             {
                 url: '/Library/upload.do',
-                //type:"post",
                 secureuri: false,
                 fileElementId: 'cover',
                 dataType: 'json',
@@ -53,7 +51,7 @@ function validateImage(obj) {
     if (/^.*?\.(gif|png|jpg|jpeg)$/.test(tmpFileValue.toLowerCase())) {
         return true;
     } else {
-        $('#cover_error').text("只能上传jpg、jpeg、png或gif格式的图片！")
+        $('#cover_error').text("Upload file format can be a JPG, jpeg, PNG or GIF")
             .parent().removeClass('has-success').addClass('has-error');
         return false;
     }
@@ -83,13 +81,15 @@ $(function () {
             cover: "required"
         },
         messages: {
-            name: "书名不能为空",
-            author: "作者不能为空",
-            isbn: "ISBN不能为空",
-            publisher: "出版社不能为空",
-            cover: "封面未上传"
+            name: "This field is required.",
+            author: "This field is required.",
+            isbn: "This field is required.",
+            publisher: "This field is required.",
+            cover: "This field is required."
         },
-        onfocusout: function(element) { $(element).valid(); },
+        onfocusout: function (element) {
+            $(element).valid();
+        },
         success: function(e){
             $(e).parent().removeClass('has-error').addClass('has-success');
         },
