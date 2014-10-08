@@ -11,10 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
-/**
- * Created by lzwu on 9/29/14.
- */
 public class BookServiceTest {
 
     @Autowired
@@ -25,7 +23,6 @@ public class BookServiceTest {
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"conf/spring.xml", "conf/spring-mybatis.xml", "conf/mybatis-config.xml"});
         bookService = (BookService) context.getBean("bookService");
     }
-
 
     @Test
     public void shouldGetAllDatas() {
@@ -42,17 +39,19 @@ public class BookServiceTest {
         assertEquals(len, books.size());
     }
 
-
     @Test
     public void shouldAddBook(){
         Book book = new Book();
+
         book.setName("TDD book");
-        book.setIsbn("122343545454545");
+        String isbn = "1122334455";
+        book.setIsbn(isbn);
         book.setPublisher("Test Publisher");
         book.setCoverImageId(1);
         book.setCreatedTime(new Date(System.currentTimeMillis()));
         book.setAuthor("Test author");
-
         bookService.insertBook(book);
+
+        assertTrue(bookService.isExist(book));
     }
 }

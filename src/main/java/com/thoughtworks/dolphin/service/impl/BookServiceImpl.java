@@ -29,4 +29,9 @@ public class BookServiceImpl implements BookService{
     public List<Book> getBooks(int fromIdx, int len) {
         return bookMapper.getBooks(fromIdx, len);
     }
+
+    public boolean isExist(Book book) {
+        List<Book> newBookList = bookMapper.getBookByISBN(book.getIsbn());
+        return !newBookList.isEmpty();
+    }
 }

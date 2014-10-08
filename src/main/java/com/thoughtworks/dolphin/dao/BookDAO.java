@@ -6,9 +6,6 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-/**
- * Created by jiezhou on 9/28/14.
- */
 public interface BookDAO {
     int addBook(Book book);
 
@@ -18,4 +15,6 @@ public interface BookDAO {
     @Select("select count(1) as cnt from books")
     int getAllBookCount();
 
+    @Select("select book_id as id, book_name as name, author, isbn, publisher, cover_image_id as coverImageId, introduction from books where isbn = #{isbn}")
+    List<Book> getBookByISBN(String isbn);
 }
