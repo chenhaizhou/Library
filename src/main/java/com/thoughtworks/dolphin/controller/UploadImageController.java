@@ -27,19 +27,14 @@ public class UploadImageController {
     @RequestMapping(value = "/upload.do")
     @ResponseBody
     public String upload(@RequestParam(value = "cover", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {
-        System.out.println("---------------enter upload()-------------");
         String realPath = request.getSession().getServletContext().getRealPath(Constants.IMAGE_UPLOAD_RELATIVE_PATH);
-
         String contextPath = request.getSession().getServletContext().getContextPath();
-
-//        reponseCode.put("coverImageId", contextPath + "/" + Constants.IMAGE_UPLOAD_RELATIVE_PATH + "/" + fileName);
 
         String coverImageId = String.valueOf(uploadService.uploadFile(file, realPath, contextPath));
 
         JSONObject reponseCode = new JSONObject();
         reponseCode.put("resultCode", "success");
         reponseCode.put("coverImageId", coverImageId);
-
 
         return reponseCode.toString();
     }
