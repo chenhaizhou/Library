@@ -17,34 +17,52 @@ public class UploadServiceImpl implements UploadService {
     private ImageDAO imageDAO;
 
     public int uploadFile(MultipartFile file, String realPath, String contextPath) {
-        // 1. upload image.
+
         String fileName = file.getOriginalFilename();
-        File targetFile = new File(realPath, fileName);
-        if(!targetFile.exists()){
-            targetFile.mkdirs();
-        }
-
-        try {
-            file.transferTo(targetFile);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (saveFile2Disk(file, realPath, fileName)) {
             return 0;
-        } finally {
-
         }
 
-        // 2. save the imageurl to db
+        System.out.println("fileName:" + fileName);
+        Image image = saveImage2DB(contextPath, fileName);
+        return image.getImageId();
+    }
+
+    private Image saveImage2DB(String contextPath, String fileName) {
         Image image = new Image();
         String imageUrl = generateImageUrl(contextPath, fileName);
         image.setImageUrl(imageUrl);
         imageDAO.addImage(image);
         image = imageDAO.selectImage(imageUrl);
+        return image;
+    }
 
-        return image.getImageId();
+    private boolean saveFile2Disk(MultipartFile file, String realPath, String fileName) {
+        File targetFile = new File(realPath, fileName);
+        if(!targetFile.exists()){
+            targetFile.mkdirs();
+        }
+        try {
+            file.transferTo(targetFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true;
+        } finally {
+
+        }
+        return false;
     }
 
     private String generateImageUrl(String contextPath, String fileName) {
-        return contextPath + "/" + Constants.IMAGE_UPLOAD_RELATIVE_PATH + "/" + fileName + "_" + System.currentTimeMillis();
+        return contextPath + "/" + Constants.IMAGE_UPLOAD_RELATIVE_PATH + "/" + generateFileName(fileName);
+    }
+
+    private String generateFileName(String fileName) {
+        int lastIndex = fileName.lastIndexOf(".");
+        String baseFileName = fileName.substring(0, lastIndex);
+        String fileNameSuffix = fileName.substring(lastIndex, fileName.length());
+        baseFileName += "_" + System.currentTimeMillis();
+        return baseFileName + fileNameSuffix;
     }
 
 }
