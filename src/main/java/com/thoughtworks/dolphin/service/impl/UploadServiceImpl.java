@@ -4,6 +4,8 @@ import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.model.Image;
 import com.thoughtworks.dolphin.service.UploadService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +14,8 @@ import java.io.File;
 
 @Service
 public class UploadServiceImpl implements UploadService {
+
+    private final Log logger = LogFactory.getLog(UploadServiceImpl.class);
 
     @Autowired
     private ImageDAO imageDAO;
@@ -23,7 +27,7 @@ public class UploadServiceImpl implements UploadService {
             return 0;
         }
 
-        System.out.println("fileName:" + fileName);
+        logger.info("uploadFile name:" + fileName);
         Image image = saveImage2DB(contextPath, fileName);
         return image.getImageId();
     }
