@@ -84,7 +84,7 @@
                             <%--<input type="file" id="cover" name="cover" class="form-control" required>--%>
                             <input id="cover" type="file" name="cover" class="hide">
                             <div class="input-group ver-top">
-                                <input id="photocover" class="form-control" type="text" readonly>
+                                <input id="photocover" name="photocover" class="form-control" type="text" readonly>
                                 <input type="hidden" id="coverImageId" name="coverImageId">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button" id="browse">Browse</button>
@@ -104,7 +104,7 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col-sm-6">
-                            <div id="successTips" class="alert alert-success hide" role="alert">添加成功！</div>
+                            <div id="successTips" class="alert alert-success hide" role="alert"></div>
                         </div>
                     </div>
                 </form>

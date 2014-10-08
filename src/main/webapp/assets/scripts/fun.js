@@ -1,5 +1,5 @@
 function ajaxFileUpload() {
-    if(validateImage($('#cover'))){
+    if(validateImage($('#photocover'))){
         $.ajaxFileUpload(
             {
                 url: '/Library/upload.do',
@@ -36,7 +36,7 @@ function ajaxSubmitForm(){
         data: JSON.stringify(formData),
         success: function (result) {
             if(result.resultCode === 'success'){
-                $('#successTips').show();
+                $('#successTips').removeClass('hide').text('Add a success.');
                 setTimeout(closeModal,2000);
             }
         }
@@ -51,7 +51,11 @@ function validateImage(obj) {
     if (/^.*?\.(gif|png|jpg|jpeg)$/.test(tmpFileValue.toLowerCase())) {
         return true;
     } else {
-        $('#cover_error').text("Upload file format can be a JPG, jpeg, PNG or GIF")
+        var errTipObj = $('#photocover-error');
+        if(errTipObj.length <= 0){
+            file.after('<div id="photocover-error"></div>');
+        }
+        errTipObj.text("Upload file format can be a JPG, jpeg, PNG or GIF")
             .parent().removeClass('has-success').addClass('has-error');
         return false;
     }
@@ -78,14 +82,14 @@ $(function () {
             author: "required",
             isbn: "required",
             publisher: "required",
-            cover: "required"
+            photocover: "required"
         },
         messages: {
             name: "This field is required.",
             author: "This field is required.",
             isbn: "This field is required.",
             publisher: "This field is required.",
-            cover: "This field is required."
+            photocover: "This field is required."
         },
         onfocusout: function (element) {
             $(element).valid();
