@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 public class BookServiceTest {
@@ -53,5 +54,23 @@ public class BookServiceTest {
         bookService.insertBook(book);
 
         assertTrue(bookService.isExist(book));
+    }
+
+    @Test
+    public void shouldCheckISBN(){
+        Book book = new Book();
+        book.setAuthor("Author-checkisbn");
+        book.setIsbn("ISBN-checkisbn");
+        book.setCoverImageId(1);
+        book.setCreatedTime(new Date(System.currentTimeMillis()));
+        book.setPublisher("Publisher-checkisbn");
+        book.setName("Name-checkisbn");
+        bookService.insertBook(book);
+
+        assertTrue(bookService.isExist(book));
+
+        Book newBook = new Book();
+        newBook.setIsbn(String.valueOf(System.currentTimeMillis()));
+        assertFalse(bookService.isExist(newBook));
     }
 }
