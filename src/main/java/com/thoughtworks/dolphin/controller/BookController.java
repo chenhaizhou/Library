@@ -40,6 +40,13 @@ public class BookController {
         return reponseCode.toString();
     }
 
+    @RequestMapping(value = "/check_isbn", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean isExist(String isbn) {
+        logger.info("isbn:" + isbn);
+        return true;
+    }
+
     @RequestMapping(value = "/listBooks", method = RequestMethod.POST)
     @ResponseBody
     public List<Book> listBooks(@RequestBody String pageNum) {
