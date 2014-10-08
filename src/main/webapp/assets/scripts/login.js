@@ -1,6 +1,7 @@
 
 // login
 $(".login-submit").click(function () {
+
     var loginData = {
         username: $("#inputUsername").val(),
         password: $("#inputPassword").val()
@@ -16,7 +17,7 @@ $(".login-submit").click(function () {
             if (result.result === 'UserNameError') {
                 $(".error-msg").text("The username is not exist.");
             } else if (result.result ==='UserLoginError') {
-                $(".error-msg").text("The username or password is wrong, please input again.");
+                $(".error-msg").text("The password is wrong, please input again.");
             } else if(result.result ==='UserLoginSuccess') {
                 $(".login-modal").modal("hide");
 
@@ -27,6 +28,12 @@ $(".login-submit").click(function () {
         }
 
     })
+});
+
+$("#inputUsername,#inputPassword").keypress(function(event){
+    if(event.keyCode == 13){
+        $(".login-submit").click();
+    }
 });
 
 // log out
@@ -53,9 +60,9 @@ function showLogoutInfo(){
 
 // rememberMe
 function rememberMe(username,password){
-    if(document.getElementById("remember").checked == true ){
-        $.cookie('username', username);
-        $.cookie('password', password);
+    if($("#remember").prop("checked") == true ){
+        $.cookie('username', username, { expires: 7 });
+        $.cookie('password', password, { expires: 7 });
     }else{
         $.removeCookie('username');
         $.removeCookie('password');
@@ -66,11 +73,14 @@ function rememberMe(username,password){
 
 // checkCookie
 function checkCookie(){
-    if($.cookie('username') != null ){
+    if($.cookie('username') != undefined ){
         $("#inputUsername").val($.cookie('username'));
         $("#inputPassword").val($.cookie('password'));
+        $("#remember").attr("checked",true);
     }
 }
 
 // init
 checkCookie();
+
+
