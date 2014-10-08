@@ -80,17 +80,24 @@ $(function () {
         rules: {
             name: "required",
             author: "required",
-            isbn: "required",
+            isbn: {
+                required: true,
+                remote: "/Library/check_isbn.do"
+            },
             publisher: "required",
             photocover: "required"
         },
         messages: {
             name: "This field is required.",
             author: "This field is required.",
-            isbn: "This field is required.",
+            isbn: {
+                required: "This field is required.",
+                remote: "This ISBN exists, please fix this field."
+            },
             publisher: "This field is required.",
             photocover: "This field is required."
         },
+        errorElement: "em",
         onfocusout: function (element) {
             $(element).valid();
         },
