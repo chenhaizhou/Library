@@ -17,6 +17,13 @@
     padding-top: 15px;
 }
 
+.logout-btn {
+    float:right;
+    display: none;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
 .error-msg {
     color: #ff0000;
 }

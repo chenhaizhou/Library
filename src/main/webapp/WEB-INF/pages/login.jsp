@@ -24,6 +24,7 @@
                 <li><a id="addBook-btn" href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
             </ul>
             <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
+            <a class="logout-btn" href="###" >Log out</a>
             <div class="login-user">username</div>
         </nav>
     </div>
