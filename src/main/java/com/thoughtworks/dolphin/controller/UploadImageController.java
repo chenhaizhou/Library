@@ -1,6 +1,7 @@
 package com.thoughtworks.dolphin.controller;
 
 import com.thoughtworks.dolphin.common.Constants;
+import com.thoughtworks.dolphin.service.UploadService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,29 +21,20 @@ import java.io.File;
 @Controller
 public class UploadImageController {
 
+    @Autowired
+    private UploadService uploadService;
+
     @RequestMapping(value = "/upload.do")
     @ResponseBody
     public String upload(@RequestParam(value = "cover", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {
+        String realPath = request.getSession().getServletContext().getRealPath(Constants.IMAGE_UPLOAD_RELATIVE_PATH);
+        String contextPath = request.getSession().getServletContext().getContextPath();
 
-        String path = request.getSession().getServletContext().getRealPath(Constants.IMAGE_UPLOAD_RELATIVE_PATH);
-        String fileName = file.getOriginalFilename();
-        File targetFile = new File(path, fileName);
-        if(!targetFile.exists()){
-            targetFile.mkdirs();
-        }
-
-        try {
-            file.transferTo(targetFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-
-        }
+        String coverImageId = String.valueOf(uploadService.uploadFile(file, realPath, contextPath));
 
         JSONObject reponseCode = new JSONObject();
         reponseCode.put("resultCode", "success");
-        String contextPath = request.getSession().getServletContext().getContextPath();
-        reponseCode.put("imageUrl", contextPath + "/" + Constants.IMAGE_UPLOAD_RELATIVE_PATH + "/" + fileName);
+        reponseCode.put("coverImageId", coverImageId);
 
         return reponseCode.toString();
     }

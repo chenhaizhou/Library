@@ -6,4 +6,5 @@ public interface ImageDAO {
 
     public Image selectImage(String imageUrl);
 
+    void addImage(Image image);
 }

@@ -3,6 +3,8 @@ package com.thoughtworks.dolphin.controller;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.service.BookService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import java.util.List;
 @RequestMapping("/")
 public class BookController {
 
+    private final Log logger = LogFactory.getLog(BookController.class);
+
     @Autowired
     private BookService bookService;
 
@@ -21,6 +25,7 @@ public class BookController {
     @ResponseBody
     public String addBook(@RequestBody Book book)
     {
+        logger.info("enter addBook");
         int result = bookService.insertBook(book);
         String resultCode;
         if(result == 1){
@@ -30,8 +35,18 @@ public class BookController {
         }
         JSONObject reponseCode = new JSONObject();
         reponseCode.put("resultCode", resultCode);
+        reponseCode.put("coverImageId", String.valueOf(book.getCoverImageId()));
 
         return reponseCode.toString();
+    }
+
+    @RequestMapping(value = "/check_isbn", method = RequestMethod.GET)
+    @ResponseBody
+    public String isExist(String isbn) {
+        logger.info("isbn:" + isbn);
+        Book book = new Book();
+        book.setIsbn(isbn);
+        return String.valueOf(!bookService.isExist(book));
     }
 
     @RequestMapping(value = "/listBooks", method = RequestMethod.POST)

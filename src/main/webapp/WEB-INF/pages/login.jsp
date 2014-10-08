@@ -24,6 +24,7 @@
                 <li><a id="addBook-btn" href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
             </ul>
             <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
+            <a class="logout-btn" href="###" >Log out</a>
             <div class="login-user">username</div>
         </nav>
     </div>
@@ -52,6 +53,15 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="remember" type="checkbox" name="checkbox"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="error-msg col-sm-offset-2 col-sm-10">
                         </div>
                     </div>
@@ -70,5 +80,6 @@
 
 <script src="/Library/assets/scripts/lib/jquery-1.11.1.min.js"></script>
 <script src="/Library/assets/scripts/lib/bootstrap.min.js"></script>
+<script src="/Library/assets/scripts/lib/jquery.cookie.js"></script>
 <script src="/Library/assets/scripts/login.js"></script>
 </html>
