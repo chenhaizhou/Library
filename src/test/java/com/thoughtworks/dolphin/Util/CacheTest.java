@@ -24,13 +24,11 @@ import static junit.framework.Assert.assertNotNull;
 public class CacheTest {
 
     @Test
-    public void Cache_Can_Generate(){
+    public void cache_Can_Generate(){
 
         CacheManager cacheManager = new CacheManager("./ehcache.xml");
 
         assertNotNull(cacheManager);
-
-        System.out.println("Caches: " + Arrays.toString( cacheManager.getCacheNames()));
 
         Cache cache = cacheManager.getCache("DEFAULT_CACHE");
 

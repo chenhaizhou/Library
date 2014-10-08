@@ -16,15 +16,6 @@ public class CacheUtil {
     static {
         cacheManager = CacheManager.create();
         cache = cacheManager.getCache("DEFAULT_CACHE");
-
-        if (cache !=null){
-            System.out.println("Cache is Done");
-        }
-        else
-        {
-            System.out.println("Cache is Error");
-        }
-
     }
 
     private  CacheUtil(){}

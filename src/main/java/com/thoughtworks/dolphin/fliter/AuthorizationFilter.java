@@ -35,9 +35,6 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
             Cookie cookie = CookieUtil.fetchCookie(request, "sessionId");
             if (cookie == null) {
 
-                System.out.println("URL:" + url);
-
-                System.out.println(url + ": no cookie");
                 redirectUrl(request, response, "/login");
                 return false;
             }
@@ -48,8 +45,6 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
             UserView userView = (UserView)element.getObjectValue();
 
             if (userView == null) {
-                System.out.println("SessionID" + sessionId);
-                System.out.println("no cache");
                 redirectUrl(request, response, "/login");
                 return false;
             } else {

@@ -8,7 +8,7 @@ import com.thoughtworks.dolphin.service.UserService;
 import com.thoughtworks.dolphin.service.impl.UserServiceImpl;
 import com.thoughtworks.dolphin.util.CacheUtil;
 import com.thoughtworks.dolphin.util.CookieUtil;
-import org.slf4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("/user")
 public class UserLoginController {
+
+    private static Logger LOGGER = Logger.getLogger(UserLoginController.class);
 
     @Autowired
     private UserService userService;
@@ -55,7 +57,7 @@ public class UserLoginController {
             CacheUtil.put(sessionId, new UserView(loginData.getUsername()));
         }
 
-        System.out.println("Resutk:"+result);
+        LOGGER.debug("Result:"+result);
         return "{\"result\":\"" + result + "\"}";
     }
 
