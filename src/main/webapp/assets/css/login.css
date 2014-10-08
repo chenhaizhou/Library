@@ -1,10 +1,5 @@
 @charset "utf-8";
 
-#addBook-btn {
-    display: none;
-    padding-top: 15px;
-}
-
 .login-btn {
     float: right;
     padding-top: 15px;

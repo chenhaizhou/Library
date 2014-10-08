@@ -1,5 +1,4 @@
 
-// login
 $(".login-submit").click(function () {
 
     var loginData = {
@@ -13,21 +12,25 @@ $(".login-submit").click(function () {
         data : JSON.stringify(loginData),
         dataType:"json",
         success: function (result) {
-
             if (result.result === 'UserNameError') {
-                $(".error-msg").text("The username is not exist.");
+                $(".error-msg").text("The username is wrong.");
             } else if (result.result ==='UserLoginError') {
-                $(".error-msg").text("The password is wrong, please input again.");
+                $(".error-msg").text("The password is wrong.");
             } else if(result.result ==='UserLoginSuccess') {
                 $(".login-modal").modal("hide");
 
-                showLoginInfo(loginData.username);
+                login(loginData.username);
                 rememberMe(loginData.username,loginData.password);
 
             }
         }
-
     })
+});
+
+$(".login-btn").click(function(){
+    checkCookie();
+    $("#inputPassword").val("");
+    $(".error-msg").text("");
 });
 
 $("#inputUsername,#inputPassword").keypress(function(event){
@@ -36,51 +39,52 @@ $("#inputUsername,#inputPassword").keypress(function(event){
     }
 });
 
-// log out
 $(".logout-btn").click(function () {
-    showLogoutInfo();
+    logout();
 });
 
-// showLoginInfo
-function showLoginInfo(username){
-    $("#addBook-btn").css("display","block");
-    $(".logout-btn").css("display","block");
+function login(username){
+    $("#addBook-btn").show();
+    $(".logout-btn").show();
     $(".login-btn").hide();
     $(".login-user").show();
     $(".login-user").text("Welcome: "+username);
 }
 
-// showLogoutInfo
-function showLogoutInfo(){
-    $("#addBook-btn").css("display","none");
-    $(".logout-btn").css("display","none");
+function logout(){
+    $("#addBook-btn").hide();
+    $(".logout-btn").hide();
     $(".login-btn").show();
     $(".login-user").hide();
 }
 
-// rememberMe
 function rememberMe(username,password){
     if($("#remember").prop("checked") == true ){
         $.cookie('username', username, { expires: 7 });
-        $.cookie('password', password, { expires: 7 });
     }else{
         $.removeCookie('username');
-        $.removeCookie('password');
-        $("#inputUsername").val("");
-        $("#inputPassword").val("");
     }
 }
 
-// checkCookie
 function checkCookie(){
     if($.cookie('username') != undefined ){
         $("#inputUsername").val($.cookie('username'));
-        $("#inputPassword").val($.cookie('password'));
         $("#remember").attr("checked",true);
+    }else{
+        $("#inputUsername").val("");
     }
 }
 
-// init
+function checkLoginStatus(loginStatus){
+    if(loginStatus){
+        login();
+    }else{
+        logout();
+    }
+}
+
 checkCookie();
+checkLoginStatus(false);
+
 
 
