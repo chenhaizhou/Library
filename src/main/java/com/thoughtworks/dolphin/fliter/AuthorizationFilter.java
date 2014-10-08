@@ -1,9 +1,15 @@
 package com.thoughtworks.dolphin.fliter;
 
+import com.thoughtworks.dolphin.common.Constants;
+import com.thoughtworks.dolphin.model.UserEntity;
+import com.thoughtworks.dolphin.model.UserView;
 import com.thoughtworks.dolphin.util.CacheUtil;
+import com.thoughtworks.dolphin.util.CookieUtil;
 import net.sf.ehcache.Element;
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -15,62 +21,52 @@ import java.util.List;
 /**
  * Created by ybhan on 9/30/14.
  */
-public class AuthorizationFilter implements HandlerInterceptor {
+public class AuthorizationFilter extends HandlerInterceptorAdapter {
 
-    public void afterCompletion(HttpServletRequest arg0,
-                                HttpServletResponse arg1, Object arg2, Exception arg3)
-            throws Exception {
-    }
-
-
-    public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1,
-                           Object arg2, ModelAndView arg3) throws Exception {
-
-    }
-
+//    private static Logger logger = Logger.getLogger(AuthorizationFilter.class);
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
 
-        String url=request.getRequestURL().toString();
+        String url = request.getRequestURL().toString();
 
-        if(isNeedCheck(url)){
+        if (isNeedCheck(url)) {
 
-            Cookie cookie = fetchCookie(request, "sessionId");
+            Cookie cookie = CookieUtil.fetchCookie(request, "sessionId");
             if (cookie == null) {
-                redirectUrl(request, response, "login");
+
+                System.out.println("URL:" + url);
+
+                System.out.println(url + ": no cookie");
+                redirectUrl(request, response, "/login");
+                return false;
             }
 
-            if(org!=null){
-                return true;
-            }else{
-                redirectUrl(request, response, "login");
+            String sessionId = cookie.getValue();
+            Element element = (Element)CacheUtil.get(sessionId);
+
+            UserView userView = (UserView)element.getObjectValue();
+
+            if (userView == null) {
+                System.out.println("SessionID" + sessionId);
+                System.out.println("no cache");
+                redirectUrl(request, response, "/login");
+                return false;
+            } else {
+                CookieUtil.saveCookie(response, "sessionId", sessionId, Constants.COOKIE_LOGIN_MAXAGE);
             }
-            return false;
         }
+
         return true;
-
-
     }
 
     private void redirectUrl(HttpServletRequest request, HttpServletResponse response, String toLogin) throws IOException {
         response.sendRedirect(request.getContextPath() + toLogin);
     }
 
-    private Cookie fetchCookie(HttpServletRequest request, String key) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null || cookies.length == 0) {
-            return null;
-        }
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(key) && cookie.getPath().equals("/")) {
-                return cookie;
-            }
-        }
-        return null;
-    }
 
     private boolean isNeedCheck(String url) {
+
         List<String> checkUrls = new ArrayList<String>();
         checkUrls.add("addBook");
         checkUrls.add("sample");

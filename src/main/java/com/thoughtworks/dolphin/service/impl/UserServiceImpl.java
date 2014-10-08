@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import com.thoughtworks.dolphin.dao.UserDAO;
 import com.thoughtworks.dolphin.service.UserService;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -18,7 +21,10 @@ public class UserServiceImpl implements UserService{
         UserEntity entity = userDAO.selectUserByName(userEntity);
 
         if(entity ==null) return "UserNameError";
-        if(entity.getPassword().equals(userEntity.getPassword())) return "UserLoginSuccess";
+        if(entity.getPassword().equals(userEntity.getPassword()))
+        {
+            return "UserLoginSuccess";
+        }
         return "UserLoginError";
     }
 

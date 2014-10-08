@@ -11,4 +11,6 @@ public class Constants {
 
     public static final String IMAGE_UPLOAD_RELATIVE_PATH = "upload";
 
+    public static final int COOKIE_LOGIN_MAXAGE = 3600 * 24 * 14;
+
 }

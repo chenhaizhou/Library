@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
- xmlns:context="http://www.springframework.org/schema/context"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
       http://www.springframework.org/schema/context
-      http://www.springframework.org/schema/context/spring-context.xsd">
+      http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <!-- 引入jdbc配置文件 -->
     <context:property-placeholder location="classpath:conf/jdbc.properties"/>
@@ -18,4 +18,25 @@
 
     <bean id="bookService" class="com.thoughtworks.dolphin.service.impl.BookServiceImpl">
     </bean>
+
+
+    <!--<cache:annotation-driven cache-manager="defaultCacheManager" />-->
+
+    <!-- 引用ehCache的配置 -->
+    <bean id="defaultCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation">
+            <value>classpath:/conf/ehcache.xml</value>
+        </property>
+    </bean>
+
+    <!-- 定义ehCache的工厂，并设置所使用的Cache name -->
+    <bean id="ehCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager">
+            <ref local="defaultCacheManager"/>
+        </property>
+        <property name="cacheName">
+            <value>DEFAULT_CACHE</value>
+        </property>
+    </bean>
+
 </beans>

@@ -1116,7 +1116,7 @@ informal pre V1.0 commit counter: 58 */
 						}).slice(0, -1);
 
 					if (pathBindings && pathBindings[0]) {
-						pathBindings.pop(); // Remove the bindings that was prepared for next arg. (There is always an extra one ready).
+						pathBindings.pop(); // remove the bindings that was prepared for next arg. (There is always an extra one ready).
 					}
 				}
 
@@ -1302,7 +1302,7 @@ informal pre V1.0 commit counter: 58 */
 									: "\b,") + paramIndex + (paramIndex = index + all.length, bindings && pathBindings.push(bindings = []), "\b")
 							)
 							: eq
-					// named param. Remove bindings for arg and create instead bindings array for prop
+					// named param. remove bindings for arg and create instead bindings array for prop
 								? (parenDepth && syntaxError(params), bindings && pathBindings.pop(), named = path, boundName = bound, paramIndex = index + all.length, bound && (bindings = pathBindings[named] = []), path + ':')
 								: path
 					// path
@@ -1519,7 +1519,7 @@ informal pre V1.0 commit counter: 58 */
 			: parentContext && $extend({}, parentContext);
 	}
 
-	// Get character entity for HTML and Attribute encoding
+	// get character entity for HTML and Attribute encoding
 	function getCharEntity(ch) {
 		return charEntities[ch] || (charEntities[ch] = "&#" + ch.charCodeAt(0) + ";");
 	}
