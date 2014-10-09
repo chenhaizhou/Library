@@ -49,6 +49,21 @@ var userLogin = {
         $(".logout-btn").hide();
         $(".login-btn").show();
         $(".login-user").hide();
+
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Library/user/logout.do",
+                contentType: "application/json; charset=utf-8",
+                data: "",
+                success: function () {
+
+                },
+                error: function () {
+                    alert("logout error");
+                }
+            }
+        );
     },
 
     checkCookie: function () {
@@ -104,7 +119,7 @@ var userLogin = {
                 success: function (result) {
                     var name = result.userName;
                     if(name === ''){
-
+                        userLogin.logout();
                     }else{
                         userLogin.login(name);
                     }
