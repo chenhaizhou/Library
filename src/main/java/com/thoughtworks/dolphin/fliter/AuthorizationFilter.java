@@ -1,14 +1,10 @@
 package com.thoughtworks.dolphin.fliter;
 
 import com.thoughtworks.dolphin.common.Constants;
-import com.thoughtworks.dolphin.model.UserEntity;
 import com.thoughtworks.dolphin.model.UserView;
 import com.thoughtworks.dolphin.util.CacheUtil;
 import com.thoughtworks.dolphin.util.CookieUtil;
-import net.sf.ehcache.Element;
 import org.apache.log4j.Logger;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
@@ -20,7 +16,7 @@ import java.util.List;
 
 public class AuthorizationFilter extends HandlerInterceptorAdapter {
 
-//    private static Logger logger = Logger.getLogger(AuthorizationFilter.class);
+    private static Logger LOGGER = Logger.getLogger(AuthorizationFilter.class);
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
@@ -29,21 +25,22 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
 
         if (isNeedCheck(url)) {
 
-            Cookie cookie = CookieUtil.fetchCookie(request, "sessionId");
+            Cookie cookie = CookieUtil.fetchCookie(request, Constants.COOKIE_SESSION_ID_KEY);
             if (cookie == null) {
+                LOGGER.info("User access URL:" + url + ", need to login...");
                 processRequest(request, response, "/login");
                 return false;
             }
 
             String sessionId = cookie.getValue();
-            Element element = (Element)CacheUtil.get(sessionId);
+            UserView userView = (UserView) CacheUtil.get(sessionId);
 
-            if (element == null) {
-                UserView userView = (UserView)element.getObjectValue();
+            if (userView == null) {
+                LOGGER.info("User access URL:" + url + ", need to login...");
                 processRequest(request, response, "/login");
                 return false;
             } else {
-                CookieUtil.saveCookie(response, "sessionId", sessionId, Constants.COOKIE_LOGIN_MAXAGE);
+                CookieUtil.saveCookie(response, Constants.COOKIE_SESSION_ID_KEY, sessionId, Constants.COOKIE_LOGIN_MAXAGE);
             }
         }
 

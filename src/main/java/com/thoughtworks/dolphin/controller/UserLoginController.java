@@ -53,14 +53,30 @@ public class UserLoginController {
 
         if (result.equals("UserLoginSuccess")) {
             String sessionId = req.getRequestedSessionId();
-            CookieUtil.saveCookie(resp, "sessionId", sessionId, Constants.COOKIE_LOGIN_MAXAGE);
+            CookieUtil.saveCookie(resp, Constants.COOKIE_SESSION_ID_KEY, sessionId, Constants.COOKIE_LOGIN_MAXAGE);
             CacheUtil.put(sessionId, new UserView(loginData.getUsername()));
         }
 
-        LOGGER.debug("Result:"+result);
+        LOGGER.debug("Result:" + result);
         return "{\"result\":\"" + result + "\"}";
     }
 
+    @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String getUserInfo(HttpServletRequest request, HttpServletResponse response) {
 
+        String userName = "";
+
+        Cookie sessionCookie = CookieUtil.fetchCookie(request, Constants.COOKIE_SESSION_ID_KEY);
+        if (sessionCookie != null) {
+            String sessionId = sessionCookie.getValue();
+            UserView userView = (UserView) CacheUtil.get(sessionId);
+            if (userView != null) {
+                userName = userView.getUserName();
+            }
+        }
+        return "{\"userName\":\"" + userName + "\"}";
+    }
 
 }

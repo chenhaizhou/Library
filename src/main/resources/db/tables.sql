@@ -18,3 +18,9 @@ CREATE TABLE books (
 ALTER TABLE books
 ADD COLUMN create_time DATETIME NOT NULL
 AFTER introduction;
+
+CREATE TABLE users (
+  user_name VARCHAR(50) PRIMARY KEY NOT NULL,
+  password  VARCHAR(50),
+  name      VARCHAR(50)
+);

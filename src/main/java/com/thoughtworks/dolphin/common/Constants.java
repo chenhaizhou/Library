@@ -15,4 +15,6 @@ public class Constants {
 
     public static final int HTTP_STATUS_CODE_FOR_AJAX = 499;
 
+    public static final String COOKIE_SESSION_ID_KEY = "sessionId";
+
 }

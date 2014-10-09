@@ -6,7 +6,7 @@
 
     <resultMap id="UserResult" type="UserEntity">
         <result column="user_name" property="username"/>
-        <result column="pass_word" property="password"/>
+        <result column="password" property="password"/>
     </resultMap>
     <select id="selectUserByName" parameterType="map" resultMap="UserResult">
         select * from users where user_name = #{username}

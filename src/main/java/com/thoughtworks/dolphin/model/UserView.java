@@ -17,6 +17,10 @@ public class UserView implements Serializable{
         this.userName = userName;
     }
 
+    public UserView(){
+
+    }
+
     public UserView(String userName) {
 
         this.userName = userName;
