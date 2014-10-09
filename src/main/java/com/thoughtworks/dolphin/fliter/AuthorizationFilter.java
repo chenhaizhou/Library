@@ -38,9 +38,8 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
             String sessionId = cookie.getValue();
             Element element = (Element)CacheUtil.get(sessionId);
 
-            UserView userView = (UserView)element.getObjectValue();
-
-            if (userView == null) {
+            if (element == null) {
+                UserView userView = (UserView)element.getObjectValue();
                 processRequest(request, response, "/login");
                 return false;
             } else {
