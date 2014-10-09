@@ -59,7 +59,7 @@ var addBookFun = {
         }
     },
     closeModal: function(){
-        $('.modal').modal('hide');
+        $('#addBookFrmWrap').modal('hide');
         window.location.reload();
     }
 };

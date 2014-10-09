@@ -58,3 +58,6 @@ textarea {
 #viewCover {
     width:200px;
 }
+.form-group em {
+    font-style: normal;
+}
