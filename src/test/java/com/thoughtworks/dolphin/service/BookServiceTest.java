@@ -2,6 +2,7 @@ package com.thoughtworks.dolphin.service;
 
 import com.thoughtworks.dolphin.model.Book;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -19,9 +20,15 @@ public class BookServiceTest {
     @Autowired
     private BookService bookService;
 
+    private static ApplicationContext context;
+
+    @BeforeClass
+    public static void setUpBeforeClass() {
+        context = new ClassPathXmlApplicationContext(new String[]{"conf/spring.xml", "conf/spring-mybatis.xml", "conf/mybatis-config.xml"});
+    }
+
     @Before
-    public void setup() {
-        ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"conf/spring.xml", "conf/spring-mybatis.xml", "conf/mybatis-config.xml"});
+    public void setUp() throws Exception {
         bookService = (BookService) context.getBean("bookService");
     }
 
