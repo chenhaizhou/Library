@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/Library/assets/css/layout.css">
     <link rel="stylesheet" href="/Library/assets/css/smartpaginator.css" type="text/css" />
     <link rel="stylesheet" href="/Library/assets/css/booklist.css"/>
-
+    <link rel="stylesheet" href="/Library/assets/css/login.css">
 <script id="bookTmpl" type="text/x-jsrender">
    <li>
         <a><img src="{{:coverImageUrl}}"/></a>
@@ -27,8 +27,13 @@
         <nav class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="">List</a></li>
-                <li><a href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
+                <li><a id="addBook-btn" href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
             </ul>
+            <div id="login-area">
+                <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
+                <a class="logout-btn" href="###" >Log out</a>
+                <div class="login-user">username</div>
+            </div>
         </nav>
     </div>
 </header>
@@ -112,13 +117,63 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade login-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">User login</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" >
+                    <div class="form-group">
+                        <label for="inputUsername" class="col-sm-2 control-label">User name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputUsername" placeholder="Enter user name" tabindex="1">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password" tabindex="2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="remember" type="checkbox" name="checkbox"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="error-msg col-sm-offset-2 col-sm-10">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="login-submit btn btn-success" tabindex="4" >Login</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="5" >Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <script src="/Library/assets/scripts/lib/jquery-1.11.1.min.js"></script>
 <script src="/Library/assets/scripts/lib/bootstrap.min.js"></script>
 <script src="/Library/assets/scripts/lib/jquery.validate.min.js"></script>
-<script src="/Library/assets/scripts/lib/smartpaginator.js" type="text/javascript"></script>
+<script src="/Library/assets/scripts/lib/smartpaginator.js" ></script>
 <script src="/Library/assets/scripts/lib/jsrender.js"></script>
 <script src="/Library/assets/scripts/lib/ajaxfileupload.js"></script>
 <script src="/Library/assets/scripts/fun.js"></script>
-<script src="/Library/assets/scripts/booklist.js" type="text/javascript"></script>
+<script src="/Library/assets/scripts/booklist.js" ></script>
+<script src="/Library/assets/scripts/lib/jquery.cookie.js"></script>
+<script src="/Library/assets/scripts/login.js"></script>
 </html>
