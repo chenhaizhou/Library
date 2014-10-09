@@ -17,7 +17,6 @@ public class BookServiceImpl implements BookService{
     private BookDAO bookMapper;
 
     public int insertBook(Book book) {
-        book.setCoverImageId(book.getCoverImageId());
         book.setCreatedTime(new Date(System.currentTimeMillis()));
         return bookMapper.addBook(book);
     }
