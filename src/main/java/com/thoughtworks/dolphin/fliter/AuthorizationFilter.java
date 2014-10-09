@@ -53,9 +53,9 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response, String redirectUrl) throws IOException {
         if(isAjaxRequest(request)){
-            response.setStatus(499);
+            response.setStatus(Constants.HTTP_STATUS_CODE_FOR_AJAX);
         } else {
-            redirectUrl(request, response, "/login");
+            redirectUrl(request, response, redirectUrl);
         }
     }
 

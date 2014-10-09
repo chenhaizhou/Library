@@ -13,4 +13,6 @@ public class Constants {
 
     public static final int COOKIE_LOGIN_MAXAGE = 3600 * 24 * 14;
 
+    public static final int HTTP_STATUS_CODE_FOR_AJAX = 499;
+
 }
