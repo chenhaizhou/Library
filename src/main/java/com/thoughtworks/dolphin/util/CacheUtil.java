@@ -4,42 +4,41 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
-/**
- * Created by ybhan on 9/30/14.
- */
 public class CacheUtil {
-
-    private static CacheManager cacheManager ;
 
     private static Cache cache;
 
     static {
-        cacheManager = CacheManager.create();
+        CacheManager cacheManager = CacheManager.getInstance();
         cache = cacheManager.getCache("DEFAULT_CACHE");
     }
 
-    private  CacheUtil(){}
-
-    public static  Object get(String key){
-        return cache.get(key);
+    private CacheUtil() {
     }
 
-    public static void put(String key, Object val){
+    public static Object get(String key) {
+        Element element = cache.get(key);
+        if (element == null) {
+            return null;
+        }
+        return cache.get(key).getObjectValue();
+    }
 
-        if(cache.get(key)!= null) {
+    public static void put(String key, Object val) {
+
+        if (cache.get(key) != null) {
             cache.remove(key);
         }
 
-        Element element = new Element(key,val);
+        Element element = new Element(key, val);
         cache.put(element);
     }
 
-    public static  void remove(String key){
+    public static void remove(String key) {
         cache.remove(key);
     }
 
-    public static  void clear()
-    {
+    public static void clear() {
         cache.removeAll();
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thoughtworks.dolphin.dao.BookDAO">
+
+    <insert id="addBook" parameterType="Book" keyProperty="id">
+        insert into books(
+        book_name,
+        author,
+        isbn,
+        publisher,
+        cover_image_id,
+        introduction,
+        create_time)
+        values
+        (
+        #{name},
+        #{author},
+        #{isbn},
+        #{publisher},
+        #{coverImageId},
+        #{introduction},
+        #{createdTime}
+        )
+    </insert>
+
+</mapper>

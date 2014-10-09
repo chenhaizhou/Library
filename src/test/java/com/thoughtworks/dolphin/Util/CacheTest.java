@@ -1,35 +1,56 @@
 package com.thoughtworks.dolphin.util;
 
-import org.junit.Before;
-import org.junit.Test;
+import net.sf.ehcache.Element;
+import org.junit.*;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import java.util.List;
+
+import static junit.framework.Assert.*;
 
 /**
  * Created by ybhan on 10/8/14.
  */
 public class CacheTest {
 
-    private CacheManager cacheManager;
-
-    @Before
-    public void setUp() throws Exception {
-        ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"conf/spring.xml"});
+    @BeforeClass
+    public static void setUpForClass() {
+        ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"file:src/test/resources/conf/spring.xml", "file:src/test/resources/conf/spring-mybatis.xml"});
 
     }
 
     @Test
-    public void cache_Can_Generate(){
-
-        Cache cache = cacheManager.getCache("DEFAULT_CACHE");
-        assertNotNull(cache);
-
+    public void testCacheUtilStoreValue() throws Exception {
+        String str = "abc";
+        CacheUtil.put("str", str);
+        String value = (String) CacheUtil.get("str");
+        assertEquals(str, value);
     }
 
+    @Test
+    public void testClearCache() throws Exception {
+        final String value1 = "123";
+        final String value2 = "456";
+        final String value3 = "789";
+        CacheUtil.put(value1, value1);
+        CacheUtil.put(value2, value2);
+        CacheUtil.put(value3, value3);
+
+        CacheUtil.clear();
+        assertNull(CacheUtil.get(value1));
+        assertNull(CacheUtil.get(value2));
+        assertNull(CacheUtil.get(value3));
+    }
+
+    @Test
+    public void testRemoveCache() throws Exception {
+        final String value1 = "123";
+        CacheUtil.put(value1, value1);
+        CacheUtil.remove(value1);
+        assertNull(CacheUtil.get(value1));
+    }
 }
