@@ -18,9 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ybhan on 9/30/14.
- */
 public class AuthorizationFilter extends HandlerInterceptorAdapter {
 
 //    private static Logger logger = Logger.getLogger(AuthorizationFilter.class);
@@ -34,8 +31,7 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
 
             Cookie cookie = CookieUtil.fetchCookie(request, "sessionId");
             if (cookie == null) {
-
-                redirectUrl(request, response, "/login");
+                processRequest(request, response, "/login");
                 return false;
             }
 
@@ -45,7 +41,7 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
             UserView userView = (UserView)element.getObjectValue();
 
             if (userView == null) {
-                redirectUrl(request, response, "/login");
+                processRequest(request, response, "/login");
                 return false;
             } else {
                 CookieUtil.saveCookie(response, "sessionId", sessionId, Constants.COOKIE_LOGIN_MAXAGE);
@@ -55,10 +51,21 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
         return true;
     }
 
+    private void processRequest(HttpServletRequest request, HttpServletResponse response, String redirectUrl) throws IOException {
+        if(isAjaxRequest(request)){
+            response.setStatus(499);
+        } else {
+            redirectUrl(request, response, "/login");
+        }
+    }
+
+    private boolean isAjaxRequest(HttpServletRequest request) {
+        return request.getHeader("x-requested-with") != null;
+    }
+
     private void redirectUrl(HttpServletRequest request, HttpServletResponse response, String toLogin) throws IOException {
         response.sendRedirect(request.getContextPath() + toLogin);
     }
-
 
     private boolean isNeedCheck(String url) {
 

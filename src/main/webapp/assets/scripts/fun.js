@@ -68,6 +68,15 @@ function closeModal(){
 
 $(function () {
 
+
+    $.ajaxSetup({
+        statusCode: {
+            499: function(){
+                window.location = "/Library/login.do";
+            }
+        }
+    });
+
     $('#browse').click(function(){
         $('#cover').click();
     });
