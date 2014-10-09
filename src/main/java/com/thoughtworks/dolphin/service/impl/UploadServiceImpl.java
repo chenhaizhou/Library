@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
 @Service
@@ -20,16 +21,20 @@ public class UploadServiceImpl implements UploadService {
     @Autowired
     private ImageDAO imageDAO;
 
-    public int uploadFile(MultipartFile file, String realPath, String contextPath) {
-
+    private int uploadFile(MultipartFile file, String realPath, String contextPath) {
         String fileName = file.getOriginalFilename();
         if (saveFile2Disk(file, realPath, fileName)) {
             return 0;
         }
 
-        logger.info("uploadFile name:" + fileName);
         Image image = saveImage2DB(contextPath, fileName);
         return image.getImageId();
+    }
+
+    public int uploadFile(MultipartFile file, HttpServletRequest request) {
+        String realPath = request.getSession().getServletContext().getRealPath(Constants.IMAGE_UPLOAD_RELATIVE_PATH);
+        String contextPath = request.getSession().getServletContext().getContextPath();
+        return uploadFile(file, realPath, contextPath);
     }
 
     private Image saveImage2DB(String contextPath, String fileName) {
