@@ -23,7 +23,7 @@ public class UploadServiceImpl implements UploadService {
 
     private int uploadFile(MultipartFile file, String realPath, String contextPath) {
         String fileName = file.getOriginalFilename();
-        if (saveFile2Disk(file, realPath, fileName)) {
+        if (!saveFile2Disk(file, realPath, fileName)) {
             return 0;
         }
 
@@ -54,12 +54,14 @@ public class UploadServiceImpl implements UploadService {
         try {
             file.transferTo(targetFile);
         } catch (Exception e) {
-            e.printStackTrace();
-            return true;
+            logger.error("upload file fail. filename:" + targetFile.getAbsolutePath());
+            return false;
         } finally {
 
         }
-        return false;
+        logger.info("upload file. filename:" + targetFile.getAbsolutePath());
+
+        return true;
     }
 
     private String generateImageUrl(String contextPath, String fileName) {

@@ -74,7 +74,7 @@ $(function () {
     $.ajaxSetup({
         statusCode: {
             499: function(){
-                window.location = "/Library/login.do";
+                window.location.reload();
             }
         }
     });

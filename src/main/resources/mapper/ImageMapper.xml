@@ -13,7 +13,7 @@
     </select>
 
     <insert id="addImage" parameterType="Image" keyProperty="id">
-         insert into images(image_url) values(#{imageUrl});
+         insert into images(image_url) values(#{imageUrl})
     </insert>
 
 
