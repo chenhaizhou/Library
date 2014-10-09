@@ -53,7 +53,7 @@ public class BookServiceTest {
         book.setAuthor("Test author");
         bookService.insertBook(book);
 
-        assertTrue(bookService.isExist(book));
+        assertTrue(bookService.isExist(book.getIsbn()));
     }
 
     @Test
@@ -67,10 +67,10 @@ public class BookServiceTest {
         book.setName("Name-checkisbn");
         bookService.insertBook(book);
 
-        assertTrue(bookService.isExist(book));
+        assertTrue(bookService.isExist(book.getIsbn()));
 
         Book newBook = new Book();
         newBook.setIsbn(String.valueOf(System.currentTimeMillis()));
-        assertFalse(bookService.isExist(newBook));
+        assertFalse(bookService.isExist(newBook.getIsbn()));
     }
 }
