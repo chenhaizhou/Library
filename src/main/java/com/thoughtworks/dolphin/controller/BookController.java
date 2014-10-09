@@ -42,11 +42,10 @@ public class BookController {
 
     @RequestMapping(value = "/check_isbn", method = RequestMethod.GET)
     @ResponseBody
-    public String isExist(String isbn) {
+    public String checkISBN(String isbn) {
         logger.info("isbn:" + isbn);
-        Book book = new Book();
-        book.setIsbn(isbn);
-        return String.valueOf(!bookService.isExist(book));
+        return String.valueOf(!bookService.isExist(isbn));
+
     }
 
     @RequestMapping(value = "/listBooks", method = RequestMethod.POST)

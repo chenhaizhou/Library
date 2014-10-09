@@ -12,6 +12,5 @@ public interface BookService {
 
     List<Book> getBooks(int fromIdx, int len);
 
-    boolean isExist(Book book);
-
+    boolean isExist(String isbn);
 }

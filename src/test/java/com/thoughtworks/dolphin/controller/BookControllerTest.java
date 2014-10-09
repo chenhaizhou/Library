@@ -44,4 +44,14 @@ public class BookControllerTest {
 
         assertTrue(resultStr.equals(expectecResult.toString()));
     }
+
+    @Test
+    public void shouldIsExist(){
+
+        String isbn = "aslfjasldfkasldfj";
+        when(bookService.isExist(isbn)).thenReturn(false);
+
+        String resultStr = bookController.checkISBN(isbn);
+        assertTrue(resultStr.equals("true"));
+    }
 }

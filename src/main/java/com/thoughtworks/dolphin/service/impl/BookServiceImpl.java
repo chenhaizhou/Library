@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-
 @Service
 public class BookServiceImpl implements BookService{
 
@@ -29,8 +28,8 @@ public class BookServiceImpl implements BookService{
         return bookMapper.getBooks(fromIdx, len);
     }
 
-    public boolean isExist(Book book) {
-        List<Book> newBookList = bookMapper.getBookByISBN(book.getIsbn());
+    public boolean isExist(String isbn) {
+        List<Book> newBookList = bookMapper.getBookByISBN(isbn);
         return !newBookList.isEmpty();
     }
 }
