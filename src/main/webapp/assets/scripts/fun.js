@@ -93,7 +93,7 @@ $(function () {
             author: "required",
             isbn: {
                 required: true,
-                remote: "/Library/check_isbn.do"
+                remote: "/Library/checkISBN.do"
             },
             publisher: "required",
             photocover: "required"

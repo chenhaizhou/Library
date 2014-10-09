@@ -40,7 +40,7 @@ public class BookController {
         return reponseCode.toString();
     }
 
-    @RequestMapping(value = "/check_isbn", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkISBN", method = RequestMethod.GET)
     @ResponseBody
     public String checkISBN(String isbn) {
         logger.info("isbn:" + isbn);
