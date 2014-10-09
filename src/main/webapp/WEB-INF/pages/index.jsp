@@ -172,7 +172,7 @@
 <script src="/Library/assets/scripts/lib/smartpaginator.js" ></script>
 <script src="/Library/assets/scripts/lib/jsrender.js"></script>
 <script src="/Library/assets/scripts/lib/ajaxfileupload.js"></script>
-<script src="/Library/assets/scripts/fun.js"></script>
+<script src="/Library/assets/scripts/addbook.js"></script>
 <script src="/Library/assets/scripts/booklist.js" ></script>
 <script src="/Library/assets/scripts/lib/jquery.cookie.js"></script>
 <script src="/Library/assets/scripts/login.js"></script>
