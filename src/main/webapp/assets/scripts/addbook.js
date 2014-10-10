@@ -1,6 +1,7 @@
 var addBookFun = {
     ajaxFileUpload: function(){
         if(addBookFun.validateImage($('#photocover'))){
+            addBookFun.addButtonDisabled(true);
             $.ajaxFileUpload(
                 {
                     url: basePath + '/upload.do',
@@ -60,7 +61,11 @@ var addBookFun = {
     },
     closeModal: function(){
         $('#addBookFrmWrap').modal('hide');
+        addBookFun.addButtonDisabled(false);
         window.location.reload();
+    },
+    addButtonDisabled: function(Boolean){
+        $('#submitAdd').prop('disabled',Boolean)
     }
 };
 
