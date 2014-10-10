@@ -12,15 +12,13 @@ import java.util.List;
 
 import static junit.framework.Assert.*;
 
-/**
- * Created by ybhan on 10/8/14.
- */
 public class CacheTest {
+
+    private static ApplicationContext context;
 
     @BeforeClass
     public static void setUpForClass() {
-        ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"file:src/test/resources/conf/spring.xml", "file:src/test/resources/conf/spring-mybatis.xml"});
-
+        context = new ClassPathXmlApplicationContext(new String[] {"file:src/test/resources/conf/spring.xml", "file:src/test/resources/conf/spring-mybatis.xml"});
     }
 
     @Test
@@ -52,5 +50,10 @@ public class CacheTest {
         CacheUtil.put(value1, value1);
         CacheUtil.remove(value1);
         assertNull(CacheUtil.get(value1));
+    }
+
+    @AfterClass
+    public static void destroyContext(){
+        ((ClassPathXmlApplicationContext) context).close();
     }
 }

@@ -1,6 +1,7 @@
 package com.thoughtworks.dolphin.service;
 
 import com.thoughtworks.dolphin.model.Book;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -79,5 +80,10 @@ public class BookServiceTest {
         Book newBook = new Book();
         newBook.setIsbn(String.valueOf(System.currentTimeMillis()));
         assertFalse(bookService.isExist(newBook.getIsbn()));
+    }
+
+    @AfterClass
+    public static void destroyContext(){
+        ((ClassPathXmlApplicationContext) context).close();
     }
 }
