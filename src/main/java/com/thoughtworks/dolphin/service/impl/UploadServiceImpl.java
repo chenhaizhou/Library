@@ -22,7 +22,7 @@ public class UploadServiceImpl implements UploadService {
     private ImageDAO imageDAO;
 
     private int uploadFile(MultipartFile file, String realPath, String contextPath) {
-        String fileName = file.getOriginalFilename();
+        String fileName = generateFileName(file.getOriginalFilename());
         if (!saveFile2Disk(file, realPath, fileName)) {
             return 0;
         }
@@ -65,7 +65,7 @@ public class UploadServiceImpl implements UploadService {
     }
 
     private String generateImageUrl(String contextPath, String fileName) {
-        return contextPath + "/" + Constants.IMAGE_UPLOAD_RELATIVE_PATH + "/" + generateFileName(fileName);
+        return Constants.IMAGE_UPLOAD_RELATIVE_PATH + "/" + fileName;
     }
 
     private String generateFileName(String fileName) {
