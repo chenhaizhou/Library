@@ -53,11 +53,12 @@ var addBookFun = {
         var tmpFileValue = file.val();
 
         if (/^.*?\.(gif|png|jpg|jpeg)$/.test(tmpFileValue.toLowerCase())) {
+            obj.parent().removeClass('has-error').addClass('has-success');
             return true;
         } else {
             var errTipObj = $('#photocover-error');
             if(errTipObj.length <= 0){
-                file.after('<div id="photocover-error"></div>');
+                file.after('<em id="photocover-error" class="error"></em>');
             }
             errTipObj.text("Upload file format can be a JPG, jpeg, PNG or GIF")
                 .parent().removeClass('has-success').addClass('has-error');
@@ -86,6 +87,7 @@ $(function () {
 
     $('#cover').change(function() {
         $('#photocover').val($(this).val());
+        addBookFun.validateImage($('#photocover'));
     });
 
     $("#addBookForm").validate({
