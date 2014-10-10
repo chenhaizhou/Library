@@ -3,7 +3,7 @@ var addBookFun = {
         if(addBookFun.validateImage($('#photocover'))){
             $.ajaxFileUpload(
                 {
-                    url: '/Library/upload.do',
+                    url: basePath + '/upload.do',
                     secureuri: false,
                     fileElementId: 'cover',
                     dataType: 'json',
@@ -30,7 +30,7 @@ var addBookFun = {
 
         $.ajax({
             type: "post",
-            url: "/Library/addBook.do",
+            url:  basePath + "/addBook.do",
             contentType: "application/json; charset=utf-8",
             dataType:'json',
             data: JSON.stringify(formData),
@@ -84,7 +84,7 @@ $(function () {
             author: "required",
             isbn: {
                 required: true,
-                remote: "/Library/checkISBN.do"
+                remote:  basePath + "/checkISBN.do"
             },
             publisher: "required",
             photocover: "required"

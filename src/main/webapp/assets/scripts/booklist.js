@@ -12,7 +12,7 @@ function loadBooksByPage(pageValue) {
     var template = $.templates("#bookTmpl");
     $.ajax({
         type: "POST",
-        url: "/Library/listBooks.do",
+        url: basePath + "/listBooks.do",
         contentType: "application/json; charset=utf-8",
         data:"" + pageValue,
         dataType: 'json',
@@ -30,7 +30,7 @@ function loadBooksByPage(pageValue) {
 $(document).ready(function() {
     $.ajax({
         type: "GET",
-        url: "/Library/booksCount.do",
+        url: basePath + "/booksCount.do",
         contentType: "application/json; charset=utf-8",
         success: function (result) {
             var totalCnt = parseInt(result);

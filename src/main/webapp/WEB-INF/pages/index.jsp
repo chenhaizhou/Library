@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="${assets}/css/smartpaginator.css" type="text/css" />
     <link rel="stylesheet" href="${assets}/css/booklist.css"/>
     <link rel="stylesheet" href="${assets}/css/login.css">
+    <script>
+        var basePath = '${basePath}';
+    </script>
 <script id="bookTmpl" type="text/x-jsrender">
    <li>
         <a><img src="${basePath}/{{:coverImageUrl}}"/></a>

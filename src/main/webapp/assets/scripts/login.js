@@ -16,7 +16,7 @@ var userLogin = {
 
         $.ajax({
             type: "post",
-            url: "/Library/user/loginSubmit.do",
+            url: basePath + "/user/loginSubmit.do",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(loginData),
             dataType: "json",
@@ -53,7 +53,7 @@ var userLogin = {
         $.ajax(
             {
                 type: "POST",
-                url: "/Library/user/logout.do",
+                url: basePath + "/user/logout.do",
                 contentType: "application/json; charset=utf-8",
                 data: "",
                 success: function () {
@@ -112,7 +112,7 @@ var userLogin = {
         $.ajax(
             {
                 type: "POST",
-                url: "/Library/user/getUserInfo.do",
+                url: basePath + "/user/getUserInfo.do",
                 contentType: "application/json; charset=utf-8",
                 data: "",
                 dataType: 'json',
