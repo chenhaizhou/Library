@@ -8,32 +8,48 @@ var userLogin = {
         $(".login-user").text("Welcome: " + username);
     },
 
+    validate : function(username,password){
+        if ( username == "" ){
+            $(".error-msg").text("Please enter the username.");
+            return false;
+        }else if ( password == "" ){
+            $(".error-msg").text("Please enter the password.");
+            return false;
+        }else{
+            return true;
+        }
+    },
+
     submit: function () {
+
         var loginData = {
             username: $("#inputUsername").val(),
             password: $("#inputPassword").val()
         };
 
-        $.ajax({
-            type: "post",
-            url: basePath + "/user/loginSubmit.do",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(loginData),
-            dataType: "json",
-            success: function (result) {
-                if (result.result === 'UserNameError') {
-                    $(".error-msg").text("The username is wrong.");
-                } else if (result.result === 'UserLoginError') {
-                    $(".error-msg").text("The password is wrong.");
-                } else if (result.result === 'UserLoginSuccess') {
-                    $(".login-modal").modal("hide");
+        if(userLogin.validate(loginData.username,loginData.password)){
+            $.ajax({
+                type: "post",
+                url: basePath + "/user/loginSubmit.do",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(loginData),
+                dataType: "json",
+                success: function (result) {
+                    if (result.result === 'UserNameError') {
+                        $(".error-msg").text("The username is not exist.");
+                    } else if (result.result === 'UserLoginError') {
+                        $(".error-msg").text("The password is wrong.");
+                    } else if (result.result === 'UserLoginSuccess') {
+                        $(".login-modal").modal("hide");
 
-                    userLogin.login(loginData.username);
-                    userLogin.remember(loginData.username, loginData.password);
+                        userLogin.login(loginData.username);
+                        userLogin.remember(loginData.username, loginData.password);
 
+                    }
                 }
-            }
-        })
+            })
+        }
+
     },
 
     remember: function (username, password) {
