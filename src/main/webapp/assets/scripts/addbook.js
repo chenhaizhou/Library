@@ -70,15 +70,6 @@ var addBookFun = {
 
 $(function () {
 
-
-    $.ajaxSetup({
-        statusCode: {
-            499: function(){
-                window.location.reload();
-            }
-        }
-    });
-
     $('#browse').click(function(){
         $('#cover').click();
     });
