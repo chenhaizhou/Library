@@ -107,6 +107,9 @@ var userLogin = {
 
         $(".login-btn").click(function () {
             userLogin.checkCookie();
+            $('.login-modal').on('shown.bs.modal', function () {
+                $("#inputUsername").focus();
+            });
             $("#inputPassword").val("");
             $(".error-msg").text("");
         });
