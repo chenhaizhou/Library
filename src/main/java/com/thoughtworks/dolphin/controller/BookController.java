@@ -21,6 +21,11 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @RequestMapping(value = "/addBook",method = RequestMethod.GET)
+    public void addBook(){
+
+    }
+
     @RequestMapping(value = "/addBook", method = RequestMethod.POST)
     @ResponseBody
     public String addBook(@RequestBody Book book)
