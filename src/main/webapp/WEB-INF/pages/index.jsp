@@ -1,18 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/pages/includes.jsp" %>
 <!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="uft-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Library</title>
-    <link rel="stylesheet" href="/Library/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/Library/assets/css/layout.css">
-    <link rel="stylesheet" href="/Library/assets/css/smartpaginator.css" type="text/css" />
-    <link rel="stylesheet" href="/Library/assets/css/booklist.css"/>
-    <link rel="stylesheet" href="/Library/assets/css/login.css">
+    <link rel="stylesheet" href="${assets}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${assets}/css/layout.css">
+    <link rel="stylesheet" href="${assets}/css/smartpaginator.css" type="text/css" />
+    <link rel="stylesheet" href="${assets}/css/booklist.css"/>
+    <link rel="stylesheet" href="${assets}/css/login.css">
 <script id="bookTmpl" type="text/x-jsrender">
    <li>
-        <a><img src="{{:coverImageUrl}}"/></a>
+        <a><img src="${basePath}/{{:coverImageUrl}}"/></a>
         <br/><a>{{:name}}</a><br/>
         <span>{{:author}}</span>
     </li>
@@ -166,14 +167,14 @@
 </div>
 
 </body>
-<script src="/Library/assets/scripts/lib/jquery-1.11.1.min.js"></script>
-<script src="/Library/assets/scripts/lib/bootstrap.min.js"></script>
-<script src="/Library/assets/scripts/lib/jquery.validate.min.js"></script>
-<script src="/Library/assets/scripts/lib/smartpaginator.js" ></script>
-<script src="/Library/assets/scripts/lib/jsrender.js"></script>
-<script src="/Library/assets/scripts/lib/ajaxfileupload.js"></script>
-<script src="/Library/assets/scripts/addbook.js"></script>
-<script src="/Library/assets/scripts/booklist.js" ></script>
-<script src="/Library/assets/scripts/lib/jquery.cookie.js"></script>
-<script src="/Library/assets/scripts/login.js"></script>
+<script src="${assets}/scripts/lib/jquery-1.11.1.min.js"></script>
+<script src="${assets}/scripts/lib/bootstrap.min.js"></script>
+<script src="${assets}/scripts/lib/jquery.validate.min.js"></script>
+<script src="${assets}/scripts/lib/smartpaginator.js" ></script>
+<script src="${assets}/scripts/lib/jsrender.js"></script>
+<script src="${assets}/scripts/lib/ajaxfileupload.js"></script>
+<script src="${assets}/scripts/addbook.js"></script>
+<script src="${assets}/scripts/booklist.js" ></script>
+<script src="${assets}/scripts/lib/jquery.cookie.js"></script>
+<script src="${assets}/scripts/login.js"></script>
 </html>
