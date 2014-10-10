@@ -93,6 +93,10 @@ $(function () {
         addBookFun.validateImage($('#photocover'));
     });
 
+    $('#addBook-btn').click(function(){
+        $('#addBookForm').find('input,textarea').val('');
+    });
+
     $("#addBookForm").validate({
         rules: {
             name: "required",
