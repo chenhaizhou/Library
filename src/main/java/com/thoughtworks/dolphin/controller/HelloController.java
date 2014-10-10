@@ -17,12 +17,6 @@ public class HelloController {
         return "index";
     }
 
-    @RequestMapping("sample")
-    public String sample()
-    {
-        return "sample";
-    }
-
     @RequestMapping("list")
          public String list()
     {
