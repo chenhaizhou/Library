@@ -39,7 +39,12 @@ var addBookFun = {
                 if(result.resultCode === 'success'){
                     $('#successTips').removeClass('hide').text('Add a success.');
                     setTimeout(addBookFun.closeModal,2000);
+                }else{
+                    addBookFun.addButtonDisabled(false);
                 }
+            },
+            error: function(){
+                addBookFun.addButtonDisabled(false);
             }
         });
     },
