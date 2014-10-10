@@ -25,4 +25,19 @@
         )
     </insert>
 
+    <resultMap id="getBooksResultMap" type="Book">
+        <result column="book_id" property="id"/>
+        <result column="book_name" property="name"/>
+        <result column="author" property="author"/>
+        <result column="isbn" property="isbn"/>
+        <result column="publisher" property="publisher"/>
+        <result column="cover_image_id" property="coverImageId"/>
+        <result column="introduction" property="introduction"/>
+        <association property="image" javaType="Image">
+            <id column="image_id" property="imageId"/>
+            <result column="image_url" property="imageUrl"/>
+        </association>
+
+    </resultMap>
+
 </mapper>
