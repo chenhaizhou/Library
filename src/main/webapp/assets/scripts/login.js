@@ -68,10 +68,9 @@ var userLogin = {
 
         $.ajax(
             {
-                type: "POST",
+                type: "GET",
                 url: basePath + "/user/logout.do",
                 contentType: "application/json; charset=utf-8",
-                data: "",
                 success: function () {
 
                 },

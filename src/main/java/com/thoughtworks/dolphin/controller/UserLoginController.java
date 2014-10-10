@@ -79,7 +79,7 @@ public class UserLoginController {
         return "{\"userName\":\"" + userName + "\"}";
     }
 
-    @RequestMapping(value = "/logout",method = RequestMethod.POST)
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public  void logout(HttpServletRequest request, HttpServletResponse response){
         Cookie sessionCookie = CookieUtil.fetchCookie(request, Constants.COOKIE_SESSION_ID_KEY);
         if (sessionCookie != null) {
