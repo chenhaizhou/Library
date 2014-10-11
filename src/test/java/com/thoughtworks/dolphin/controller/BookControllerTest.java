@@ -1,14 +1,18 @@
 package com.thoughtworks.dolphin.controller;
 
 import com.thoughtworks.dolphin.model.Book;
+import com.thoughtworks.dolphin.model.Image;
 import com.thoughtworks.dolphin.service.BookService;
+import junit.framework.TestCase;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.ui.ModelMap;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -53,5 +57,35 @@ public class BookControllerTest {
 
         String resultStr = bookController.checkISBN(isbn);
         assertTrue(resultStr.equals("true"));
+    }
+
+    @Test
+    public void shouldGetBookDetail(){
+
+        String bookId = "47";
+        Book expectedBook = new Book();
+        expectedBook.setAuthor("name");
+        expectedBook.setId(47);
+
+        Image image = new Image();
+        image.setImageUrl("http://localhost:8080/Library/upload/s2157335_1412991950788.jpg");
+
+        expectedBook.setImage(image);
+        expectedBook.setIsbn("12345678");
+        expectedBook.setIntroduction("this is a book!");
+
+        when(bookService.getBook(bookId)).thenReturn(expectedBook);
+
+        ModelMap map = new ModelMap();
+        bookController.bookDetail(bookId, map);
+        Book book = (Book)map.get("book");
+
+        assertEquals(expectedBook.getAuthor(), book.getAuthor());
+        assertEquals(expectedBook.getId(), book.getId());
+        assertEquals(expectedBook.getCoverImageUrl(), book.getCoverImageUrl());
+        assertEquals(expectedBook.getIsbn(), book.getIsbn());
+        assertEquals(expectedBook.getIntroduction(), book.getIntroduction());
+        assertEquals(expectedBook.getPublisher(), book.getPublisher());
+
     }
 }

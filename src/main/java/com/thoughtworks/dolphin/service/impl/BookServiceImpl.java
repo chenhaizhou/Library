@@ -46,4 +46,12 @@ public class BookServiceImpl implements BookService{
         List<Book> newBookList = bookMapper.getBookByISBN(isbn);
         return !newBookList.isEmpty();
     }
+
+    public Book getBook(String bookId) {
+        List<Book> bookList = bookMapper.getBookById(bookId);
+        if( bookList != null && !bookList.isEmpty() ) {
+            return bookList.get(0);
+        }
+        return null;
+    }
 }

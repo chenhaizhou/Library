@@ -15,4 +15,6 @@ public interface BookService {
     List<Book> getBooks(BookSearchCondition condition);
 
     boolean isExist(String isbn);
+
+    Book getBook(String bookId);
 }

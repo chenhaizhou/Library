@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,5 +63,15 @@ public class BookController {
     @ResponseBody
     public int getBookCount(@RequestBody BookSearchCondition condition) {
         return bookService.getBookCount(condition);
+    }
+
+    @RequestMapping(value = "/bookDetail", method = RequestMethod.GET)
+    public String bookDetail(String bookId, ModelMap map){
+
+        LOGGER.info("bookId:" + bookId);
+        Book book = bookService.getBook(bookId);
+
+        map.put("book", book);
+        return "book_detail";
     }
 }
