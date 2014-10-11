@@ -22,4 +22,10 @@ public interface BookDAO {
 
     @Select("select book_id as id, book_name as name, author, isbn, publisher, cover_image_id as coverImageId, introduction from books where isbn = #{isbn}")
     List<Book> getBookByISBN(String isbn);
+
+    @Select("select i.image_id, i.image_url, book_id, book_name, author, isbn, publisher, cover_image_id, introduction " +
+            "from books b, images i " +
+            "where b.cover_image_id=i.image_id and book_id = #{bookId}")
+    @ResultMap("getBooksResultMap")
+    List<Book> getBookById(String bookId);
 }
