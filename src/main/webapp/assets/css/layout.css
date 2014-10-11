@@ -60,3 +60,8 @@ textarea {
 .form-group em {
     font-style: normal;
 }
+
+.main {
+    width: 980px;
+    margin: 0 auto;
+}
