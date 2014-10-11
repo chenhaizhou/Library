@@ -1,21 +1,23 @@
 @charset "utf-8";
+#login-area {
+    float:left;
+    line-height:50px;
+}
+#login-area strong {
+    font-weight:normal;
+}
 
 .login-btn {
     float: right;
-    padding-top: 15px;
 }
 
 .login-user {
-    float: right;
     display: none;
     color: #ffffff;
-    padding-top: 15px;
 }
 
 .logout-btn {
-    float:right;
     display: none;
-    padding-top: 15px;
     padding-left: 15px;
 }
 

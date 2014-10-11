@@ -30,7 +30,7 @@ dependencies {
     compile 'net.sf.ehcache:ehcache:2.8.4'
     compile 'com.googlecode.ehcache-spring-annotations:ehcache-spring-annotations:1.2.0'
     compile 'org.springframework:spring-context-support:4.1.1.RELEASE'
-
+    compile 'com.google.guava:guava:18.0'
     testCompile 'junit:junit-dep:4.11'
     testCompile 'org.mockito:mockito-all:1.9.5'
     testCompile 'org.easytesting:fest-assert-core:2.0M10'

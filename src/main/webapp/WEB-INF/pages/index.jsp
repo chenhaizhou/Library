@@ -33,10 +33,20 @@
                 <li class="active"><a href="">List</a></li>
                 <li><a id="addBook-btn" href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
             </ul>
-            <div id="login-area">
-                <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
-                <a class="logout-btn" href="###" >Log out</a>
-                <div class="login-user">username</div>
+            <div class="navbar-right">
+                <div id="login-area">
+                    <strong class="login-user">username</strong>
+                    <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
+                    <a class="logout-btn" href="###" >Log out</a>
+                </div>
+                <div class="navbar-right navbar-form">
+
+                    <div class="search-box form-group ">
+                        <input type="text" class="form-control" name="searchKey" placeholder="keyword">
+                        <input type="button" class="btn btn-success" value="Search" id="searchBtn">
+                    </div>
+                </div>
+
             </div>
         </nav>
     </div>

@@ -86,6 +86,9 @@ public class Book implements Serializable {
         this.image = image;
     }
 
+    public Image getImage() {
+        return image;
+    }
 
     public Date getCreatedTime() {
         return createdTime;

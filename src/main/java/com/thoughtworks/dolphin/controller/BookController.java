@@ -1,6 +1,6 @@
 package com.thoughtworks.dolphin.controller;
 
-import com.thoughtworks.dolphin.common.Constants;
+import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.service.BookService;
 import org.apache.commons.logging.Log;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/")
 public class BookController {
 
-    private final Log logger = LogFactory.getLog(BookController.class);
+    private static final Log LOGGER = LogFactory.getLog(BookController.class);
 
     @Autowired
     private BookService bookService;
@@ -30,7 +30,7 @@ public class BookController {
     @ResponseBody
     public String addBook(@RequestBody Book book)
     {
-        logger.info("enter addBook");
+        LOGGER.info("enter addBook");
         int result = bookService.insertBook(book);
         String resultCode;
         if(result == 1){
@@ -48,21 +48,19 @@ public class BookController {
     @RequestMapping(value = "/checkISBN", method = RequestMethod.GET)
     @ResponseBody
     public String checkISBN(String isbn) {
-        logger.info("isbn:" + isbn);
         return String.valueOf(!bookService.isExist(isbn));
 
     }
 
     @RequestMapping(value = "/listBooks", method = RequestMethod.POST)
     @ResponseBody
-    public List<Book> listBooks(@RequestBody String pageNum) {
-        int pageIndex = Integer.parseInt(pageNum) - 1;
-        return bookService.getBooks(Constants.ITEM_COUNT_IN_EACH_PAGE * pageIndex, Constants.ITEM_COUNT_IN_EACH_PAGE);
+    public List<Book> listBooks(@RequestBody BookSearchCondition condition) {
+        return bookService.getBooks(condition);
     }
 
-    @RequestMapping("/booksCount")
+    @RequestMapping(value = "/booksCount", method = RequestMethod.POST)
     @ResponseBody
-    public int getTotalBookCount() {
-        return bookService.getAllBookCount();
+    public int getBookCount(@RequestBody BookSearchCondition condition) {
+        return bookService.getBookCount(condition);
     }
 }

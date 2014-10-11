@@ -16,5 +16,7 @@
          insert into images(image_url) values(#{imageUrl})
     </insert>
 
-
+    <select id="getImage" resultType="Image">
+        select image_id as imageId, image_url as imageUrl from images where image_id=#{id}
+    </select>
 </mapper>
