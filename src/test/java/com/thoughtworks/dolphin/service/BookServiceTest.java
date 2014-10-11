@@ -46,6 +46,10 @@ public class BookServiceTest {
 
         List<Book> books = bookService.getBooks(from, len);
         assertEquals(len, books.size());
+
+        Book firstBook = books.get(0);
+        String coverImageUrl = firstBook.getCoverImageUrl();
+        assertTrue(coverImageUrl != null && !coverImageUrl.equals(""));
     }
 
     @Test
