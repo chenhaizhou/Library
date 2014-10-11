@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+#book-detail{
+    margin-top: 20px;
+}
+
+#book-image {
+    float: left;
+    width: 250px;
+}
+
+#book-info {
+    float: left;
+    width: 500px;
+    padding-left: 30px
+}
+
+#book-info ul {
+    list-style: none;
+    font-size: 16px;
+}
+
+#book-info ul li {
+    margin-bottom: 20px;
+}
+
+.book-info-label {
+    float: left;
+    width: 110px;
+    font-weight: bold;
+}
+.book-info-content {
+    float: left;
+    word-break: break-all;
+    word-wrap:break-word;
+}
