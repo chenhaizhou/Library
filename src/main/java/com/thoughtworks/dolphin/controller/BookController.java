@@ -1,6 +1,7 @@
 package com.thoughtworks.dolphin.controller;
 
 import com.thoughtworks.dolphin.common.Constants;
+import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.service.BookService;
 import org.apache.commons.logging.Log;
@@ -55,9 +56,8 @@ public class BookController {
 
     @RequestMapping(value = "/listBooks", method = RequestMethod.POST)
     @ResponseBody
-    public List<Book> listBooks(@RequestBody String pageNum) {
-        int pageIndex = Integer.parseInt(pageNum) - 1;
-        return bookService.getBooks(Constants.ITEM_COUNT_IN_EACH_PAGE * pageIndex, Constants.ITEM_COUNT_IN_EACH_PAGE);
+    public List<Book> listBooks(@RequestBody BookSearchCondition condition) {
+        return bookService.getBooks(condition);
     }
 
     @RequestMapping("/booksCount")

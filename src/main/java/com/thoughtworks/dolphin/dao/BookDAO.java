@@ -15,7 +15,7 @@ public interface BookDAO {
             "where b.cover_image_id=i.image_id " +
             "order by book_id limit #{fromIdx}, #{len}")
     @ResultMap("getBooksResultMap")
-    List<Book> getBooks(@Param("fromIdx") int fromIdx, @Param("len") int len);
+    List<Book> getBooks(@Param("fromIdx") int fromIdx, @Param("len") int len, @Param("keyword") String keyword);
 
     @Select("select count(1) as cnt from books")
     int getAllBookCount();

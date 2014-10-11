@@ -1,5 +1,7 @@
 package com.thoughtworks.dolphin.service;
 
+import com.thoughtworks.dolphin.common.Constants;
+import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -33,19 +35,21 @@ public class BookServiceTest {
         bookService = (BookService) context.getBean("bookService");
     }
 
-    @Test
-    public void shouldGetAllDatas() {
-        int count = bookService.getAllBookCount();
-        assertEquals(42, count);
-    }
+//    @Test
+//    public void shouldGetAllDatas() {
+//        int count = bookService.getAllBookCount();
+//        assertEquals(42, count);
+//    }
 
     @Test
     public void shouldGetBooks() {
-        final int from = 5;
-        final int len = 24;
 
-        List<Book> books = bookService.getBooks(from, len);
-        assertEquals(len, books.size());
+        BookSearchCondition condition = new BookSearchCondition();
+        condition.setKeyword("abc");
+        condition.setPageNumber(1);
+
+        List<Book> books = bookService.getBooks(condition);
+        assertEquals(Constants.ITEM_COUNT_IN_EACH_PAGE,books.size());
     }
 
     @Test

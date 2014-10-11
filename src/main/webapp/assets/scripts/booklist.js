@@ -3,16 +3,16 @@ function loadBookList(totalCount, itemCountInEachPage) {
     });
 
     var fliter = {
-        pageValue:1,
-        searchKey:''
+        pageNumber:1,
+        keyword:$('#searchKey').val()
     };
     loadBooksByPage(fliter);
 }
 
 function onChange(newPageValue) {
     var fliter = {
-        pageValue:newPageValue,
-        searchKey:$('#searchKey').val()
+        pageNumber:newPageValue,
+        keyword:$('#searchKey').val()
     };
     loadBooksByPage(fliter);
 }
@@ -23,7 +23,7 @@ function loadBooksByPage(fliter) {
         type: "POST",
         url: basePath + "/listBooks.do",
         contentType: "application/json; charset=utf-8",
-        data:"" + fliter,
+        data:JSON.stringify(fliter),
         dataType: 'json',
         success: function (result) {
             var htmlOutput = template.render(result);
@@ -31,7 +31,7 @@ function loadBooksByPage(fliter) {
             console.log(result);
         },
         error :function() {
-            alert("wrong");
+            alert("show book wrong");
         }
     });
 }
@@ -43,7 +43,7 @@ $(document).ready(function() {
         contentType: "application/json; charset=utf-8",
         success: function (result) {
             var totalCnt = parseInt(result);
-            console.log(totalCnt);
+
             loadBookList(totalCnt, 20);
         },
         error :function() {
@@ -52,10 +52,6 @@ $(document).ready(function() {
     });
 
     $('#searchBtn').click(function(){
-        var fliter = {
-            pageValue:1,
-            searchKey:$('#searchKey').val()
-        };
-        loadBooksByPage(fliter)
+        $('#1').click();
     });
 });

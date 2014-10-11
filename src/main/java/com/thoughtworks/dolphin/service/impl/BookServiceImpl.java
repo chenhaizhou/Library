@@ -1,6 +1,8 @@
 package com.thoughtworks.dolphin.service.impl;
 
+import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dao.BookDAO;
+import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,12 @@ public class BookServiceImpl implements BookService{
         return bookMapper.getAllBookCount();
     }
 
-    public List<Book> getBooks(int fromIdx, int len) {
-        return bookMapper.getBooks(fromIdx, len);
+    @Override
+    public List<Book> getBooks(BookSearchCondition condition) {
+        int pageIndex = Constants.ITEM_COUNT_IN_EACH_PAGE * (condition.getPageNumber() - 1);
+        return bookMapper.getBooks(pageIndex, Constants.ITEM_COUNT_IN_EACH_PAGE, condition.getKeyword());
     }
+
 
     public boolean isExist(String isbn) {
         List<Book> newBookList = bookMapper.getBookByISBN(isbn);
