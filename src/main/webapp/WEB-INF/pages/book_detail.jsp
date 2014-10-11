@@ -7,9 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Library</title>
     <link rel="stylesheet" href="${assets}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${assets}/css/smartpaginator.css">
     <link rel="stylesheet" href="${assets}/css/layout.css">
-    <link rel="stylesheet" href="${assets}/css/booklist.css">
     <link rel="stylesheet" href="${assets}/css/login.css">
     <link rel="stylesheet" href="${assets}/css/bookdetail.css">
     <script>
@@ -54,17 +52,13 @@
 
 </section>
 
-
-</body>
 <script src="${assets}/scripts/lib/jquery-1.11.1.min.js"></script>
 <script src="${assets}/scripts/lib/bootstrap.min.js"></script>
 <script src="${assets}/scripts/lib/jquery.validate.min.js"></script>
-<script src="${assets}/scripts/lib/smartpaginator.js" ></script>
-<script src="${assets}/scripts/lib/jsrender.js"></script>
 <script src="${assets}/scripts/lib/ajaxfileupload.js"></script>
 <script src="${assets}/scripts/lib/jquery.cookie.js"></script>
 <script src="${assets}/scripts/public.js"></script>
 <script src="${assets}/scripts/addbook.js"></script>
 <script src="${assets}/scripts/login.js"></script>
-<script src="${assets}/scripts/booklist.js" ></script>
+</body>
 </html>
