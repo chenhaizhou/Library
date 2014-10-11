@@ -16,8 +16,8 @@
     </script>
 <script id="bookTmpl" type="text/x-jsrender">
    <li>
-        <a><img src="${basePath}/{{:coverImageUrl}}"/></a>
-        <br/><a>{{:name}}</a><br/>
+        <a href="${basePath}/bookDetail.do?bookId={{:id}}" ><img src="${basePath}/{{:coverImageUrl}}"/></a>
+        <br/><a href="${basePath}/bookDetail.do?bookId={{:id}}">{{:name}}</a><br/>
         <span>{{:author}}</span>
     </li>
 </script>
