@@ -17,8 +17,13 @@
 <body>
 <%@ include file="/WEB-INF/pages/header.jsp" %>
 
-<div class="banner">
-    <h2>${book.name}</h2>
+<div class="banner" >
+    <div class="container">
+        <h2 class="book-name" >${book.name}</h2>
+        <div class="operation-buttons">
+            <input id = "deleteBtn" class="btn btn-danger" value="Delete" type="button">
+        </div>
+    </div>
 </div>
 
 <section class="container container_main">
@@ -35,7 +40,7 @@
                     </li>
                     <li class="clear">
                         <div class="book-info-label">ISBN:</div>
-                        <div class="book-info-content">${book.isbn}</div>
+                        <div class="book-info-content" id="bookISBN">${book.isbn}</div>
                     </li>
                     <li class="clear">
                         <div class="book-info-label">Publisher:</div>
@@ -60,5 +65,6 @@
 <script src="${assets}/scripts/public.js"></script>
 <script src="${assets}/scripts/addbook.js"></script>
 <script src="${assets}/scripts/login.js"></script>
+<script src="${assets}/scripts/delbook.js"></script>
 </body>
 </html>

@@ -17,7 +17,9 @@ public interface BookDAO {
 
     int getBookCount(BookSearchCondition condition);
 
-    List<Book> getBookByISBN(String isbn);
+    Book getBookByISBN(String isbn);
 
     Book getBookById(String bookId);
+
+    void deleteBook(String isbn);
 }

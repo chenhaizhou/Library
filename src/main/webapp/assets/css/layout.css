@@ -30,7 +30,7 @@ ul, li {
 
 h2 {
     width: 980px;
-    margin: 25px auto 0;
+    margin: 0 auto;
 }
 
 .container_main {
@@ -42,6 +42,7 @@ h2 {
     left: 0;
     width: 100%;
     background-color: #ffffff;
+    padding: 25px 0 10px;
 }
 
 .ver-top .input-group-btn {

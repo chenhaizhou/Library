@@ -38,3 +38,18 @@ h2 {
     word-break: break-all;
     word-wrap:break-word;
 }
+
+.book-name{
+    display: inline-block;
+    width: auto;
+    margin-right: 40px;
+    vertical-align: middle;
+}
+
+.operation-buttons{
+    vertical-align: middle;
+    display: inline-block;
+}
+.container h2 {
+    float:left;
+}

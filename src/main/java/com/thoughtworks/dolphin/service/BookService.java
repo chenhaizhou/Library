@@ -4,6 +4,7 @@ import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.Image;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface BookService {
@@ -17,4 +18,6 @@ public interface BookService {
     boolean isExist(String isbn);
 
     Book getBook(String bookId);
+
+    void deleteBook(String isbn);
 }

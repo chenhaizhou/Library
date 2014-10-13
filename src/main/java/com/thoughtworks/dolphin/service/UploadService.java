@@ -9,4 +9,6 @@ import java.util.List;
 public interface UploadService {
 
     int uploadFile(MultipartFile file, HttpServletRequest request);
+
+//    void deleteImage(String coverImageUrl);
 }

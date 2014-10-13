@@ -19,4 +19,7 @@
     <select id="getImage" resultType="Image">
         select image_id as imageId, image_url as imageUrl from images where image_id=#{id}
     </select>
+    <delete id="deleteImage">
+        delete from images where image_id = #{id}
+    </delete>
 </mapper>

@@ -52,4 +52,12 @@
             where match(book_name, author, isbn, publisher) against(#{keyword})
         </if>
     </select>
+
+    <select id="getBookByISBN" resultMap="getBooksResultMap">
+        select book_id, book_name, author, isbn, publisher, cover_image_id, introduction from books where isbn = #{isbn}
+    </select>
+
+    <delete id="deleteBook">
+        delete from books where isbn = #{isbn}
+    </delete>
 </mapper>

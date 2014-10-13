@@ -6,6 +6,7 @@ var userLogin = {
         $(".login-btn").hide();
         $(".login-user").show();
         $(".login-user").text("Welcome: " + username);
+        $(".operation-buttons").show();
     },
 
     validate : function(username,password){
@@ -65,7 +66,7 @@ var userLogin = {
         $(".logout-btn").hide();
         $(".login-btn").show();
         $(".login-user").hide();
-
+        $(".operation-buttons").hide();
         $.ajax(
             {
                 type: "GET",

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -74,4 +75,12 @@ public class BookController {
         map.put("book", book);
         return "book_detail";
     }
+
+    @RequestMapping(value = "/delbook", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteBook(@RequestBody String isbn){
+        LOGGER.info("Delete Book: "+ isbn);
+        bookService.deleteBook(isbn);
+    }
+
 }

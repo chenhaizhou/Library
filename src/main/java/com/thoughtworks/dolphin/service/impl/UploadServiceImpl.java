@@ -36,6 +36,21 @@ public class UploadServiceImpl implements UploadService {
         String contextPath = request.getSession().getServletContext().getContextPath();
         return uploadFile(file, realPath, contextPath);
     }
+//
+//    public void deleteImage(String coverImageUrl) {
+//
+//        try {
+//            String realPath = request.getSession().getServletContext().getRealPath(Constants.IMAGE_UPLOAD_RELATIVE_PATH);
+//            String fileName = coverImageUrl.substring(coverImageUrl.indexOf("/")+1);
+//            File targetFile = new File(realPath, fileName);
+//            if(targetFile.exists()){
+//                targetFile.delete();
+//            }
+//        } catch (Exception e) {
+//
+//        }
+//
+//    }
 
     private Image saveImage2DB(String contextPath, String fileName) {
         Image image = new Image();
