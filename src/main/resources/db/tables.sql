@@ -1,3 +1,9 @@
+use lib;
+
+drop table if exists books;
+drop table if exists images;
+drop table if exists users;
+
 CREATE TABLE images (
   image_id  INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   image_url VARCHAR(100)        NOT NULL
@@ -15,12 +21,6 @@ CREATE TABLE books (
   create_time datetime not null,
   FOREIGN KEY (cover_image_id) REFERENCES images (image_id)
 );
-
-
-/*ALTER TABLE books
-  ADD COLUMN create_time DATETIME NOT NULL
-  AFTER introduction;
-*/
 
 CREATE TABLE users (
   user_name VARCHAR(50) PRIMARY KEY NOT NULL,

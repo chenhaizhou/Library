@@ -46,3 +46,51 @@ task createWebProject(dependsOn: 'createJavaProject') << {
     webAppDir.mkdirs()
 }
 
+task createTables(type: Exec){
+
+    def username = ""
+    def password = ""
+
+    sourceSets*.resources.srcDirs*.each {
+        if (it.toString().contains("main/")) {
+            def file = file("$it/conf/jdbc.properties")
+            def content = ''
+            file.eachLine {
+                it = it.replaceFirst("=","='");
+                it = it + "'"
+                content = content + it + "\n"
+            }
+            def map = new ConfigSlurper().parse("$content")
+            username = map.jdbc_username
+            password = map.jdbc_password
+        }
+    }
+    workingDir './'
+    commandLine 'mysql', "-u$username", "--password=$password", 'lib'
+    standardInput file('src/main/resources/db/tables.sql').newInputStream()
+}
+
+task createTestData(type: Exec) {
+    def username = ""
+    def password = ""
+
+    sourceSets*.resources.srcDirs*.each {
+        if (it.toString().contains("test/")) {
+            def file = file("$it/conf/jdbc.properties")
+            def content = ''
+            file.eachLine {
+                it = it.replaceFirst("=","='");
+                it = it + "'"
+                content = content + it + "\n"
+            }
+            def map = new ConfigSlurper().parse("$content")
+            username = map.jdbc_username
+            password = map.jdbc_password
+        }
+    }
+    workingDir './'
+    commandLine 'mysql', "-u$username", "--password=$password", 'lib'
+    standardInput file('src/test/resources/db/test_data.sql').newInputStream()
+}
+
+createTestData.dependsOn createTables
