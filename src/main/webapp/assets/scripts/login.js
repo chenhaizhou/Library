@@ -1,7 +1,7 @@
 var userLogin = {
 
     login: function (username) {
-        $("#addBook-btn").show();
+        $("#addBook-li").show();
         $(".logout-btn").show();
         $(".login-btn").hide();
         $(".login-user").show();
@@ -61,7 +61,7 @@ var userLogin = {
     },
 
     logout: function () {
-        $("#addBook-btn").hide();
+        $("#addBook-li").hide();
         $(".logout-btn").hide();
         $(".login-btn").show();
         $(".login-user").hide();

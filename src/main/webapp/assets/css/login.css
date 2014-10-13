@@ -24,3 +24,7 @@
 .error-msg {
     color: #ff0000;
 }
+
+#addBook-li {
+    display: none;
+}
