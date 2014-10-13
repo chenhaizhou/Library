@@ -39,20 +39,22 @@
                     <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
                     <a class="logout-btn" href="###" >Log out</a>
                 </div>
-                <div class="navbar-right navbar-form">
-
-                    <div class="search-box form-group ">
-                        <input type="text" class="form-control" name="searchKey" placeholder="keyword">
-                        <input type="button" class="btn btn-success" value="Search" id="searchBtn">
-                    </div>
-                </div>
-
             </div>
         </nav>
     </div>
 </header>
 <div class="banner">
     <h2>Book List</h2>
+    <div class="row search-box">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="input-group">
+                <input type="text" class="form-control" name="searchKey" placeholder="keyword">
+            <span class="input-group-btn">
+                <input type="button" class="btn btn-success" value="Search" id="searchBtn">
+            </span>
+            </div>
+        </div>
+    </div>
 </div>
 <section class="container container_main">
     <div class="main" style="width: 980px; margin: 0 auto;">
