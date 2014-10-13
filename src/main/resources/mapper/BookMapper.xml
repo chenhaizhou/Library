@@ -50,4 +50,13 @@
             where match(book_name) against(#{keyword})
         </if>
     </select>
+
+    <select id="getBookById" resultMap="getBooksResultMap">
+        select book_id, book_name, author, isbn, publisher, cover_image_id, introduction from books where book_id = #{bookId}
+    </select>
+
+    <select id="getBookByISBN" resultMap="getBooksResultMap">
+        select book_id, book_name, author, isbn, publisher, cover_image_id, introduction from books where isbn = #{isbn}
+    </select>
+
 </mapper>

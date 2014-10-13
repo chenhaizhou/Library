@@ -34,8 +34,6 @@ public class BookDetailServiceTest {
 
         String bookId = "47";
 
-        List<Book> expectedBookList = new ArrayList<Book>();
-
         Book expectedBook = new Book();
         expectedBook.setAuthor("name");
         expectedBook.setId(47);
@@ -45,9 +43,7 @@ public class BookDetailServiceTest {
         expectedBook.setIsbn("12345678");
         expectedBook.setIntroduction("this is a book!");
 
-        expectedBookList.add(expectedBook);
-
-        when(bookMapper.getBookById(bookId)).thenReturn(expectedBookList);
+        when(bookMapper.getBookById(bookId)).thenReturn(expectedBook);
 
         Book book = bookService.getBook(bookId);
 
