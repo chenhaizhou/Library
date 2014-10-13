@@ -39,7 +39,7 @@
     <select id="getBooks" resultMap="getBooksResultMap" parameterType="java.util.Map">
         select book_id, book_name, author, isbn, publisher, cover_image_id, introduction from books
         <if test="keyword != null">
-            where match(book_name) against(#{keyword})
+            where match(book_name, author, isbn, publisher) against(#{keyword})
         </if>
         order by create_time desc, book_id desc limit #{fromIdx}, #{len}
     </select>
@@ -47,7 +47,7 @@
     <select id="getBookCount" resultType="java.lang.Integer" parameterType="com.thoughtworks.dolphin.dto.BookSearchCondition">
         select count(1) as cnt from books
         <if test="keyword != null">
-            where match(book_name) against(#{keyword})
+            where match(book_name, author, isbn, publisher) against(#{keyword})
         </if>
     </select>
 

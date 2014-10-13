@@ -29,7 +29,7 @@
     <div class="row search-box">
         <div class="col-md-6 col-md-offset-3">
             <div class="input-group">
-                <input type="text" class="form-control" name="searchKey" placeholder="keyword">
+                <input type="text" class="form-control" name="searchKey" placeholder="search by name, author, ISBN or publisher">
             <span class="input-group-btn">
                 <input type="button" class="btn btn-success" value="Search" id="searchBtn">
             </span>
