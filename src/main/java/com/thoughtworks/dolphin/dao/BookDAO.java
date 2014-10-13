@@ -23,6 +23,5 @@ public interface BookDAO {
     @Select("select book_id, book_name, author, isbn, publisher, cover_image_id, introduction " +
             "from books " +
             "where book_id = #{bookId}")
-    @ResultMap("getBooksResultMap")
     List<Book> getBookById(String bookId);
 }
