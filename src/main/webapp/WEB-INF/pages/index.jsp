@@ -23,26 +23,7 @@
 </script>
 </head>
 <body>
-<header class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a href="" class="navbar-brand">Library</a>
-        </div>
-        <nav class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="">List</a></li>
-                <li><a id="addBook-btn" href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
-            </ul>
-            <div class="navbar-right">
-                <div id="login-area">
-                    <strong class="login-user">username</strong>
-                    <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
-                    <a class="logout-btn" href="###" >Log out</a>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
+<%@ include file="/WEB-INF/pages/header.jsp" %>
 <div class="banner">
     <h2>Book List</h2>
     <div class="row search-box">
