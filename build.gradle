@@ -93,4 +93,18 @@ task createTestData(type: Exec) {
     standardInput file('src/test/resources/db/test_data.sql').newInputStream()
 }
 
+task createImageUploadDir << {
+    def uploadDir = file("src/main/webapp/upload")
+    if (!uploadDir.exists()) {
+        uploadDir.mkdir()
+    }
+}
+
+task copyDocs(type: Copy) {
+    from 'src/test/resources/images'
+    into 'src/main/webapp/upload'
+}
+
 createTestData.dependsOn createTables
+createTestData.dependsOn copyDocs
+copyDocs.dependsOn createImageUploadDir
