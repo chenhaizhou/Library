@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+h2 {
+    margin-top: 45px;
+}
+
 #book-detail{
     margin-top: 20px;
 }
