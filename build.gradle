@@ -8,6 +8,16 @@ repositories {
     mavenCentral()
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.saliman:gradle-cobertura-plugin:2.2.5"
+    }
+}
+apply plugin: 'net.saliman.cobertura'
+
 dependencies {
     compile 'org.springframework:spring-webmvc:4.0.3.RELEASE'
     compile 'org.springframework:spring-core:4.0.3.RELEASE'
@@ -35,6 +45,13 @@ dependencies {
     testCompile 'org.mockito:mockito-all:1.9.5'
     testCompile 'org.easytesting:fest-assert-core:2.0M10'
 }
+
+cobertura {
+    coverageCheckLineRate = 60
+    coverageCheckHaltOnFailure = true
+}
+
+task prePush(dependsOn: ['coberturaCheck','test'])
 
 task createJavaProject << {
     sourceSets*.java.srcDirs*.each { it.mkdirs() }
