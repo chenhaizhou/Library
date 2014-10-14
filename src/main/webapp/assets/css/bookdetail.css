@@ -8,6 +8,15 @@
 #book-image {
     float: left;
     width: 250px;
+    height:250px;
+    line-height:250px;
+    border:1px solid #efefef;
+    text-align: center;
+}
+
+#book-image img {
+    max-height:248px;
+    max-width:248px;
 }
 
 #book-info {

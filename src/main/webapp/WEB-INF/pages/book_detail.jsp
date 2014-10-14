@@ -30,7 +30,7 @@
     <div class="main">
         <div id="book-detail">
             <div id="book-image">
-                <img src="${basePath}/${book.coverImageUrl}" width="100%"/>
+                <img src="${basePath}/${book.coverImageUrl}">
             </div>
             <div id="book-info">
                 <ul>
