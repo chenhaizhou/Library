@@ -1,6 +1,5 @@
 package com.thoughtworks.dolphin.service.impl;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.model.Image;
