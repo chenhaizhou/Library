@@ -1,7 +1,3 @@
-
-function sayHello(name){
-    return "Hello " + name;
-}
 function delBook(bookISBN){
     $.ajax({
         type:"post",
