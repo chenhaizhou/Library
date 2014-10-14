@@ -1,9 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'jetty'
 
-sourceCompatibility = 1.5
-version = '1.0'
-
 repositories {
     mavenCentral()
 }
@@ -13,7 +10,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "net.saliman:gradle-cobertura-plugin:2.2.5"
+        classpath 'net.saliman:gradle-cobertura-plugin:2.2.5'
     }
 }
 apply plugin: 'net.saliman.cobertura'
@@ -51,11 +48,11 @@ cobertura {
     coverageCheckHaltOnFailure = true
 }
 
-task prePush(dependsOn: ['coberturaCheck','test'])
+task prePush(dependsOn: ['clean', 'coberturaCheck', 'coberturaReport', 'performCoverageCheck', 'test'])
 
 task createJavaProject << {
     sourceSets*.java.srcDirs*.each { it.mkdirs() }
-    sourceSets*.resources.srcDirs*.each { it.mkdirs()}
+    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
 }
 
 task createWebProject(dependsOn: 'createJavaProject') << {
@@ -63,7 +60,7 @@ task createWebProject(dependsOn: 'createJavaProject') << {
     webAppDir.mkdirs()
 }
 
-task createTables(type: Exec){
+task createTables(type: Exec) {
 
     def username = ""
     def password = ""
@@ -73,7 +70,7 @@ task createTables(type: Exec){
             def file = file("$it/conf/jdbc.properties")
             def content = ''
             file.eachLine {
-                it = it.replaceFirst("=","='");
+                it = it.replaceFirst("=", "='");
                 it = it + "'"
                 content = content + it + "\n"
             }
@@ -96,7 +93,7 @@ task createTestData(type: Exec) {
             def file = file("$it/conf/jdbc.properties")
             def content = ''
             file.eachLine {
-                it = it.replaceFirst("=","='");
+                it = it.replaceFirst("=", "='");
                 it = it + "'"
                 content = content + it + "\n"
             }
