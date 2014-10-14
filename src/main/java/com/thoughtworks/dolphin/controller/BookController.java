@@ -1,8 +1,10 @@
 package com.thoughtworks.dolphin.controller;
 
+import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.service.BookService;
+import com.thoughtworks.dolphin.service.UploadService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
@@ -78,9 +80,12 @@ public class BookController {
 
     @RequestMapping(value = "/delbook", method = RequestMethod.POST)
     @ResponseBody
-    public void deleteBook(@RequestBody String isbn){
+    public void deleteBook(@RequestBody String isbn,HttpServletRequest req){
         LOGGER.info("Delete Book: "+ isbn);
-        bookService.deleteBook(isbn);
+        String realPath = req.getSession().getServletContext().getRealPath(Constants.IMAGE_UPLOAD_RELATIVE_PATH);
+        bookService.deleteBook(isbn,realPath);
+
+
     }
 
 }

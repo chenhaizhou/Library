@@ -2,9 +2,7 @@ package com.thoughtworks.dolphin.service;
 
 import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
-import com.thoughtworks.dolphin.model.Image;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface BookService {
@@ -19,5 +17,5 @@ public interface BookService {
 
     Book getBook(String bookId);
 
-    void deleteBook(String isbn);
+    void deleteBook(String isbn, String path);
 }

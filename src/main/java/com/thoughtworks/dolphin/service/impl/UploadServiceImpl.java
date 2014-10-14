@@ -1,5 +1,6 @@
 package com.thoughtworks.dolphin.service.impl;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.model.Image;
@@ -36,21 +37,21 @@ public class UploadServiceImpl implements UploadService {
         String contextPath = request.getSession().getServletContext().getContextPath();
         return uploadFile(file, realPath, contextPath);
     }
-//
-//    public void deleteImage(String coverImageUrl) {
-//
-//        try {
-//            String realPath = request.getSession().getServletContext().getRealPath(Constants.IMAGE_UPLOAD_RELATIVE_PATH);
-//            String fileName = coverImageUrl.substring(coverImageUrl.indexOf("/")+1);
-//            File targetFile = new File(realPath, fileName);
-//            if(targetFile.exists()){
-//                targetFile.delete();
-//            }
-//        } catch (Exception e) {
-//
-//        }
-//
-//    }
+
+    public void deleteImage(String path, String fileName) {
+
+System.out.println("path: "+ path);
+        System.out.println("name: "+fileName);
+
+        try {
+            File file = new File(path, fileName);
+            if(file.exists()){
+                file.delete();
+            }
+        }catch(Exception e){}
+
+    }
+
 
     private Image saveImage2DB(String contextPath, String fileName) {
         Image image = new Image();

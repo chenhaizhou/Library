@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Service
 public class BookServiceImpl implements BookService{
@@ -63,13 +64,18 @@ public class BookServiceImpl implements BookService{
         return bookMapper.getBookById(bookId);
     }
 
-    public void deleteBook(String isbn) {
+    public void deleteBook(String isbn, String path) {
         Book book = bookMapper.getBookByISBN(isbn);
         if (book != null) {
+
+            String imageUrl = book.getCoverImageUrl();
+
+           String fileName = imageUrl.substring(imageUrl.indexOf("/") + 1);
+
             bookMapper.deleteBook(isbn);
             imageDAO.deleteImage(book.getCoverImageId());
 
-//            uploadService.deleteImage(book.getCoverImageUrl());
+            uploadService.deleteImage(path,fileName);
         }
 
     }

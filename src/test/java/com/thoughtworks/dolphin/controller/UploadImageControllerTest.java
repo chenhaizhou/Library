@@ -34,6 +34,7 @@ public class UploadImageControllerTest {
 
         HttpServletRequest request = mock(HttpServletRequest.class);
 
+
         when(uploadService.uploadFile(file, request)).thenReturn(100);
 
         String resultStr = uploadImageController.upload(file, request);

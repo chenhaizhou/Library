@@ -1,19 +1,25 @@
 package com.thoughtworks.dolphin.service;
 
+import com.sun.glass.ui.Application;
+import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.*;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class BookServiceTest {
 
@@ -21,6 +27,8 @@ public class BookServiceTest {
     private BookService bookService;
 
     private static ApplicationContext context;
+
+    private static final Log LOGGER = LogFactory.getLog(BookServiceTest.class);
 
     @BeforeClass
     public static void setUpBeforeClass() {
@@ -97,13 +105,15 @@ public class BookServiceTest {
         String isbn = "1122334455";
         book.setIsbn(isbn);
         book.setPublisher("Test Publisher");
-        book.setCoverImageId(35);
+        book.setCoverImageId(33);
         book.setCreatedTime(new Date(System.currentTimeMillis()));
         book.setAuthor("Test author");
         bookService.insertBook(book);
 
-        bookService.deleteBook(isbn);
+        String path = "images/";
+        bookService.deleteBook(isbn,path);
         assertFalse(bookService.isExist(isbn));
+
     }
 
     @AfterClass

@@ -10,5 +10,6 @@ public interface UploadService {
 
     int uploadFile(MultipartFile file, HttpServletRequest request);
 
-//    void deleteImage(String coverImageUrl);
+    void deleteImage(String path, String fileName);
+
 }
