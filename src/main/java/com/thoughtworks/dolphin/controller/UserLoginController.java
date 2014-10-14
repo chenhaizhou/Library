@@ -34,11 +34,6 @@ public class UserLoginController {
     @Autowired
     private UserService userService;
 
-
-    public UserLoginController() {
-        userService = new UserServiceImpl();
-    }
-
     @RequestMapping("login")
     public String login() {
         return "login";

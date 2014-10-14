@@ -20,10 +20,10 @@ function onChange(newPageValue) {
 function loadBooksByPage(fliter) {
     var template = $.templates("#bookTmpl");
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: basePath + "/listBooks.do",
-        contentType: "application/json; charset=utf-8",
-        data:JSON.stringify(fliter),
+        contentType: "application/text; charset=utf-8",
+        data:"keyword=" + fliter.keyword +"&pageNumber="+ fliter.pageNumber,
         dataType: 'json',
         success: function (result) {
             var htmlOutput = template.render(result);

@@ -4,7 +4,6 @@ import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.service.BookService;
-import com.thoughtworks.dolphin.service.UploadService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
@@ -56,10 +55,15 @@ public class BookController {
 
     }
 
-    @RequestMapping(value = "/listBooks", method = RequestMethod.POST)
+    @RequestMapping(value = "/listBooks", method = RequestMethod.GET)
     @ResponseBody
-    public List<Book> listBooks(@RequestBody BookSearchCondition condition) {
-        return bookService.getBooks(condition);
+    public List<Book> listBooks(@RequestParam("pageNumber")int pageNumber,@RequestParam("keyword")String keyword) {
+        BookSearchCondition query = new BookSearchCondition();
+        LOGGER.info("pageNumber:" +pageNumber);
+        LOGGER.info("keyword:" +keyword);
+        query.setKeyword(keyword);
+        query.setPageNumber(pageNumber);
+        return bookService.getBooks(query);
     }
 
     @RequestMapping(value = "/booksCount", method = RequestMethod.POST)
@@ -84,8 +88,6 @@ public class BookController {
         LOGGER.info("Delete Book: "+ isbn);
         String realPath = req.getSession().getServletContext().getRealPath(Constants.IMAGE_UPLOAD_RELATIVE_PATH);
         bookService.deleteBook(isbn,realPath);
-
-
     }
 
 }

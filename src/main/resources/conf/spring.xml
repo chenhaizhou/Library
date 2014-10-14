@@ -15,10 +15,11 @@
 
     <context:component-scan base-package="com.thoughtworks.dolphin.dao"/>
 
-
     <bean id="bookService" class="com.thoughtworks.dolphin.service.impl.BookServiceImpl">
     </bean>
 
+    <bean id = "userService" class="com.thoughtworks.dolphin.service.impl.UserServiceImpl">
+    </bean>
 
     <!--<cache:annotation-driven cache-manager="defaultCacheManager" />-->
 
