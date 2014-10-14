@@ -1,4 +1,6 @@
+CREATE DATABASE  IF NOT EXISTS lib;
 use lib;
+
 
 drop table if exists books;
 drop table if exists images;
@@ -20,7 +22,7 @@ CREATE TABLE books (
   FULLTEXT(book_name, author, isbn, publisher),
   create_time datetime not null,
   FOREIGN KEY (cover_image_id) REFERENCES images (image_id)
-);
+) ENGINE=myisam;
 
 CREATE TABLE users (
   user_name VARCHAR(50) PRIMARY KEY NOT NULL,
