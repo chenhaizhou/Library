@@ -24,6 +24,8 @@ CREATE TABLE books (
   FOREIGN KEY (cover_image_id) REFERENCES images (image_id)
 ) ENGINE=myisam;
 
+alter table books add unique (isbn);
+
 CREATE TABLE users (
   user_name VARCHAR(50) PRIMARY KEY NOT NULL,
   password  VARCHAR(50),
