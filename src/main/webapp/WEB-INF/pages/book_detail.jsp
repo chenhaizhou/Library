@@ -99,7 +99,7 @@
                             <input id="edit-cover" type="file" name="cover" class="hide">
                             <div class="input-group ver-top">
                                 <input id="edit-photocover" name="photocover" class="form-control" type="text" readonly >
-                                <input type="text" id="edit-coverImageId" name="coverImageId" value="${book.coverImageId}">
+                                <input type="hidden" id="edit-coverImageId" name="coverImageId" value="${book.coverImageId}">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button" id="edit-browse">Browse</button>
                                 </span>
