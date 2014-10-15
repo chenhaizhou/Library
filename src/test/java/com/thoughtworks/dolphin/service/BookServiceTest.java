@@ -1,5 +1,6 @@
 package com.thoughtworks.dolphin.service;
 
+import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.dto.BookSearchCondition;
 import com.thoughtworks.dolphin.model.Book;
 import org.apache.commons.logging.Log;
@@ -7,10 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +18,12 @@ import java.util.List;
 
 import static junit.framework.Assert.*;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/conf/spring-mybatis.xml", "/conf/spring.xml"})
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-public class BookServiceTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class BookServiceTest extends AbstractUnitTest {
 
     @Autowired
     private BookService bookService;
