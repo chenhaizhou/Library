@@ -15,7 +15,6 @@
                 http://www.springframework.org/schema/aop
                 http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!-- 导入属性配置文件 -->
     <context:property-placeholder location="classpath:conf/jdbc.properties"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -26,20 +25,17 @@
     </bean>
 
 
-    <!-- mybatis文件配置，扫描所有mapper文件 -->
     <bean id="sqlSessionFactory"
           class="org.mybatis.spring.SqlSessionFactoryBean"
           p:dataSource-ref="dataSource"
           p:configLocation="classpath:conf/mybatis-config.xml"
           p:mapperLocations="classpath:mapper/*.xml"/>
-    <!-- configLocation为mybatis属性 mapperLocations为所有mapper-->
 
-    <!-- spring与mybatis整合配置，扫描所有dao -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
           p:basePackage="com.thoughtworks.dolphin.dao"
           p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
 
-    <!-- 对数据源进行事务管理 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
           p:dataSource-ref="dataSource"/>

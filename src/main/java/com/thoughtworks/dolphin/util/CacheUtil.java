@@ -8,15 +8,31 @@ public class CacheUtil {
 
     private static Cache cache;
 
-    static {
-        CacheManager cacheManager = CacheManager.getInstance();
-        cache = cacheManager.getCache("DEFAULT_CACHE");
-    }
+    private static CacheUtil instance;
 
     private CacheUtil() {
+        synchronized (this) {
+            if (cache == null) {
+                CacheManager cacheManager = CacheManager.getInstance();
+                cache = cacheManager.getCache("DEFAULT_CACHE");
+            }
+        }
     }
 
-    public static Object get(String key) {
+    public static CacheUtil getInstance() {
+        if (instance == null) {
+            instance = new CacheUtil();
+        }
+        return instance;
+    }
+
+    ///////////////////////////////////////////////////////////////
+//    static {
+//        CacheManager cacheManager = CacheManager.getInstance();
+//        cache = cacheManager.getCache("DEFAULT_CACHE");
+//    }
+
+    public Object get(String key) {
         Element element = cache.get(key);
         if (element == null) {
             return null;
@@ -24,7 +40,7 @@ public class CacheUtil {
         return cache.get(key).getObjectValue();
     }
 
-    public static void put(String key, Object val) {
+    public void put(String key, Object val) {
 
         if (cache.get(key) != null) {
             cache.remove(key);
@@ -34,11 +50,11 @@ public class CacheUtil {
         cache.put(element);
     }
 
-    public static void remove(String key) {
+    public void remove(String key) {
         cache.remove(key);
     }
 
-    public static void clear() {
+    public void clear() {
         cache.removeAll();
     }
 }

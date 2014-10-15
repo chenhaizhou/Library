@@ -9,7 +9,7 @@ drop table if exists users;
 CREATE TABLE images (
   image_id  INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   image_url VARCHAR(100)        NOT NULL
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE books (
   book_id        INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -22,7 +22,7 @@ CREATE TABLE books (
   FULLTEXT(book_name, author, isbn, publisher),
   create_time datetime not null,
   FOREIGN KEY (cover_image_id) REFERENCES images (image_id)
-) ENGINE=myisam;
+) ENGINE=InnoDB;
 
 alter table books add unique (isbn);
 
@@ -30,4 +30,4 @@ CREATE TABLE users (
   user_name VARCHAR(50) PRIMARY KEY NOT NULL,
   password  VARCHAR(50),
   name      VARCHAR(50)
-);
+) ENGINE=InnoDB;

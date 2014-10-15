@@ -5,33 +5,32 @@ import com.thoughtworks.dolphin.model.Book;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.*;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.*;
 
-public class BookServiceTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"/conf/spring-mybatis.xml", "/conf/spring.xml"})
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+@Transactional
+public class BookServiceTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
     private BookService bookService;
 
-    private static ApplicationContext context;
-
     private static final Log LOGGER = LogFactory.getLog(BookServiceTest.class);
 
-    @BeforeClass
-    public static void setUpBeforeClass() {
-        context = new ClassPathXmlApplicationContext(new String[]{"file:src/test/resources/conf/spring.xml", "file:src/test/resources/conf/spring-mybatis.xml"});
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        bookService = (BookService) context.getBean("bookService");
-    }
 
     @Ignore
     public void shouldGetAllDatas() {
@@ -56,7 +55,7 @@ public class BookServiceTest {
 
     }
 
-    @Ignore
+    @Test
     public void shouldAddBook(){
         Book book = new Book();
 
@@ -109,8 +108,4 @@ public class BookServiceTest {
 
     }
 
-    @AfterClass
-    public static void destroyContext(){
-        ((ClassPathXmlApplicationContext) context).close();
-    }
 }

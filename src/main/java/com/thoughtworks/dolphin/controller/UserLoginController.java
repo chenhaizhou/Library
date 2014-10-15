@@ -49,7 +49,7 @@ public class UserLoginController {
         if (result.equals("UserLoginSuccess")) {
             String sessionId = req.getRequestedSessionId();
             CookieUtil.saveCookie(resp, Constants.COOKIE_SESSION_ID_KEY, sessionId, Constants.COOKIE_LOGIN_MAXAGE);
-            CacheUtil.put(sessionId, new UserView(loginData.getUsername()));
+            CacheUtil.getInstance().put(sessionId, new UserView(loginData.getUsername()));
         }
 
         LOGGER.debug("Result:" + result);
@@ -66,7 +66,7 @@ public class UserLoginController {
         Cookie sessionCookie = CookieUtil.fetchCookie(request, Constants.COOKIE_SESSION_ID_KEY);
         if (sessionCookie != null) {
             String sessionId = sessionCookie.getValue();
-            UserView userView = (UserView) CacheUtil.get(sessionId);
+            UserView userView = (UserView) CacheUtil.getInstance().get(sessionId);
             if (userView != null) {
                 userName = userView.getUserName();
             }
@@ -79,7 +79,7 @@ public class UserLoginController {
         Cookie sessionCookie = CookieUtil.fetchCookie(request, Constants.COOKIE_SESSION_ID_KEY);
         if (sessionCookie != null) {
             String sessionId = sessionCookie.getValue();
-            CacheUtil.remove(sessionId);
+            CacheUtil.getInstance().remove(sessionId);
         }
     }
 

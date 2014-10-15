@@ -33,7 +33,7 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
             }
 
             String sessionId = cookie.getValue();
-            UserView userView = (UserView) CacheUtil.get(sessionId);
+            UserView userView = (UserView) CacheUtil.getInstance().get(sessionId);
 
             if (userView == null) {
                 LOGGER.info("User access URL:" + url + ", need to login...");
