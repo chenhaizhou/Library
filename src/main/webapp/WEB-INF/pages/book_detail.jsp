@@ -113,7 +113,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-4">
+                        <div class="col-sm-offset-2 col-sm-3">
                             <button type="submit" class="btn btn-success" id="submitEdit">Save</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>

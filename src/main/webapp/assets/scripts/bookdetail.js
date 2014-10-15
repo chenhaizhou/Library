@@ -34,32 +34,40 @@ var editBook = {
         };
 
         var changedData = {};
+        var changedDataNum = 0;
         for(var bookitem in formData){
             if(formData[bookitem] != editBook.bookData[bookitem] ){
-
                 changedData[bookitem] = formData[bookitem];
+                changedDataNum++;
             }
         }
-        changedData.id = $("#book-id").val();
 
-        $.ajax({
-            type: "post",
-            url:  basePath + "/editBook.do",
-            contentType: "application/json; charset=utf-8",
-            dataType:'json',
-            data: JSON.stringify(changedData),
-            success: function (result) {
-                if(result.resultCode === 'success'){
-                    $('#edit-successTips').removeClass('hide').text('Update successfully.');
-                    setTimeout(editBook.closeModal,2000);
-                }else{
+        if(changedDataNum > 0) {
+
+            changedData.id = $("#book-id").val();
+
+            $.ajax({
+                type: "post",
+                url: basePath + "/editBook.do",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: JSON.stringify(changedData),
+                success: function (result) {
+                    if (result.resultCode === 'success') {
+                        $('#edit-successTips').removeClass('hide').text('Update successfully.');
+                        setTimeout(editBook.closeModal, 2000);
+                    } else {
+                        editBook.addButtonDisabled(false);
+                    }
+                },
+                error: function () {
                     editBook.addButtonDisabled(false);
                 }
-            },
-            error: function(){
-                editBook.addButtonDisabled(false);
-            }
-        });
+            });
+
+        }else{
+            $('#edit-successTips').removeClass('hide').text('Nothing changed.');
+        }
     },
     closeModal: function(){
         $('#editBookForm').modal('hide');
@@ -82,6 +90,7 @@ $(function(){
             coverImageId:$('#edit-coverImageId').val(),
             introduction: $('#edit-introduction').val()
         };
+        $('#edit-successTips').addClass('hide');
     });
 
     $('#edit-browse').click(function(){
