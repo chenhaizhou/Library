@@ -89,7 +89,9 @@ $(function () {
     });
 
     $('#cover').change(function() {
-        $('#photocover').val($(this).val());
+        var filename = $(this).val();
+        filename = filename.substring(filename.lastIndexOf('\\')+1);
+        $('#photocover').val(filename);
         addBookFun.validateImage($('#photocover'));
     });
 
