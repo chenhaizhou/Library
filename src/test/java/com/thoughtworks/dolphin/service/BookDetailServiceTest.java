@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 public class BookDetailServiceTest {
@@ -54,6 +55,20 @@ public class BookDetailServiceTest {
         assertEquals(expectedBook.getIntroduction(), book.getIntroduction());
         assertEquals(expectedBook.getPublisher(), book.getPublisher());
 
+    }
+
+    @Test
+    public void shouldUpdateBook(){
+
+        Book book = new Book();
+        book.setId(47);
+        book.setAuthor("name");
+
+        when(bookMapper.updateBook(book)).thenReturn(1);
+
+        int resultCode = bookService.updateBook(book);
+
+        assertTrue(resultCode == 1);
     }
 
 }

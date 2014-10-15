@@ -62,4 +62,18 @@
     <delete id="deleteBook">
         delete from books where isbn = #{isbn}
     </delete>
+
+    <update id="updateBook" parameterType="Book">
+        update books
+        <set>
+            <if test="name != null">book_name=#{name},</if>
+            <if test="author != null">author=#{author},</if>
+            <if test="isbn != null">isbn=#{isbn}</if>
+            <if test="publisher != null">publisher=#{publisher},</if>
+            <if test="coverImageId != 0">cover_image_id=#{coverImageId},</if>
+            <if test="introduction != null">introduction=#{introduction}</if>
+        </set>
+        where book_id=#{id}
+    </update>
+
 </mapper>

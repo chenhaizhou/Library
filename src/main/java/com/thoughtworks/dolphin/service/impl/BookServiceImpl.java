@@ -79,4 +79,10 @@ public class BookServiceImpl implements BookService{
         }
 
     }
+
+    public int updateBook(Book book) {
+
+        return bookMapper.updateBook(book);
+
+    }
 }

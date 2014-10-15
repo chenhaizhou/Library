@@ -18,4 +18,6 @@ public interface BookDAO {
     Book getBookById(String bookId);
 
     void deleteBook(String isbn);
+
+    int updateBook(Book book);
 }

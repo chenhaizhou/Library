@@ -35,24 +35,17 @@ public class BookController {
     {
         LOGGER.info("enter addBook");
         int result = bookService.insertBook(book);
-        String resultCode;
-        if(result == 1){
-            resultCode = "success";
-        } else {
-            resultCode = "fail";
-        }
-        JSONObject reponseCode = new JSONObject();
-        reponseCode.put("resultCode", resultCode);
-        reponseCode.put("coverImageId", String.valueOf(book.getCoverImageId()));
-
-        return reponseCode.toString();
+        return generateResultCode(result);
     }
 
     @RequestMapping(value = "/checkISBN", method = RequestMethod.GET)
     @ResponseBody
-    public String checkISBN(String isbn) {
-        return String.valueOf(!bookService.isExist(isbn));
-
+    public boolean checkISBN(String isbn, String bookId) {
+        if(isAddBook(bookId)){
+            return !bookService.isExist(isbn);
+        } else {
+            return processEditBook(isbn, bookId);
+        }
     }
 
     @RequestMapping(value = "/listBooks", method = RequestMethod.GET)
@@ -74,7 +67,6 @@ public class BookController {
 
     @RequestMapping(value = "/bookDetail", method = RequestMethod.GET)
     public String bookDetail(String bookId, ModelMap map){
-
         LOGGER.info("bookId:" + bookId);
         Book book = bookService.getBook(bookId);
 
@@ -88,6 +80,42 @@ public class BookController {
         LOGGER.info("Delete Book: "+ isbn);
         String realPath = req.getSession().getServletContext().getRealPath(Constants.IMAGE_UPLOAD_RELATIVE_PATH);
         bookService.deleteBook(isbn,realPath);
+    }
+
+    @RequestMapping(value = "/editBook", method = RequestMethod.POST)
+    @ResponseBody
+    public String editBook(@RequestBody Book book){
+
+        LOGGER.info("enter editBook");
+        int result = bookService.updateBook(book);
+        return generateResultCode(result);
+    }
+
+    private String generateResultCode(int result) {
+        String resultCode;
+        if(result == 1){
+            resultCode = "success";
+        } else {
+            resultCode = "fail";
+        }
+
+        JSONObject reponseCode = new JSONObject();
+        reponseCode.put("resultCode", resultCode);
+        return reponseCode.toString();
+    }
+
+
+    private boolean processEditBook(String isbn, String bookId) {
+        Book book = bookService.getBook(bookId);
+        if(book.getIsbn().equals(isbn)){
+            return true;
+        } else {
+            return !bookService.isExist(isbn);
+        }
+    }
+
+    private boolean isAddBook(String bookId) {
+        return bookId == null;
     }
 
 }

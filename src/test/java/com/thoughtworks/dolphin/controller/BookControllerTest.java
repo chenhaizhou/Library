@@ -55,8 +55,8 @@ public class BookControllerTest {
         String isbn = "aslfjasldfkasldfj";
         when(bookService.isExist(isbn)).thenReturn(false);
 
-        String resultStr = bookController.checkISBN(isbn);
-        assertTrue(resultStr.equals("true"));
+        boolean resultStr = bookController.checkISBN(isbn, null);
+        assertTrue(resultStr == true);
     }
 
     @Test
@@ -87,5 +87,23 @@ public class BookControllerTest {
         assertEquals(expectedBook.getIntroduction(), book.getIntroduction());
         assertEquals(expectedBook.getPublisher(), book.getPublisher());
 
+    }
+
+    @Test
+    public void shouldEditBook(){
+
+        Book book = new Book();
+        book.setId(47);
+        book.setAuthor("name");
+
+        final int updateReturnCode = 1;
+        when(bookService.updateBook(book)).thenReturn(updateReturnCode);
+
+        String resultStr = bookController.editBook(book);
+
+        JSONObject expectedResult = new JSONObject();
+        expectedResult.put("resultCode","success");
+
+        assertTrue(resultStr.equals(expectedResult.toString()));
     }
 }
