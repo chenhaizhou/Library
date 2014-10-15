@@ -1,5 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'jetty'
+apply plugin: 'idea'
+
 
 repositories {
     mavenCentral()
@@ -10,10 +12,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'net.saliman:gradle-cobertura-plugin:2.2.5'
+        classpath 'net.saliman:gradle-cobertura-plugin:2.2.2'
     }
 }
-apply plugin: 'net.saliman.cobertura'
+apply plugin: 'cobertura'
 
 dependencies {
     compile 'org.springframework:spring-webmvc:4.0.3.RELEASE'
