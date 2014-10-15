@@ -44,7 +44,6 @@ public class BookControllerTest {
 
         JSONObject expectecResult = new JSONObject();
         expectecResult.put("resultCode", "success");
-        expectecResult.put("coverImageId", "100");
 
         assertTrue(resultStr.equals(expectecResult.toString()));
     }
