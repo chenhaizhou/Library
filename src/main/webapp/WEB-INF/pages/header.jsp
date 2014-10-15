@@ -6,7 +6,7 @@
         <nav class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="${basePath}/index.do">List</a></li>
-                <li id="addBook-li" ><a id="addBook-btn" href="###" data-toggle="modal" data-target=".bs-example-modal-lg">Add</a></li>
+                <li id="addBook-li" ><a id="addBook-btn" href="###" data-toggle="modal" data-target="#addBookFrmWrap">Add</a></li>
             </ul>
             <div class="navbar-right">
                 <div id="login-area">

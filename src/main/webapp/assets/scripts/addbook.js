@@ -75,11 +75,61 @@ var addBookFun = {
     },
     addButtonDisabled: function(Boolean){
         $('#submitAdd').prop('disabled',Boolean)
+    },
+
+    validateForm : function(formId,bookId){
+
+        var isbnRemoteArg = "",
+            photoRequired;
+        if(bookId != undefined ){
+            isbnRemoteArg = "?bookId=" + bookId;
+            photoRequired = false;
+        }else{
+            photoRequired = "required";
+        }
+
+        $("#" + formId).validate({
+            rules: {
+                name: "required",
+                author: "required",
+                isbn: {
+                    required: true,
+                    remote:  basePath + "/checkISBN.do" + isbnRemoteArg
+                },
+                publisher: "required",
+                photocover: photoRequired
+            },
+            messages: {
+                name: "This field is required.",
+                author: "This field is required.",
+                isbn: {
+                    required: "This field is required.",
+                    remote: "This ISBN exists, please fix this field."
+                },
+                publisher: "This field is required.",
+                photocover: "This field is required."
+            },
+            errorElement: "em",
+            onfocusout: function (element) {
+                $(element).valid();
+            },
+            success: function(element){
+                $(element).parent().removeClass('has-error').addClass('has-success');
+            },
+            highlight: function(element){
+                $(element).parent().removeClass('has-success').addClass('has-error');
+            },
+            submitHandler:function() {
+                if(bookId != undefined ){
+                    editBook.ajaxFileUpload();
+                }else{
+                    addBookFun.ajaxFileUpload();
+                }
+            }
+        });
+
     }
 };
-
-
-
 
 
 $(function () {
@@ -99,39 +149,6 @@ $(function () {
         $('#addBookForm').find('input,textarea').val('');
     });
 
-    $("#addBookForm").validate({
-        rules: {
-            name: "required",
-            author: "required",
-            isbn: {
-                required: true,
-                remote:  basePath + "/checkISBN.do"
-            },
-            publisher: "required",
-            photocover: "required"
-        },
-        messages: {
-            name: "This field is required.",
-            author: "This field is required.",
-            isbn: {
-                required: "This field is required.",
-                remote: "This ISBN exists, please fix this field."
-            },
-            publisher: "This field is required.",
-            photocover: "This field is required."
-        },
-        errorElement: "em",
-        onfocusout: function (element) {
-            $(element).valid();
-        },
-        success: function(element){
-            $(element).parent().removeClass('has-error').addClass('has-success');
-        },
-        highlight: function(element){
-            $(element).parent().removeClass('has-success').addClass('has-error');
-        },
-        submitHandler:function() {
-            addBookFun.ajaxFileUpload();
-        }
-    });
+    addBookFun.validateForm("addBookForm");
+
 });
