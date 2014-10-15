@@ -1,5 +1,6 @@
 package com.thoughtworks.dolphin.controller;
 
+import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.service.UploadService;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class UploadImageControllerTest {
+public class UploadImageControllerTest extends AbstractUnitTest {
 
     @InjectMocks
     private UploadImageController uploadImageController;

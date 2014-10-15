@@ -1,5 +1,6 @@
 package com.thoughtworks.dolphin.service;
 
+import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.dao.BookDAO;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.Image;
@@ -17,7 +18,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-public class BookDetailServiceTest {
+public class BookDetailServiceTest extends AbstractUnitTest {
 
     @InjectMocks
     private BookServiceImpl bookService;

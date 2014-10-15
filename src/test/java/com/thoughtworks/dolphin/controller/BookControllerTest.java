@@ -1,5 +1,6 @@
 package com.thoughtworks.dolphin.controller;
 
+import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.Image;
 import com.thoughtworks.dolphin.service.BookService;
@@ -17,7 +18,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class BookControllerTest {
+public class BookControllerTest extends AbstractUnitTest {
 
     @InjectMocks
     private BookController bookController;

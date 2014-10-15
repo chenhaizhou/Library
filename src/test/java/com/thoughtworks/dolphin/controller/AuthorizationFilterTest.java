@@ -1,5 +1,6 @@
 package com.thoughtworks.dolphin.controller;
 
+import com.thoughtworks.dolphin.AbstractUnitTest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by ybhan on 9/30/14.
  */
-public class AuthorizationFilterTest {
+public class AuthorizationFilterTest extends AbstractUnitTest {
 
     HttpServletRequest request;
     HttpServletResponse response;
