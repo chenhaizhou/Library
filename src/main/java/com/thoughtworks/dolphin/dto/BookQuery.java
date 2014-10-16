@@ -4,7 +4,7 @@ import com.google.common.base.Strings;
 
 import java.io.Serializable;
 
-public class BookSearchCondition implements Serializable {
+public class BookQuery implements Serializable {
 
     public int getPageNumber() {
         return pageNumber;

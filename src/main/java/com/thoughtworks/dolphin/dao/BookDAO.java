@@ -1,6 +1,6 @@
 package com.thoughtworks.dolphin.dao;
 
-import com.thoughtworks.dolphin.dto.BookSearchCondition;
+import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public interface BookDAO {
 
     List<Book> getBooks(Map<String, Object> map);
 
-    int getBookCount(BookSearchCondition condition);
+    int getBookCount(BookQuery condition);
 
     Book getBookByISBN(String isbn);
 

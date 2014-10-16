@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.common.Constants;
-import com.thoughtworks.dolphin.dto.BookSearchCondition;
+import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.Image;
 import org.junit.Before;
@@ -62,7 +62,7 @@ public class BookDAOTest extends AbstractUnitTest {
 
     @Test
     public void shouldGetBookCount() throws Exception {
-        BookSearchCondition condition = new BookSearchCondition();
+        BookQuery condition = new BookQuery();
         condition.setKeyword("Asia");
         condition.setPageNumber(1);
         assertEquals(1, bookMapper.getBookCount(condition));
