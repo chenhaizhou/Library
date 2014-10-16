@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({UploadImageUtil.class, System.class})
+@PrepareForTest({UploadImageUtil.class})
 public class UploadImageUtilTest {
 
     @Test
