@@ -49,7 +49,7 @@ public class BookServiceTest extends AbstractUnitTest {
         Book book = new Book();
 
         book.setName("TDD book");
-        String isbn = "1122334455";
+        String isbn = "1122334455" + System.currentTimeMillis();
         book.setIsbn(isbn);
         book.setPublisher("Test Publisher");
         book.setCoverImageId(1);
@@ -64,7 +64,7 @@ public class BookServiceTest extends AbstractUnitTest {
     public void shouldCheckISBN(){
         Book book = new Book();
         book.setAuthor("Author-checkisbn");
-        book.setIsbn("ISBN-checkisbn");
+        book.setIsbn("ISBN-checkisbn" + System.currentTimeMillis());
         book.setCoverImageId(1);
         book.setCreatedTime(new Date(System.currentTimeMillis()));
         book.setPublisher("Publisher-checkisbn");
