@@ -4,6 +4,7 @@ import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.model.Image;
 import com.thoughtworks.dolphin.service.UploadService;
+import com.thoughtworks.dolphin.util.UploadImageUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class UploadServiceImpl implements UploadService {
     private ImageDAO imageDAO;
 
     private int uploadFile(MultipartFile file, String realPath, String contextPath) {
-        String fileName = generateFileName(file.getOriginalFilename());
-        if (!saveFile2Disk(file, realPath, fileName)) {
+        String fileName = UploadImageUtil.generateFileName(file);
+        if (!UploadImageUtil.saveFile2Disk(file, realPath, fileName)) {
             return 0;
         }
 
@@ -55,34 +56,8 @@ public class UploadServiceImpl implements UploadService {
         return image.getImageId();
     }
 
-    private boolean saveFile2Disk(MultipartFile file, String realPath, String fileName) {
-        File targetFile = new File(realPath, fileName);
-        if(!targetFile.exists()){
-            targetFile.mkdirs();
-        }
-        try {
-            file.transferTo(targetFile);
-        } catch (Exception e) {
-            logger.error("upload file fail. filename:" + targetFile.getAbsolutePath());
-            return false;
-        } finally {
-
-        }
-        logger.info("upload file. filename:" + targetFile.getAbsolutePath());
-
-        return true;
-    }
-
     private String generateImageUrl(String fileName) {
         return Constants.IMAGE_UPLOAD_RELATIVE_PATH + "/" + fileName;
-    }
-
-    private String generateFileName(String fileName) {
-        int lastIndex = fileName.lastIndexOf(".");
-        String baseFileName = fileName.substring(0, lastIndex);
-        String fileNameSuffix = fileName.substring(lastIndex, fileName.length());
-        baseFileName += "_" + System.currentTimeMillis();
-        return baseFileName + fileNameSuffix;
     }
 
 }
