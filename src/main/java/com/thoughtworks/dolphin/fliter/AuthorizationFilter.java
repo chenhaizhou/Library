@@ -1,5 +1,6 @@
 package com.thoughtworks.dolphin.fliter;
 
+import com.google.common.collect.Lists;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.model.UserView;
 import com.thoughtworks.dolphin.util.CacheUtil;
@@ -11,10 +12,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorizationFilter extends HandlerInterceptorAdapter {
+
+    List<String> checkUrls;
+
+    public AuthorizationFilter(){
+        checkUrls = prepareCheckUrls();
+    }
 
     private static Logger LOGGER = Logger.getLogger(AuthorizationFilter.class);
 
@@ -64,10 +70,6 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
     }
 
     private boolean isNeedCheck(String url) {
-
-        List<String> checkUrls = new ArrayList<String>();
-        checkUrls.add("addBook");
-        checkUrls.add("sample");
         for (String checkUrl : checkUrls) {
             if (url.contains(checkUrl)) {
                 return true;
@@ -76,4 +78,13 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
         return false;
     }
 
+    private List<String> prepareCheckUrls()
+    {
+        List<String> checkUrls = Lists.newArrayList();
+        checkUrls.add("addBook");
+        checkUrls.add("sample");
+        checkUrls.add("delbook");
+        checkUrls.add("editBook");
+        return  checkUrls;
+    }
 }
