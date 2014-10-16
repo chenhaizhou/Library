@@ -27,8 +27,7 @@ public class UploadServiceImpl implements UploadService {
             return 0;
         }
 
-        Image image = saveImage2DB(contextPath, fileName);
-        return image.getImageId();
+        return saveImage2DB(contextPath, fileName);
     }
 
     public int uploadFile(MultipartFile file, HttpServletRequest request) {
@@ -48,12 +47,12 @@ public class UploadServiceImpl implements UploadService {
     }
 
 
-    private Image saveImage2DB(String contextPath, String fileName) {
+    private int saveImage2DB(String contextPath, String fileName) {
         Image image = new Image();
         String imageUrl = generateImageUrl(fileName);
         image.setImageUrl(imageUrl);
         imageDAO.addImage(image);
-        return image;
+        return image.getImageId();
     }
 
     private boolean saveFile2Disk(MultipartFile file, String realPath, String fileName) {
