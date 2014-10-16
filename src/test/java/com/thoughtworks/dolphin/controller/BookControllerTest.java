@@ -83,9 +83,6 @@ public class BookControllerTest extends AbstractUnitTest {
         actualBookList.add(book);
         assertTrue(actualBookList.size() == expectBookList.size());
         assertTrue(actualBookList.equals(expectBookList));
-
-
-
     }
 
     @Test
