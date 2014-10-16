@@ -34,7 +34,7 @@ public class BookDetailServiceTest extends AbstractUnitTest {
     @Test
     public void shouldGetBook(){
 
-        String bookId = "47";
+        int bookId = 47;
 
         Book expectedBook = new Book();
         expectedBook.setAuthor("name");

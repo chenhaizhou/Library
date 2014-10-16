@@ -60,7 +60,7 @@ public class BookServiceImpl implements BookService{
         }
     }
 
-    public Book getBook(String bookId) {
+    public Book getBook(int bookId) {
         return bookMapper.getBookById(bookId);
     }
 

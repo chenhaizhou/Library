@@ -15,7 +15,7 @@ public interface BookDAO {
 
     Book getBookByISBN(String isbn);
 
-    Book getBookById(String bookId);
+    Book getBookById(int bookId);
 
     void deleteBook(String isbn);
 

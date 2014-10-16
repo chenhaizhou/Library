@@ -15,7 +15,7 @@ public interface BookService {
 
     boolean isExist(String isbn);
 
-    Book getBook(String bookId);
+    Book getBook(int bookId);
 
     void deleteBook(String isbn, String path);
 

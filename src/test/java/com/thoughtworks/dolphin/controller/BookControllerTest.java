@@ -62,7 +62,7 @@ public class BookControllerTest extends AbstractUnitTest {
     @Test
     public void shouldGetBookDetail(){
 
-        String bookId = "47";
+        int bookId = 47;
         Book expectedBook = new Book();
         expectedBook.setAuthor("name");
         expectedBook.setId(47);
@@ -77,7 +77,7 @@ public class BookControllerTest extends AbstractUnitTest {
         when(bookService.getBook(bookId)).thenReturn(expectedBook);
 
         ModelMap map = new ModelMap();
-        bookController.bookDetail(bookId, map);
+        bookController.bookDetail(String.valueOf(bookId), map);
         Book book = (Book)map.get("book");
 
         assertEquals(expectedBook.getAuthor(), book.getAuthor());

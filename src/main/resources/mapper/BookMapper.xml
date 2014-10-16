@@ -5,6 +5,9 @@
 <mapper namespace="com.thoughtworks.dolphin.dao.BookDAO">
 
     <insert id="addBook" parameterType="Book" keyProperty="id">
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            select last_insert_id() as id
+        </selectKey>
         insert into books(
         book_name,
         author,

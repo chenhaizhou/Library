@@ -41,10 +41,14 @@ public class BookController {
     @RequestMapping(value = "/checkISBN", method = RequestMethod.GET)
     @ResponseBody
     public boolean checkISBN(String isbn, String bookId) {
-        if(isAddBook(bookId)){
-            return !bookService.isExist(isbn);
-        } else {
-            return processEditBook(isbn, bookId);
+        try {
+            if (isAddBook(bookId)) {
+                return !bookService.isExist(isbn);
+            } else {
+                return isIsbnValid(isbn, Integer.parseInt(bookId));
+            }
+        } catch (RuntimeException e) {
+            return false;
         }
     }
 
@@ -68,10 +72,14 @@ public class BookController {
     @RequestMapping(value = "/bookDetail", method = RequestMethod.GET)
     public String bookDetail(String bookId, ModelMap map){
         LOGGER.info("bookId:" + bookId);
-        Book book = bookService.getBook(bookId);
-
-        map.put("book", book);
-        return "book_detail";
+        try {
+            Book book = bookService.getBook(Integer.parseInt(bookId));
+            map.put("book", book);
+            return "book_detail";
+        } catch (NumberFormatException e) {
+            map.put("message", "No such book with id:" + bookId);
+            return "redirect:error";
+        }
     }
 
     @RequestMapping(value = "/delbook", method = RequestMethod.POST)
@@ -105,7 +113,7 @@ public class BookController {
     }
 
 
-    private boolean processEditBook(String isbn, String bookId) {
+    private boolean isIsbnValid(String isbn, int bookId) {
         Book book = bookService.getBook(bookId);
         if(book.getIsbn().equals(isbn)){
             return true;
