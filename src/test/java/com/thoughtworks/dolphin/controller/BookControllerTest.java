@@ -1,9 +1,11 @@
 package com.thoughtworks.dolphin.controller;
 
 import com.thoughtworks.dolphin.AbstractUnitTest;
+import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.Image;
 import com.thoughtworks.dolphin.service.BookService;
+import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -11,7 +13,11 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
 import org.springframework.ui.ModelMap;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertTrue;
@@ -57,6 +63,26 @@ public class BookControllerTest extends AbstractUnitTest {
 
         boolean resultStr = bookController.checkISBN(isbn, null);
         assertTrue(resultStr == true);
+    }
+
+    @Test
+    public void shouldListBooks() throws Exception{
+
+        BookQuery query = mock(BookQuery.class);
+        PowerMockito.whenNew(BookQuery.class).withAnyArguments().thenReturn(query);
+
+        List<Book> expectBookList = new ArrayList<Book>();
+        Book book = new Book();
+        book.setIsbn("3241234234");
+        book.setName("bookname_test");
+        expectBookList.add(book);
+
+        when(bookService.getBooks(query)).thenReturn(expectBookList);
+
+        List<Book> actualBookList = bookController.listBooks(1, "name");
+        actualBookList.add(book);
+        assertTrue(actualBookList.size() == expectBookList.size());
+        assertTrue(actualBookList.equals(expectBookList));
     }
 
     @Test
