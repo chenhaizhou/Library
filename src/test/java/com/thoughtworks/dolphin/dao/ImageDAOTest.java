@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static junit.framework.Assert.*;
 
-/**
- * Created by lzwu on 10/16/14.
- */
 public class ImageDAOTest extends AbstractUnitTest {
     @Autowired
     private ImageDAO imageDAO;

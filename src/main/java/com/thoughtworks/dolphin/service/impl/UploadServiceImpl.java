@@ -50,7 +50,7 @@ public class UploadServiceImpl implements UploadService {
 
     private Image saveImage2DB(String contextPath, String fileName) {
         Image image = new Image();
-        String imageUrl = generateImageUrl(contextPath, fileName);
+        String imageUrl = generateImageUrl(fileName);
         image.setImageUrl(imageUrl);
         imageDAO.addImage(image);
         return image;
@@ -74,7 +74,7 @@ public class UploadServiceImpl implements UploadService {
         return true;
     }
 
-    private String generateImageUrl(String contextPath, String fileName) {
+    private String generateImageUrl(String fileName) {
         return Constants.IMAGE_UPLOAD_RELATIVE_PATH + "/" + fileName;
     }
 
