@@ -38,16 +38,12 @@ public class UploadServiceImpl implements UploadService {
     }
 
     public void deleteImage(String path, String fileName) {
-
-System.out.println("path: "+ path);
-        System.out.println("name: "+fileName);
-
         try {
             File file = new File(path, fileName);
             if(file.exists()){
                 file.delete();
             }
-        }catch(Exception e){}
+        } catch(Exception e){}
 
     }
 
