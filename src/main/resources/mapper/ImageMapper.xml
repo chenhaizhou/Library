@@ -8,12 +8,12 @@
         <result column="image_id" property="imageId"/>
         <result column="image_url" property="imageUrl"/>
     </resultMap>
-    <select id="selectImage" parameterType="map" resultMap="image">
-        select * from images where image_url = #{imageUrl}
-    </select>
 
-    <insert id="addImage" parameterType="Image" keyProperty="id">
-         insert into images(image_url) values(#{imageUrl})
+    <insert id="addImage" parameterType="Image" keyProperty="imageId" >
+        <selectKey keyProperty="imageId" order="AFTER" resultType="int">
+            select last_insert_id() as imageId
+        </selectKey>
+        insert into images(image_url) values(#{imageUrl})
     </insert>
 
     <select id="getImage" resultType="Image">

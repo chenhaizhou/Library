@@ -5,8 +5,6 @@ import org.apache.ibatis.annotations.Select;
 
 public interface ImageDAO {
 
-    public Image selectImage(String imageUrl);
-
     void addImage(Image image);
 
     public Image getImage(int imageId);

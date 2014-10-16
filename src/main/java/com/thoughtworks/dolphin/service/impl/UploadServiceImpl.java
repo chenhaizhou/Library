@@ -57,7 +57,6 @@ System.out.println("path: "+ path);
         String imageUrl = generateImageUrl(contextPath, fileName);
         image.setImageUrl(imageUrl);
         imageDAO.addImage(image);
-        image = imageDAO.selectImage(imageUrl);
         return image;
     }
 
