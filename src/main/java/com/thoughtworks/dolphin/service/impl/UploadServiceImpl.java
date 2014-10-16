@@ -37,14 +37,17 @@ public class UploadServiceImpl implements UploadService {
         return uploadFile(file, realPath, contextPath);
     }
 
-    public void deleteImage(String path, String fileName) {
+    public boolean deleteImage(String path, String fileName) {
+        boolean result = true;
         try {
             File file = new File(path, fileName);
-            if(file.exists()){
+            if(file.exists()) {
                 file.delete();
             }
-        } catch(Exception e){}
-
+        } catch(Exception e){
+            result = false;
+        }
+        return result;
     }
 
 

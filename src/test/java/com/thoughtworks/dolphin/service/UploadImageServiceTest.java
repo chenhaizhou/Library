@@ -68,6 +68,16 @@ public class UploadImageServiceTest {
 
     }
 
+    @Test
+    public void shouldDeleteImage(){
+
+        String realPath = "fttfyf/asdaxasd/xasdasd/xasx"+System.currentTimeMillis();
+        String fileName = "xxxxxxxx_203023843243.jpg";
+
+        assertTrue(uploadService.deleteImage(realPath, fileName));
+
+    }
+
     private HttpServletRequest getHttpServletRequest(String realPath, String contextPath) {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpSession session = mock(HttpSession.class);
