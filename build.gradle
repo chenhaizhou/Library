@@ -51,6 +51,7 @@ dependencies {
 cobertura {
     coverageCheckLineRate = 60
     coverageCheckHaltOnFailure = true
+    coverageExcludes = ['.*com.thoughtworks.dolphin.model.*', '.*com.thoughtworks.dolphin.common.*']
 }
 
 task prePush(dependsOn: ['clean', 'coberturaCheck', 'coberturaReport', 'performCoverageCheck', 'test'])
