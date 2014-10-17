@@ -37,7 +37,7 @@ var addBookFun = {
             data: JSON.stringify(formData),
             success: function (result) {
                 if(result.resultCode === 'success'){
-                    $('#successTips').removeClass('hide').text('Add a success.');
+                    $('#successTips').removeClass('hide').text('Add successfully.');
                     setTimeout(addBookFun.closeModal,2000);
                 }else{
                     addBookFun.addButtonDisabled(false);
