@@ -34,11 +34,6 @@ public class UserLoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("login")
-    public String login() {
-        return "login";
-    }
-
     @RequestMapping(value = "/loginSubmit", method = RequestMethod.POST)
     public
     @ResponseBody
