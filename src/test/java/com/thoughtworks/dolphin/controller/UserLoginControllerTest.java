@@ -1,6 +1,8 @@
 package com.thoughtworks.dolphin.controller;
 
+import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.model.UserEntity;
+import com.thoughtworks.dolphin.model.UserView;
 import com.thoughtworks.dolphin.service.UserService;
 import com.thoughtworks.dolphin.util.CacheUtil;
 import com.thoughtworks.dolphin.util.CookieUtil;
@@ -9,20 +11,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static org.junit.Assert.assertEquals;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.powermock.api.mockito.PowerMockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({CacheUtil.class})
+@PrepareForTest({CacheUtil.class, CookieUtil.class, UserLoginController.class})
 public class UserLoginControllerTest {
 
     @InjectMocks
@@ -87,6 +89,46 @@ public class UserLoginControllerTest {
 
         String actualResult = userLoginController.loginSubmit(req, rep, userEntity);
         assertEquals(result, actualResult);
+    }
+
+    @Test
+    public void shouldGetUserInfoWithEmptyUser(){
+
+        String userName = "";
+        String expectedResult = "{\"userName\":\"" + userName + "\"}";
+
+        HttpServletRequest req = mock(HttpServletRequest.class);
+        HttpServletResponse rep = mock(HttpServletResponse.class);
+
+        String actualResult = userLoginController.getUserInfo(req, rep);
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void shouldGetUserInfo() {
+        HttpServletRequest req = mock(HttpServletRequest.class);
+        HttpServletResponse rep = mock(HttpServletResponse.class);
+
+        mockStatic(CookieUtil.class);
+        Cookie cookie = mock(Cookie.class);
+
+        when(CookieUtil.fetchCookie(req, Constants.COOKIE_SESSION_ID_KEY)).thenReturn(cookie);
+
+        mockStatic(CacheUtil.class);
+        CacheUtil instance = mock(CacheUtil.class);
+
+
+        UserView userView = new UserView();
+        userView.setUserName("ZZ");
+        when(CacheUtil.getInstance()).thenReturn(instance);
+        when(instance.get(Mockito.anyString())).thenReturn(userView);
+
+        String actualResult = userLoginController.getUserInfo(req, rep);
+
+        String userName = "ZZ";
+        String expectedResult = "{\"userName\":\"" + userName + "\"}";
+        assertEquals(expectedResult, actualResult);
+
     }
 
 
