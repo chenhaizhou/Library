@@ -34,7 +34,7 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
             Cookie cookie = CookieUtil.fetchCookie(request, Constants.COOKIE_SESSION_ID_KEY);
             if (cookie == null) {
                 LOGGER.info("User access URL:" + url + ", need to login...");
-                processRequest(request, response, "/login");
+                processRequest(request, response, "/index.do");
                 return false;
             }
 
@@ -43,7 +43,7 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
 
             if (userView == null) {
                 LOGGER.info("User access URL:" + url + ", need to login...");
-                processRequest(request, response, "/login");
+                processRequest(request, response, "/index.do");
                 return false;
             } else {
                 CookieUtil.saveCookie(response, Constants.COOKIE_SESSION_ID_KEY, sessionId, Constants.COOKIE_LOGIN_MAXAGE);
