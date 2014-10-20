@@ -26,6 +26,7 @@
             <input id = "borrowBtn" class="btn btn-primary" value="Borrow" type="button">
         </div>
         <input id="book-id" type="hidden" value="${book.id}" >
+
     </div>
 </div>
 
