@@ -50,6 +50,14 @@
                         <div class="book-info-content">${book.publisher}</div>
                     </li>
                     <li class="clear">
+                        <div class="book-info-label">borrowed number:</div>
+                        <div class="book-info-content">${book.borrowedNumber}</div>
+                    </li>
+                    <li class="clear">
+                        <div class="book-info-label">Total number:</div>
+                        <div class="book-info-content">${book.totalNumber}</div>
+                    </li>
+                    <li class="clear">
                         <div class="book-info-label">Introduction:</div>
                         <div class="book-info-content">${book.introduction}</div>
                     </li>

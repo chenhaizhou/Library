@@ -36,6 +36,8 @@
         <result column="publisher" property="publisher"/>
         <result column="cover_image_id" property="coverImageId"/>
         <result column="introduction" property="introduction"/>
+        <result column="borrowed_number" property="borrowedNumber"/>
+        <result column="total_number" property="totalNumber"/>
         <association property="image" javaType="Image" column="cover_image_id" select="com.thoughtworks.dolphin.dao.ImageDAO.getImage"/>
     </resultMap>
 
@@ -55,7 +57,7 @@
     </select>
 
     <select id="getBookById" resultMap="getBooksResultMap">
-        select book_id, book_name, author, isbn, publisher, cover_image_id, introduction from books where book_id = #{bookId}
+        select book_id, book_name, author, isbn, publisher, cover_image_id, introduction, borrowed_number, total_number from books where book_id = #{bookId}
     </select>
 
     <select id="getBookByISBN" resultMap="getBooksResultMap">

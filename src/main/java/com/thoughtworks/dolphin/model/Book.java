@@ -11,6 +11,8 @@ public class Book implements Serializable {
     private String isbn;
     private String publisher;
     private String introduction;
+    private int borrowedNumber;
+    private int totalNumber;
 
     private int coverImageId;
 
@@ -96,5 +98,21 @@ public class Book implements Serializable {
 
     public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public int getTotalNumber() {
+        return totalNumber;
+    }
+
+    public void setTotalNumber(int totalNumber) {
+        this.totalNumber = totalNumber;
+    }
+
+    public int getBorrowedNumber() {
+        return borrowedNumber;
+    }
+
+    public void setBorrowedNumber(int borrowedNumber) {
+        this.borrowedNumber = borrowedNumber;
     }
 }
