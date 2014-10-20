@@ -5,6 +5,7 @@ use lib;
 drop table if exists books;
 drop table if exists images;
 drop table if exists users;
+drop table if exists borrows;
 
 CREATE TABLE images (
   image_id  INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
