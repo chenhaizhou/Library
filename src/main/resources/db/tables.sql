@@ -33,6 +33,7 @@ CREATE TABLE users (
   name      VARCHAR(50)
 ) ENGINE=InnoDB;
 
+alter table users add column is_built_admin bool not null;
 
 insert into users (user_name,password,is_built_admin) values ("admin","admin",1);
 
