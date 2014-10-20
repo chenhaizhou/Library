@@ -46,3 +46,7 @@ CREATE TABLE borrows(
   borrow_date DATETIME NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
+
+  ALTER TABLE books
+  ADD COLUMN borrowed_number INT(4) NOT NULL DEFAULT 0 AFTER create_time,
+  ADD COLUMN total_number INT(4) NOT NULL DEFAULT 0 AFTER borrowed_number;
