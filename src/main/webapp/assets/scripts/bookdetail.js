@@ -29,6 +29,7 @@ var editBook = {
             author: $('#edit-author').val(),
             isbn: $('#edit-isbn').val(),
             publisher:$('#edit-publisher').val(),
+            totalNumber:$('#edit-totalnumber').val() || 0,
             coverImageId:$('#edit-coverImageId').val(),
             introduction: $('#edit-introduction').val()
         };
@@ -97,15 +98,23 @@ $(function(){
         $('#edit-cover').click();
     });
 
+
+
     $('#borrowBtn').click(function(){
+        var borrowData = {
+            bookId:$('#book-id').val(),
+            userName: $('#inputUsername').val()
+        };
+
         $.ajax({
             type: "post",
             url: basePath + "/borrowBook.do",
             contentType: "application/json; charset=utf-8",
-            data: $('#bookISBN').text(),
+            data: JSON.stringify(borrowData),
             success: function(result){
                 if(result){
                     alert("Borrow Success!");
+                    window.location.reload();
                 }
             }
         });

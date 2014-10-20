@@ -12,6 +12,7 @@ var userLogin = {
         }else{
             $("#borrowBtn").show();
         }
+        $("#inputUsername").val(username);
     },
 
     validate : function(username,password){
@@ -85,6 +86,8 @@ var userLogin = {
                 }
             }
         );
+
+        $("#inputUsername").val('');
     },
 
     checkCookie: function () {

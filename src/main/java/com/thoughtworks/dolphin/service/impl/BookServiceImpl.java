@@ -85,8 +85,10 @@ public class BookServiceImpl implements BookService{
 
     }
 
-    public boolean borrowBook(String isbn) {
-        System.out.println("iiii:" + isbn);
-        return bookMapper.borrowBook(isbn);
+    @Override
+    public boolean borrowBook(int bookId, String userName) {
+
+        return bookMapper.borrowBook(bookId, userName) > 0;
     }
+
 }

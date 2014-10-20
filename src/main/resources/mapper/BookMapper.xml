@@ -77,6 +77,7 @@
             <if test="author != null">author=#{author},</if>
             <if test="isbn != null">isbn=#{isbn},</if>
             <if test="publisher != null">publisher=#{publisher},</if>
+            <if test="totalNumber != null">total_number=#{totalNumber},</if>
             <if test="coverImageId != 0">cover_image_id=#{coverImageId},</if>
             <if test="introduction != null">introduction=#{introduction}</if>
         </set>
@@ -87,9 +88,11 @@
     <update id="borrowBook">
         update books
         <set>
-            <if test="isbn != null">borrowed_number = borrowed_number +1</if>
+            <if test="id != null">borrowed_number = borrowed_number +1</if>
         </set>
-        where isbn = #{isbn}
+        where book_id = #{id};
+
+        insert into borrows (user_name, book_id, borrow_date) values(#{userName}, #{id}, now())
     </update>
 
 </mapper>

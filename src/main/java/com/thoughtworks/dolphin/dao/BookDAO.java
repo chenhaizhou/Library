@@ -22,5 +22,6 @@ public interface BookDAO {
 
     int updateBook(Book book);
 
-    boolean borrowBook(@Param("isbn") String isbn);
+    int borrowBook(@Param("id")int bookId, @Param("userName")String userName);
+
 }

@@ -35,6 +35,7 @@ CREATE TABLE users (
 
 alter table users add column is_built_admin bool default 1 not null;
 
+
 CREATE TABLE borrows(
   id INT NOT NULL AUTO_INCREMENT,
   user_name VARCHAR(45) NOT NULL,

@@ -21,5 +21,5 @@ public interface BookService {
 
     int updateBook(Book book);
 
-    boolean borrowBook(String isbn);
+    boolean borrowBook(int bookId, String userName);
 }
