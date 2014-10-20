@@ -21,6 +21,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertTrue;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -131,5 +132,14 @@ public class BookControllerTest extends AbstractUnitTest {
         expectedResult.put("resultCode","success");
 
         assertTrue(resultStr.equals(expectedResult.toString()));
+    }
+
+    @Test
+    public void shouldBorrowBook() throws Exception {
+        final String isbn = "2308089-20349380_42";
+
+        when(bookService.borrowBook(anyString())).thenReturn(true);
+
+        assertTrue(bookController.borrowBook(isbn));
     }
 }

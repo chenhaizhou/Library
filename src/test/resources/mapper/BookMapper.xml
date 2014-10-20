@@ -36,16 +36,18 @@
         <result column="publisher" property="publisher"/>
         <result column="cover_image_id" property="coverImageId"/>
         <result column="introduction" property="introduction"/>
+        <result column="borrowed_number" property="borrowedNumber"/>
+        <result column="total_number" property="totalNumber"/>
         <association property="image" javaType="Image" column="cover_image_id" select="com.thoughtworks.dolphin.dao.ImageDAO.getImage"/>
     </resultMap>
 
     <select id="getBooks" resultMap="getBooksResultMap" parameterType="java.util.Map">
-    select book_id, book_name, author, isbn, publisher, cover_image_id, introduction from books
-    <if test="keyword != null">
-        where match(book_name, author, isbn, publisher) against(#{keyword})
-    </if>
-    order by create_time desc, book_id desc limit #{fromIdx}, #{len}
-</select>
+        select book_id, book_name, author, isbn, publisher, cover_image_id, introduction from books
+        <if test="keyword != null">
+            where match(book_name, author, isbn, publisher) against(#{keyword})
+        </if>
+        order by create_time desc, book_id desc limit #{fromIdx}, #{len}
+    </select>
 
     <select id="getBookCount" resultType="java.lang.Integer" parameterType="com.thoughtworks.dolphin.dto.BookQuery">
         select count(1) as cnt from books
@@ -55,7 +57,7 @@
     </select>
 
     <select id="getBookById" resultMap="getBooksResultMap">
-        select book_id, book_name, author, isbn, publisher, cover_image_id, introduction from books where book_id = #{bookId}
+        select book_id, book_name, author, isbn, publisher, cover_image_id, introduction, borrowed_number, total_number from books where book_id = #{bookId}
     </select>
 
     <select id="getBookByISBN" resultMap="getBooksResultMap">
@@ -77,6 +79,15 @@
             <if test="introduction != null">introduction=#{introduction}</if>
         </set>
         where book_id=#{id}
+    </update>
+
+
+    <update id="borrowBook">
+        update books
+        <set>
+            <if test="isbn != null">borrowed_number = borrowed_number +1</if>
+        </set>
+        where isbn = #{isbn}
     </update>
 
 </mapper>

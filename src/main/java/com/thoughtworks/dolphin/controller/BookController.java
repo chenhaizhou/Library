@@ -97,8 +97,6 @@ public class BookController {
     @RequestMapping(value ="/borrowBook" ,method = RequestMethod.POST)
     @ResponseBody
     public boolean borrowBook(@RequestBody String isbn){
-        System.out.println("enter borrowBook========");
-        System.out.println("isbn: " + isbn);
         return bookService.borrowBook(isbn);
     }
 
