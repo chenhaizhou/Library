@@ -97,6 +97,9 @@ var addBookFun = {
                     required: true,
                     remote:  basePath + "/checkISBN.do" + isbnRemoteArg
                 },
+                "edit-totalnumber": {
+                    min: parseInt($('#edit-borrowednumber').val())
+                },
                 publisher: "required",
                 photocover: photoRequired
             },
@@ -107,6 +110,7 @@ var addBookFun = {
                     required: "This field is required.",
                     remote: "This ISBN exists, please fix this field."
                 },
+                "edit-totalnumber": "The number should be more than borrowed number:" + $('#edit-borrowednumber').val(),
                 publisher: "This field is required.",
                 photocover: "This field is required."
             },

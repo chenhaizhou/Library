@@ -103,6 +103,13 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="edit-totalnumber" class="col-sm-2 control-label">Total number</label>
+                        <div class="col-sm-10">
+                            <input type="hidden" id="edit-borrowednumber" name="edit-borrowednumber" value="${book.borrowedNumber}">
+                            <input type="number" id="edit-totalnumber" name="edit-totalnumber" class="form-control" value="${book.totalNumber}" >
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="edit-cover" class="col-sm-2 control-label"><em>*</em>Cover</label>
                         <div class="col-sm-10">
                             <input id="edit-cover" type="file" name="cover" class="hide">

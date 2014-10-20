@@ -29,6 +29,7 @@ var editBook = {
             author: $('#edit-author').val(),
             isbn: $('#edit-isbn').val(),
             publisher:$('#edit-publisher').val(),
+            totalNumber:$('#edit-totalnumber').val() || 0,
             coverImageId:$('#edit-coverImageId').val(),
             introduction: $('#edit-introduction').val()
         };

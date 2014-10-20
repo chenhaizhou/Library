@@ -77,6 +77,7 @@
             <if test="author != null">author=#{author},</if>
             <if test="isbn != null">isbn=#{isbn},</if>
             <if test="publisher != null">publisher=#{publisher},</if>
+            <if test="totalNumber != null">total_number=#{totalNumber},</if>
             <if test="coverImageId != 0">cover_image_id=#{coverImageId},</if>
             <if test="introduction != null">introduction=#{introduction}</if>
         </set>
