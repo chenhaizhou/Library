@@ -39,9 +39,10 @@ update users set is_built_admin = 1 where user_name ='admin';
 insert into users (user_name,password,is_built_admin) values ("zhoujie","222",0);
 
 
-CREATE TABLE borrows (
-  'id' INT NOT NULL AUTO_INCREMENT,
-  'user_name' VARCHAR(45) NOT NULL,
-  'book_id' INT NOT NULL,
-  'borrow_date' DATETIME NOT NULL,
-  PRIMARY KEY ('id'));
+CREATE TABLE borrows(
+  id INT NOT NULL AUTO_INCREMENT,
+  user_name VARCHAR(45) NOT NULL,
+  book_id INT NOT NULL,
+  borrow_date DATETIME NOT NULL,
+  PRIMARY KEY (id)
+  );
