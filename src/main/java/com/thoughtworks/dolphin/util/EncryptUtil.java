@@ -11,24 +11,25 @@ import java.security.NoSuchAlgorithmException;
  */
 public class EncryptUtil {
 
-    private static byte[] md5(byte[] bytes) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(bytes);
-            return md.digest();
+    private static byte[] encryptForType (String type, byte[] bytes) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance(type);
+        md.update(bytes);
+        return md.digest();
+    }
 
+    public static String encrypt(String type, String text) {
+        try {
+            byte[] buffer = text.getBytes("utf-8");
+            byte[] encrypted = encryptForType(type, buffer);
+            return new String(Hex.encodeHex(encrypted)).toUpperCase();
+        } catch (UnsupportedEncodingException e) {
+            return null;
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
     }
 
     public static String encrypt(String text) {
-        try {
-            byte[] buffer = text.getBytes("utf-8");
-            byte[] encrypted = md5(buffer);
-            return new String(Hex.encodeHex(encrypted)).toUpperCase();
-        } catch (UnsupportedEncodingException e) {
-            return null;
-        }
+        return encrypt("MD5", text);
     }
 }
