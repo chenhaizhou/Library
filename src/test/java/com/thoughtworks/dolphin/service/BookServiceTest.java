@@ -113,10 +113,12 @@ public class BookServiceTest extends AbstractUnitTest {
     @Test
     public void shouldBorrowBook() throws Exception {
 
-        String isbn = "";
-        bookService.borrowBook(isbn);
+        final int bookId = 243;
+        final String userName = "test_user";
 
-        verify(bookMapper,times(1)).borrowBook(anyString());
+        bookService.borrowBook(bookId, userName);
+
+        verify(bookMapper,times(1)).borrowBook(anyInt(), anyString());
     }
 
     private Map<Integer,Book> prepareBooks(){

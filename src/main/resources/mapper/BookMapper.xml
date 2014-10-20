@@ -88,9 +88,11 @@
     <update id="borrowBook">
         update books
         <set>
-            <if test="isbn != null">borrowed_number = borrowed_number +1</if>
+            <if test="id != null">borrowed_number = borrowed_number +1</if>
         </set>
-        where isbn = #{isbn}
+        where book_id = #{id};
+
+        insert into borrows (user_name, book_id, borrow_date) values(#{userName}, #{id}, now())
     </update>
 
 </mapper>

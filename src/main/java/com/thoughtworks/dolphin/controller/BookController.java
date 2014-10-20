@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -94,12 +95,6 @@ public class BookController {
         return generateResultCode(result);
     }
 
-    @RequestMapping(value ="/borrowBook" ,method = RequestMethod.POST)
-    @ResponseBody
-    public boolean borrowBook(@RequestBody String isbn){
-        return bookService.borrowBook(isbn);
-    }
-
     private String generateResultCode(int result) {
         String resultCode;
         if(result == 1){
@@ -112,7 +107,6 @@ public class BookController {
         reponseCode.put("resultCode", resultCode);
         return reponseCode.toString();
     }
-
 
     private boolean isIsbnValid(String isbn, int bookId) {
         Book book = bookService.getBook(bookId);
@@ -127,4 +121,12 @@ public class BookController {
         return bookId == null;
     }
 
+    @RequestMapping(value ="/borrowBook" ,method = RequestMethod.POST)
+    @ResponseBody
+    public boolean borrowBook(@RequestBody Map map) {
+        int bookId = Integer.valueOf((String)map.get("bookId"));
+        String userName = (String) map.get("userName");
+
+        return bookService.borrowBook(bookId, userName);
+    }
 }

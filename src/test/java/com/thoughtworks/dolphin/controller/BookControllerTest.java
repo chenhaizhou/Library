@@ -17,10 +17,13 @@ import org.powermock.api.mockito.PowerMockito;
 import org.springframework.ui.ModelMap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertTrue;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -136,10 +139,17 @@ public class BookControllerTest extends AbstractUnitTest {
 
     @Test
     public void shouldBorrowBook() throws Exception {
-        final String isbn = "2308089-20349380_42";
 
-        when(bookService.borrowBook(anyString())).thenReturn(true);
+        final String bookId = "243";
+        final String userName = "test_user";
 
-        assertTrue(bookController.borrowBook(isbn));
+        when(bookService.borrowBook(anyInt(), anyString())).thenReturn(true);
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("bookId", bookId);
+        map.put("userName", userName);
+        boolean actualResult = bookController.borrowBook(map);
+
+        assertTrue(actualResult);
     }
 }

@@ -108,9 +108,12 @@ public class BookDAOTest extends AbstractUnitTest {
 
     @Test
     public void shouldBorrowBook() throws Exception {
-        final  String isbn = books.get(0).getIsbn();
 
-        assertTrue( bookMapper.borrowBook(isbn));
+        Book book = books.get(0);
+        int bookId = book.getId();
+        String userName = "zhoujie";
+
+        assertTrue(bookMapper.borrowBook(bookId, userName) > 0);
     }
 
     private Book prepareOneBook(String author, String name, String isbn, String publisher, String introduction, Date createTime, Image image) {
