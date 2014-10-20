@@ -1,12 +1,7 @@
 package com.thoughtworks.dolphin.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.Serializable;
 
-/**
- * Created by hdzhang on 9/28/14.
- */
 public class UserEntity implements Serializable{
 
     public String getUsername() {
@@ -28,6 +23,16 @@ public class UserEntity implements Serializable{
     String username;
     String password;
 
+    public boolean isBuildInAdmin() {
+        return isBuildInAdmin;
+    }
+
+    public void setBuildInAdmin(boolean isBuildInAdmin) {
+        this.isBuildInAdmin = isBuildInAdmin;
+    }
+
+    boolean isBuildInAdmin;
+
     public UserEntity(){
 
     }
@@ -35,5 +40,11 @@ public class UserEntity implements Serializable{
     public UserEntity(String username,String password){
         this.username = username;
         this.password = password;
+    }
+
+    public UserEntity(String username, String password, boolean isBuildInAdmin) {
+        this.username = username;
+        this.password = password;
+        this.isBuildInAdmin = isBuildInAdmin;
     }
 }

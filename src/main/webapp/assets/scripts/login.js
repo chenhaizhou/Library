@@ -7,6 +7,11 @@ var userLogin = {
         $(".login-user").show();
         $(".login-user").text("Welcome: " + username);
         $(".operation-buttons").show();
+        if(username === "admin"){
+            $("#borrowBtn").hide();
+        }else{
+            $("#borrowBtn").show();
+        }
     },
 
     validate : function(username,password){

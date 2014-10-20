@@ -31,3 +31,9 @@ CREATE TABLE users (
   password  VARCHAR(50),
   name      VARCHAR(50)
 ) ENGINE=InnoDB;
+
+alter table users add column is_built_admin bool not null;
+
+update users set is_built_admin = 1 where user_name ='admin';
+
+insert into users (user_name,password,is_built_admin) values ("zhoujie","222",0);

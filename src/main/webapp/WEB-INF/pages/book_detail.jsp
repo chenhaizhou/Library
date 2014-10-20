@@ -23,6 +23,7 @@
         <div class="operation-buttons">
             <input id = "editBtn" class="btn btn-primary" value="Edit" type="button" data-toggle="modal" data-target="#editBookFrmWrap">
             <input id = "deleteBtn" class="btn btn-danger" value="Delete" type="button">
+            <input id = "borrowBtn" class="btn btn-primary" value="Borrow" type="button">
         </div>
         <input id="book-id" type="hidden" value="${book.id}" >
     </div>
