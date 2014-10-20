@@ -41,6 +41,7 @@ dependencies {
     compile 'com.googlecode.ehcache-spring-annotations:ehcache-spring-annotations:1.2.0'
     compile 'org.springframework:spring-context-support:4.1.1.RELEASE'
     compile 'com.google.guava:guava:18.0'
+    compile 'commons-codec:commons-codec:1.9'
     testCompile 'junit:junit-dep:4.11'
     testCompile 'org.mockito:mockito-all:1.9.5'
     testCompile 'org.easytesting:fest-assert-core:2.0M10'
@@ -72,7 +73,7 @@ task createTables(type: Exec) {
     def password = ""
 
     sourceSets*.resources.srcDirs*.each {
-        if (it.toString().contains("main/")) {
+        if (it.toString().contains("test/")) {
             def file = file("$it/conf/jdbc.properties")
             def content = ''
             file.eachLine {

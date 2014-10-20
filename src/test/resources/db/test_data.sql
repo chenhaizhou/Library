@@ -1,6 +1,8 @@
 use lib;
 
-insert into users(user_name, password, name) values('admin', 'admin', 'Admin');
+insert into users(user_name, password, name, is_built_admin) values('admin', '21232F297A57A5A743894A0E4A801FC3', 'Admin', 1);
+insert into users (user_name,password, name, is_built_admin) values ('zhoujie','BCBE3365E6AC95EA2C0343A2395834DD','Zhou Jie', 0);
+
 
 insert into images (image_url) values('upload/31piGMTOzLL._SS120_RO10,1,201,225,243,255,255,255,15_.jpg');
 insert into images (image_url) values('upload/41-pwPn1koL._SL500_PIsitb-sticker-arrow-big,TopRight,35,-73_SL150_OU28_.jpg');

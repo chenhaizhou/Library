@@ -33,11 +33,7 @@ CREATE TABLE users (
   name      VARCHAR(50)
 ) ENGINE=InnoDB;
 
-
-insert into users (user_name,password,is_built_admin) values ("admin","admin",1);
-
-insert into users (user_name,password,is_built_admin) values ("zhoujie","222",0);
-
+alter table users add column is_built_admin bool default 1 not null;
 
 CREATE TABLE borrows(
   id INT NOT NULL AUTO_INCREMENT,
