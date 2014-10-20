@@ -114,6 +114,7 @@ $(function(){
             success: function(result){
                 if(result){
                     alert("Borrow Success!");
+                    window.location.reload();
                 }
             }
         });
