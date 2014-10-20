@@ -97,6 +97,20 @@ $(function(){
         $('#edit-cover').click();
     });
 
+    $('#borrowBtn').click(function(){
+        $.ajax({
+            type: "post",
+            url: basePath + "/borrowBook.do",
+            contentType: "application/json; charset=utf-8",
+            data: $('#bookISBN').text(),
+            success: function(result){
+                if(result){
+                    alert("Borrow Success!");
+                }
+            }
+        });
+    });
+
     $('#edit-cover').change(function() {
         var filename = $(this).val();
         filename = filename.substring(filename.lastIndexOf('\\')+1);

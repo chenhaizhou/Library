@@ -94,6 +94,14 @@ public class BookController {
         return generateResultCode(result);
     }
 
+    @RequestMapping(value ="/borrowBook" ,method = RequestMethod.POST)
+    @ResponseBody
+    public boolean borrowBook(@RequestBody String isbn){
+        System.out.println("enter borrowBook========");
+        System.out.println("isbn: " + isbn);
+        return bookService.borrowBook(isbn);
+    }
+
     private String generateResultCode(int result) {
         String resultCode;
         if(result == 1){

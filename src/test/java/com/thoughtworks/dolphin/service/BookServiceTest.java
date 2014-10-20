@@ -110,6 +110,15 @@ public class BookServiceTest extends AbstractUnitTest {
         verify(imageDAO, times(1)).deleteImage(anyInt());
     }
 
+    @Test
+    public void shouldBorrowBook() throws Exception {
+
+        String isbn = "";
+        bookService.borrowBook(isbn);
+
+        verify(bookMapper,times(1)).borrowBook(anyString());
+    }
+
     private Map<Integer,Book> prepareBooks(){
         Map<Integer,Book> books = Maps.newHashMap();
         Book book1 = prepareOneBook(1, "Catherine 1", "Thinking in Java", "001-001", "publisher 1", "xxx xxx");

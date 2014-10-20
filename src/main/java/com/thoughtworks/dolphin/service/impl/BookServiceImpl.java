@@ -84,4 +84,9 @@ public class BookServiceImpl implements BookService{
         return bookMapper.updateBook(book);
 
     }
+
+    public boolean borrowBook(String isbn) {
+        System.out.println("iiii:" + isbn);
+        return bookMapper.borrowBook(isbn);
+    }
 }

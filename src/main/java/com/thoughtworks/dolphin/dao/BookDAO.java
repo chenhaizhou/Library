@@ -2,6 +2,7 @@ package com.thoughtworks.dolphin.dao;
 
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,6 @@ public interface BookDAO {
     void deleteBook(String isbn);
 
     int updateBook(Book book);
+
+    boolean borrowBook(@Param("isbn") String isbn);
 }

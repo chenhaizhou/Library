@@ -20,4 +20,6 @@ public interface BookService {
     void deleteBook(String isbn, String path);
 
     int updateBook(Book book);
+
+    boolean borrowBook(String isbn);
 }
