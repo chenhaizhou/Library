@@ -53,6 +53,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="totalnumber" class="col-sm-2 control-label">Total number</label>
+                        <div class="col-sm-10">
+                            <input type="number" id="totalnumber" name="totalnumber" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="cover" class="col-sm-2 control-label"><em>*</em>Cover</label>
                         <div class="col-sm-10">
                             <%--<input type="file" id="cover" name="cover" class="form-control" required>--%>

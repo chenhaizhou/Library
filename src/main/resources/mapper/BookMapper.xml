@@ -13,6 +13,7 @@
         author,
         isbn,
         publisher,
+        total_number,
         cover_image_id,
         introduction,
         create_time)
@@ -22,6 +23,7 @@
         #{author},
         #{isbn},
         #{publisher},
+        #{totalNumber},
         #{coverImageId},
         #{introduction},
         #{createdTime}

@@ -25,6 +25,7 @@ var addBookFun = {
             author: $('#author').val(),
             isbn: $('#isbn').val(),
             publisher:$('#publisher').val(),
+            totalNumber:$('#totalnumber').val() || 0,
             coverImageId:$('#coverImageId').val(),
             introduction: $('#introduction').val()
         };
