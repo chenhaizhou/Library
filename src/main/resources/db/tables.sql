@@ -47,3 +47,11 @@ CREATE TABLE borrows(
   ALTER TABLE books
   ADD COLUMN borrowed_number INT(4) NOT NULL DEFAULT 0 AFTER create_time,
   ADD COLUMN total_number INT(4) NOT NULL DEFAULT 0 AFTER borrowed_number;
+
+ALTER TABLE borrows
+ADD FOREIGN KEY (book_id)
+REFERENCES books(book_Id);
+
+ALTER TABLE borrows
+ADD FOREIGN KEY (user_name)
+REFERENCES users(user_name);
