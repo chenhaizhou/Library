@@ -25,6 +25,6 @@
     color: #ff0000;
 }
 
-#addBook-li {
+#addBook-li,#myBorrowed {
     display: none;
 }

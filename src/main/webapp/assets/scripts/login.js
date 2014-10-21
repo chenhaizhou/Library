@@ -18,12 +18,16 @@ var userLogin = {
     },
 
     login: function (username) {
-        $("#addBook-li").show();
+        if(username === 'admin'){
+            $("#addBook-li").show();
+            $(".operation-buttons").show();
+        }else{
+            $('#myBorrowed').show();
+        }
         $(".logout-btn").show();
         $(".login-btn").hide();
         $(".login-user").show();
         $(".login-user").text("Welcome: " + username);
-        $(".operation-buttons").show();
 
         $("#inputUsername").val(username);
         userLogin.operateBtn(username);
@@ -82,7 +86,7 @@ var userLogin = {
     },
 
     logout: function () {
-        $("#addBook-li").hide();
+        $("#addBook-li,#myBorrowed").hide();
         $(".logout-btn").hide();
         $(".login-btn").show();
         $(".login-user").hide();
