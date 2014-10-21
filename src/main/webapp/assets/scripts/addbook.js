@@ -165,6 +165,7 @@ $(function () {
     $('#addBook-btn').click(function(){
         $('#addBookForm').find('input,textarea').val('');
         $('#totalnumber').val(0);
+        $('#addBookForm div').removeClass('has-error has-success').find('em.error').remove();
     });
 
     addBookFun.validateForm("addBookForm");
