@@ -45,8 +45,7 @@
         </ul>
     </div>
 </section>
-
-</body>
+<%@ include file="/WEB-INF/pages/add_book.jsp" %>
 <script src="${assets}/scripts/lib/jquery-1.11.1.min.js"></script>
 <script src="${assets}/scripts/lib/bootstrap.min.js"></script>
 <script src="${assets}/scripts/lib/jquery.validate.min.js"></script>
@@ -58,4 +57,5 @@
 <script src="${assets}/scripts/addbook.js"></script>
 <script src="${assets}/scripts/booklist.js" ></script>
 <script src="${assets}/scripts/login.js"></script>
+</body>
 </html>
