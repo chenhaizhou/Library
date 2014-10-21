@@ -1,5 +1,22 @@
 var userLogin = {
 
+    operateBtn: function(username) {
+        if (username === "admin") {
+            $("#borrowBtn").hide();
+            $("#deleteBtn").show();
+            $("#editBtn").show();
+        } else {
+            var remainNumber = $("#edit-totalnumber").val() - $("#edit-borrowednumber").val();
+            if (remainNumber > 0) {
+                $("#borrowBtn").show();
+            } else {
+                $("#borrowBtn").hide();
+            }
+            $("#deleteBtn").hide();
+            $("#editBtn").hide();
+        }
+    },
+
     login: function (username) {
         $("#addBook-li").show();
         $(".logout-btn").show();
@@ -9,6 +26,7 @@ var userLogin = {
         $(".operation-buttons").show();
 
         $("#inputUsername").val(username);
+        userLogin.operateBtn(username);
     },
 
     validate : function(username,password){
@@ -144,6 +162,7 @@ var userLogin = {
                     if(name === ''){
                         userLogin.logout();
                     }else{
+
                         userLogin.login(name);
                     }
                 },
@@ -163,7 +182,6 @@ var userLogin = {
 
 
 }
-
 userLogin.init();
 
 
