@@ -123,10 +123,13 @@ public class BookController {
 
     @RequestMapping(value ="/borrowBook" ,method = RequestMethod.POST)
     @ResponseBody
-    public boolean borrowBook(@RequestBody Map map) {
+    public String borrowBook(@RequestBody Map map) {
         int bookId = Integer.valueOf((String)map.get("bookId"));
         String userName = (String) map.get("userName");
 
-        return bookService.borrowBook(bookId, userName);
+        String resultCode = bookService.borrowBook(bookId, userName);
+        JSONObject reponseCode = new JSONObject();
+        reponseCode.put("resultCode", resultCode);
+        return reponseCode.toString();
     }
 }

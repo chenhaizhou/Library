@@ -143,13 +143,19 @@ public class BookControllerTest extends AbstractUnitTest {
         final String bookId = "243";
         final String userName = "test_user";
 
-        when(bookService.borrowBook(anyInt(), anyString())).thenReturn(true);
+        when(bookService.borrowBook(anyInt(), anyString())).thenReturn("success");
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("bookId", bookId);
         map.put("userName", userName);
-        boolean actualResult = bookController.borrowBook(map);
 
-        assertTrue(actualResult);
+
+        JSONObject expectedResult = new JSONObject();
+        expectedResult.put("resultCode","success");
+
+        String actualResult = bookController.borrowBook(map);
+
+        System.out.println(actualResult);
+        assertTrue(actualResult.equals(expectedResult.toString()));
     }
 }

@@ -86,13 +86,18 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public boolean borrowBook(int bookId, String userName) {
+    public String borrowBook(int bookId, String userName) {
 
         Book book = bookMapper.getBookById(bookId);
         if(remainNumber(book) <= 0){
-            return false;
+            return "unavailable";
         }
-        return bookMapper.borrowBook(bookId, userName) > 0;
+        boolean success = bookMapper.borrowBook(bookId, userName) > 0;
+        if(success) {
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 
     private int remainNumber(Book book) {

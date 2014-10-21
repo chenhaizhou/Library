@@ -116,13 +116,17 @@ $(function(){
             url: basePath + "/borrowBook.do",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(borrowData),
+            dataType: 'json',
             success: function(result){
-                if(result){
+                var resultCode = result.resultCode;
+                if(resultCode === 'success'){
                     alert("Borrow Success!");
-                } else {
+                } else if (resultCode === 'fail'){
                     alert("Borrow failure!");
+                } else {
+                    alert("Book not available!")
                 }
-                window.location.reload();
+                setTimeout(function() {window.location.reload();}, 1000);
             }
         });
     });
