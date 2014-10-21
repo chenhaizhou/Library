@@ -1,9 +1,7 @@
 package com.thoughtworks.dolphin.service;
 
-import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dao.ImageDAO;
-import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Image;
 import com.thoughtworks.dolphin.service.impl.UploadServiceImpl;
 import com.thoughtworks.dolphin.util.UploadImageUtil;
@@ -16,10 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.IdGenerator;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;

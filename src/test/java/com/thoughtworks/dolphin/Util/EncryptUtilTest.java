@@ -6,9 +6,6 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 
-/**
- * Created by lzwu on 10/20/14.
- */
 public class EncryptUtilTest {
 
     @Test

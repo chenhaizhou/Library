@@ -17,9 +17,6 @@ import java.util.Map;
 
 import static junit.framework.Assert.*;
 
-/**
- * Created by lzwu on 10/16/14.
- */
 public class BookDAOTest extends AbstractUnitTest {
 
     @Autowired
