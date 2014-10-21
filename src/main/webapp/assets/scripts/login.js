@@ -20,7 +20,6 @@ var userLogin = {
     login: function (username) {
         if(username === 'admin'){
             $("#addBook-li").show();
-            $(".operation-buttons").show();
         }else{
             $('#myBorrowed').show();
         }
@@ -28,7 +27,7 @@ var userLogin = {
         $(".login-btn").hide();
         $(".login-user").show();
         $(".login-user").text("Welcome: " + username);
-
+        $(".operation-buttons").show();
         $("#inputUsername").val(username);
         userLogin.operateBtn(username);
     },
