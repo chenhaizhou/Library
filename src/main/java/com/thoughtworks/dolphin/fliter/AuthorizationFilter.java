@@ -85,6 +85,7 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
         checkUrls.add("sample");
         checkUrls.add("delbook");
         checkUrls.add("editBook");
+        checkUrls.add("borrowBook");
         return  checkUrls;
     }
 }

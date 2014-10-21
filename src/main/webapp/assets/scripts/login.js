@@ -27,7 +27,6 @@ var userLogin = {
         $(".login-btn").hide();
         $(".login-user").show();
         $(".login-user").text("Welcome: " + username);
-        $(".operation-buttons").show();
         $("#inputUsername").val(username);
         userLogin.operateBtn(username);
     },
@@ -84,12 +83,27 @@ var userLogin = {
         }
     },
 
+    setBorrowStatus:function(){
+        var remainNumber = $("#edit-totalnumber").val() - $("#edit-borrowednumber").val();
+
+        if (remainNumber > 0) {
+            $("#borrowBtn").show();
+        } else {
+            $("#borrowBtn").hide();
+        }
+    },
+
     logout: function () {
         $("#addBook-li,#myBorrowed").hide();
         $(".logout-btn").hide();
         $(".login-btn").show();
+
         $(".login-user").hide();
-        $(".operation-buttons").hide();
+        $("#deleteBtn").hide();
+
+        $("#editBtn").hide();
+        userLogin.setBorrowStatus();
+
         $.ajax(
             {
                 type: "GET",
@@ -186,5 +200,3 @@ var userLogin = {
 
 }
 userLogin.init();
-
-
