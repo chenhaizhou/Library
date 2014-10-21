@@ -92,6 +92,11 @@ $(function(){
             introduction: $('#edit-introduction').val()
         };
         $('#edit-successTips').addClass('hide');
+
+        var filename = $('#edit-photocover').val();
+
+        filename = filename.substring(filename.lastIndexOf('/')+1);
+        $('#edit-photocover').val(filename);
     });
 
     $('#edit-browse').click(function(){
@@ -120,6 +125,7 @@ $(function(){
         });
     });
 
+
     $('#edit-cover').change(function() {
         var filename = $(this).val();
         filename = filename.substring(filename.lastIndexOf('\\')+1);
@@ -128,26 +134,5 @@ $(function(){
     });
 
     addBookFun.validateForm("editBookForm",$("#book-id").val());
-
-
-//    $().ready(function(){
-//        username = $("#inputUsername").val;
-//        if(username === "admin"){
-//            $("#borrowBtn").hide();
-//            $("#deleteBtn").show();
-//            $("#editBtn").show();
-//        }else{
-//            var remainNumber = $("#edit-totalnumber").val() - $("#edit-borrowednumber").val();
-//
-//            if(remainNumber > 0) {
-//                $("#borrowBtn").show();
-//            } else {
-//                $("#borrowBtn").hide();
-//            }
-//
-//            $("#deleteBtn").hide();
-//            $("#editBtn").hide();
-//        }
-//    });
 
 })
