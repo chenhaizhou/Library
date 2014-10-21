@@ -119,8 +119,10 @@ $(function(){
             success: function(result){
                 if(result){
                     alert("Borrow Success!");
-                    window.location.reload();
+                } else {
+                    alert("Borrow failure!");
                 }
+                window.location.reload();
             }
         });
     });

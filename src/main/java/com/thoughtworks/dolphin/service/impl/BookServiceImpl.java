@@ -88,7 +88,15 @@ public class BookServiceImpl implements BookService{
     @Override
     public boolean borrowBook(int bookId, String userName) {
 
+        Book book = bookMapper.getBookById(bookId);
+        if(remainNumber(book) <= 0){
+            return false;
+        }
         return bookMapper.borrowBook(bookId, userName) > 0;
+    }
+
+    private int remainNumber(Book book) {
+        return book.getTotalNumber() - book.getBorrowedNumber();
     }
 
 }
