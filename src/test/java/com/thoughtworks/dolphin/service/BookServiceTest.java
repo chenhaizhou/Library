@@ -116,6 +116,12 @@ public class BookServiceTest extends AbstractUnitTest {
         final int bookId = 243;
         final String userName = "test_user";
 
+        Book book = new Book();
+        book.setId(bookId);
+        book.setName(userName);
+        book.setTotalNumber(100);
+        book.setBorrowedNumber(10);
+        when(bookMapper.getBookById(bookId)).thenReturn(book);
         bookService.borrowBook(bookId, userName);
 
         verify(bookMapper,times(1)).borrowBook(anyInt(), anyString());
