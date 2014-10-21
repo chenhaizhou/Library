@@ -97,7 +97,12 @@ var addBookFun = {
                     required: true,
                     remote:  basePath + "/checkISBN.do" + isbnRemoteArg
                 },
+                totalnumber: {
+                    number: true,
+                    min: 0
+                },
                 "edit-totalnumber": {
+                    number: true,
                     min: parseInt($('#edit-borrowednumber').val())
                 },
                 publisher: "required",
@@ -110,7 +115,14 @@ var addBookFun = {
                     required: "This field is required.",
                     remote: "This ISBN exists, please fix this field."
                 },
-                "edit-totalnumber": "The number should be more than borrowed number:" + $('#edit-borrowednumber').val(),
+                totalnumber: {
+                    number: "Please enter a valid number.",
+                    min: "The number should not be less than 0."
+    },
+                "edit-totalnumber": {
+                    number: "Please enter a valid number.",
+                    min: "The number should be more than borrowed number:" + $('#edit-borrowednumber').val()
+                },
                 publisher: "This field is required.",
                 photocover: "This field is required."
             },
@@ -152,6 +164,7 @@ $(function () {
 
     $('#addBook-btn').click(function(){
         $('#addBookForm').find('input,textarea').val('');
+        $('#totalnumber').val(0);
     });
 
     addBookFun.validateForm("addBookForm");
