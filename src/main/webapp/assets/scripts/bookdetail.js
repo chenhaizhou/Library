@@ -1,7 +1,12 @@
 var editBook = {
 
     ajaxFileUpload: function(){
-        if($('#edit-photocover').val() == "") {
+        function shouldNotUpload() {
+            var newFileName = $('#edit-photocover').val();
+            return (newFileName == "" || newFileName == editBook.image.filename);
+        }
+
+        if(shouldNotUpload()) {
             editBook.ajaxSubmitForm();
         } else if(addBookFun.validateImage($('#edit-photocover'))){
             addBookFun.addButtonDisabled(true);
@@ -123,10 +128,11 @@ $(function(){
         };
         $('#edit-successTips').addClass('hide');
 
-        var filename = $('#edit-photocover').val();
+        var originalFileName = $('#edit-photocover').val();
 
-        filename = filename.substring(filename.lastIndexOf('/')+1);
-        $('#edit-photocover').val(filename);
+        originalFileName = originalFileName.substring(originalFileName.lastIndexOf('/')+1);
+        editBook.image = {filename: originalFileName};
+        $('#edit-photocover').val(originalFileName);
     });
 
     $('#edit-browse').click(function(){
@@ -144,7 +150,7 @@ $(function(){
             data : "username=" + userName,
             success: function (result) {
                 if(result >= 5){
-                    alert('You have borrowed 5 books, please return first and then borrow the new ones');
+                    alert('You can borrow 5 books at most.');
                 } else {
                     borrowBook.borrowBook();
                 }
@@ -153,7 +159,6 @@ $(function(){
                 alert("borrow book wrong");
             }
         });
-
 
     });
 
