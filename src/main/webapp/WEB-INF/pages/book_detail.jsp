@@ -52,11 +52,11 @@
                     </li>
                     <li class="clear">
                         <div class="book-info-label">Left number:</div>
-                        <div class="book-info-content">${book.totalNumber - book.borrowedNumber}</div>
+                        <div id="book-info-leftnumber" class="book-info-content">${book.totalNumber - book.borrowedNumber}</div>
                     </li>
                     <li class="clear">
                         <div class="book-info-label">Total number:</div>
-                        <div class="book-info-content">${book.totalNumber}</div>
+                        <div id="book-info-totalnumber" class="book-info-content">${book.totalNumber}</div>
                     </li>
                     <li class="clear">
                         <div class="book-info-label">Introduction:</div>

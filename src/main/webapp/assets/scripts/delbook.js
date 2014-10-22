@@ -12,8 +12,14 @@ function delBook(bookISBN){
 
 $(function(){
     $('#deleteBtn').click(function(){
-        if(confirm('Are you sure to delete this book?')){
-            delBook($('#bookISBN').text());
+        var borrowed = parseInt($('#book-info-totalnumber').text()) - parseInt($('#book-info-leftnumber').text());
+
+        if(borrowed > 0){
+            alert("This book has been borrowed, can't delete.");
+        } else {
+            if(confirm('Are you sure to delete this book?')){
+                delBook($('#bookISBN').text());
+            }
         }
     });
 });
