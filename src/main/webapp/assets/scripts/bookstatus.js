@@ -29,7 +29,7 @@ var bookstatus = {
                     result[i]["borrowDate"] = bookstatus.getTime(result[i]["borrowDate"]);
                 });
 
-                var htmlOutput = '<tr><th>Index</th><th>Book Cover</th><th>Book Name</th><th>Author</th><th>Borrow time</th></tr>'
+                var htmlOutput = '<tr><th class="w60">#</th><th colspan="2">Book Name</th><th class="w220">Author</th><th class="w160">Borrow time</th></tr>'
                                + template.render(result);
                 $("#borrowed-book-list").html(htmlOutput);
 

@@ -10,17 +10,17 @@
     <link rel="stylesheet" href="${assets}/css/smartpaginator.css">
     <link rel="stylesheet" href="${assets}/css/layout.css">
     <link rel="stylesheet" href="${assets}/css/login.css">
-    <link rel="stylesheet" href="${assets}/css/bookstatus.css">
+    <link rel="stylesheet" href="${assets}/css/booklist.css">
     <script>
         var basePath = '${basePath}';
     </script>
 <script id="borrowedBookListTmpl" type="text/x-jsrender">
     <tr>
         <td>{{:index}}</td>
-        <td><a href="${basePath}/bookDetail.do?bookId={{:bookId}}" class="img"><img src="${basePath}/{{:coverImageUrl}}"/></a></td>
-        <td><a href="${basePath}/bookDetail.do?bookId={{:bookId}}">{{:bookName}}</a></td>
+        <td class="w150"><a href="${basePath}/bookDetail.do?bookId={{:bookId}}" class="img"><img src="${basePath}/{{:coverImageUrl}}"/></a></td>
+        <td class="text-left"><a href="${basePath}/bookDetail.do?bookId={{:bookId}}">{{:bookName}}</a></td>
         <td>{{:author}}</td>
-        <td>{{:borrowDate}}</td>
+        <td class="color-gray">{{:borrowDate}}</td>
     </tr>
 </script>
 </head>
@@ -32,7 +32,7 @@
 <section class="container container_main">
     <div class="main" style="width: 980px; margin: 0 auto;">
         <div id="smart-paginator" > </div>
-        <table id="borrowed-book-list" class="table table-bordered">
+        <table id="borrowed-book-list" class="table table-list">
         </table>
     </div>
 </section>

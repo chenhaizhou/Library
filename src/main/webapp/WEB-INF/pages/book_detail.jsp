@@ -21,8 +21,8 @@
     <div class="container">
         <h2 class="book-name" >${book.name}</h2>
         <div class="operation-buttons">
-            <input id = "editBtn" class="btn btn-primary" value="Edit" type="button" data-toggle="modal" data-target="#editBookFrmWrap">
-            <input id = "deleteBtn" class="btn btn-danger" value="Delete" type="button">
+            <input id = "editBtn" class="btn btn-primary ui-hide" value="Edit" type="button" data-toggle="modal" data-target="#editBookFrmWrap">
+            <input id = "deleteBtn" class="btn btn-danger ui-hide" value="Delete" type="button">
             <input id = "borrowBtn" class="btn btn-primary" value="Borrow" type="button">
         </div>
         <input id="book-id" type="hidden" value="${book.id}" >

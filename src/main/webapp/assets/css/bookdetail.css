@@ -58,3 +58,6 @@
 .container h2 {
     float:left;
 }
+.ui-hide {
+    display:none;
+}

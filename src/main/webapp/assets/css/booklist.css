@@ -21,3 +21,43 @@
     max-width: 182px;
 
 }
+
+.table-list tr th {
+    text-align: center;
+    background-color:#f8f8f8;
+}
+
+.table-list tr td {
+    text-align: center;
+    vertical-align: middle!important;
+}
+
+.table-list tr td img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.table-list .text-left {
+    text-align:left;
+}
+
+.w60 {
+    width:60px;
+}
+
+.w150 {
+    width:150px;
+}
+
+.w160 {
+    width:160px;
+}
+
+.w220 {
+    width:220px;
+}
+
+.color-gray {
+    color:#999;
+}
+
