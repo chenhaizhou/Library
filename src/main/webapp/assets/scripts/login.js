@@ -69,6 +69,13 @@ var userLogin = {
                         userLogin.remember(loginData.username, loginData.password);
 
                     }
+
+                    // borrow book
+                    var redoUrl = $.cookie('redo_url');
+                    if(redoUrl.indexOf('borrowBook') > 0){
+                        $('#borrowBtn').click();
+                    }
+                    $.cookie('redo_url', '');
                 }
             })
         }

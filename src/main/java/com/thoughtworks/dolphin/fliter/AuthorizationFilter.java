@@ -34,7 +34,7 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
             Cookie cookie = CookieUtil.fetchCookie(request, Constants.COOKIE_SESSION_ID_KEY);
             if (cookie == null) {
                 LOGGER.info("User access URL:" + url + ", need to login...");
-                processRequest(request, response, "/index.do");
+                processRequest(request, response, "/index.do", url);
                 return false;
             }
 
@@ -43,7 +43,7 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
 
             if (userView == null) {
                 LOGGER.info("User access URL:" + url + ", need to login...");
-                processRequest(request, response, "/index.do");
+                processRequest(request, response, "/index.do", url);
                 return false;
             } else {
                 CookieUtil.saveCookie(response, Constants.COOKIE_SESSION_ID_KEY, sessionId, Constants.COOKIE_LOGIN_MAXAGE);
@@ -53,9 +53,10 @@ public class AuthorizationFilter extends HandlerInterceptorAdapter {
         return true;
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response, String redirectUrl) throws IOException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response, String redirectUrl, String url) throws IOException {
         if(isAjaxRequest(request)){
             response.setStatus(Constants.HTTP_STATUS_CODE_FOR_AJAX);
+            response.addCookie(new Cookie("redo_url", url));
         } else {
             redirectUrl(request, response, redirectUrl);
         }
