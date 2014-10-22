@@ -10,7 +10,7 @@ var userLogin = {
             if (remainNumber > 0) {
                 $("#borrowBtn").show();
             } else {
-                $("#borrowBtn").hide();
+                $('#borrowBtn').attr('disabled', 'true');
             }
             $("#deleteBtn").hide();
             $("#editBtn").hide();
