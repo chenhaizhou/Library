@@ -156,7 +156,6 @@ public class BookControllerTest extends AbstractUnitTest {
 
         String actualResult = bookController.borrowBook(map);
 
-        System.out.println(actualResult);
         assertTrue(actualResult.equals(expectedResult.toString()));
     }
 
