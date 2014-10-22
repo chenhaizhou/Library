@@ -109,8 +109,8 @@ public class BookServiceImpl implements BookService{
     public List<Borrow> getBorrowedBookList(String username, String pagenumber) {
 
         int pageNumber = Integer.parseInt(pagenumber);
-        int fromIdx = (pageNumber-1)*10;
-        int len = 10;
+        int fromIdx = (pageNumber - 1) * Constants.ITEM_COUNT_IN_EACH_BORROW_PAGE;
+        int len = Constants.ITEM_COUNT_IN_EACH_BORROW_PAGE;
         return bookMapper.getBorrowedBookList(username, fromIdx, len);
     }
 

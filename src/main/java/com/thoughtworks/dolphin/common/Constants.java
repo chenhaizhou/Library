@@ -4,6 +4,8 @@ public class Constants {
 
     public static final int ITEM_COUNT_IN_EACH_PAGE = 20;
 
+    public static final int ITEM_COUNT_IN_EACH_BORROW_PAGE = 10;
+
     public static final int ITEM_COUNT_IN_EACH_LINE = 5;
 
     public static final String IMAGE_UPLOAD_RELATIVE_PATH = "upload";
