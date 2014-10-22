@@ -196,7 +196,6 @@ var userLogin = {
 
         userLogin.checkUserInfo();
     }
-
-
 }
+
 userLogin.init();

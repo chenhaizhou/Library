@@ -103,8 +103,6 @@ $(function(){
         $('#edit-cover').click();
     });
 
-
-
     $('#borrowBtn').click(function(){
         var borrowData = {
             bookId:$('#book-id').val(),
@@ -130,7 +128,6 @@ $(function(){
             }
         });
     });
-
 
     $('#edit-cover').change(function() {
         var filename = $(this).val();
