@@ -5,6 +5,7 @@ import com.thoughtworks.dolphin.dao.BookDAO;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
+import com.thoughtworks.dolphin.model.Borrow;
 import com.thoughtworks.dolphin.service.BookService;
 import com.thoughtworks.dolphin.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,6 @@ public class BookServiceImpl implements BookService{
 
     }
 
-    @Override
     public String borrowBook(int bookId, String userName) {
 
         Book book = bookMapper.getBookById(bookId);
@@ -98,6 +98,20 @@ public class BookServiceImpl implements BookService{
         } else {
             return "fail";
         }
+    }
+
+    public int getBorrowedBookListCount(String username) {
+
+        return bookMapper.getBorrowedBookListCount(username);
+
+    }
+
+    public List<Borrow> getBorrowedBookList(String username, String pagenumber) {
+
+        int pageNumber = Integer.parseInt(pagenumber);
+        int fromIdx = (pageNumber-1)*10;
+        int len = 10;
+        return bookMapper.getBorrowedBookList(username, fromIdx, len);
     }
 
     private int remainNumber(Book book) {

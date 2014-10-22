@@ -91,4 +91,9 @@
         insert into borrows (user_name, book_id, borrow_date) values(#{userName}, #{id}, now())
     </update>
 
+
+    <select id="getBorrowedBookListCount" resultType="java.lang.Integer">
+        select count(*) from borrows where user_name = #{username}
+    </select>
+
 </mapper>

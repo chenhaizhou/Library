@@ -3,6 +3,7 @@ package com.thoughtworks.dolphin.controller;
 import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
+import com.thoughtworks.dolphin.model.Borrow;
 import com.thoughtworks.dolphin.model.Image;
 import com.thoughtworks.dolphin.service.BookService;
 import junit.framework.Assert;
@@ -158,4 +159,25 @@ public class BookControllerTest extends AbstractUnitTest {
         System.out.println(actualResult);
         assertTrue(actualResult.equals(expectedResult.toString()));
     }
+
+    @Test
+    public void shouldBorrowedBooksList(){
+
+        String username = "zhoujie";
+        String pagenumber = "1";
+
+        List<Borrow> expectedResult = new ArrayList<Borrow>();
+        Borrow borrow = new Borrow();
+        borrow.setUsername("zhoujie");
+        borrow.setBookId("123");
+        expectedResult.add(borrow);
+
+        when(bookService.getBorrowedBookList(username, pagenumber)).thenReturn(expectedResult);
+
+        List<Borrow> actualResult = bookController.borrowedBooksList(username, pagenumber);
+        actualResult.add(borrow);
+        assertEquals(expectedResult.size(), actualResult.size());
+
+    }
+
 }

@@ -3,6 +3,7 @@ package com.thoughtworks.dolphin.controller;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
+import com.thoughtworks.dolphin.model.Borrow;
 import com.thoughtworks.dolphin.service.BookService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -131,5 +132,30 @@ public class BookController {
         JSONObject reponseCode = new JSONObject();
         reponseCode.put("resultCode", resultCode);
         return reponseCode.toString();
+    }
+
+    @RequestMapping(value = "/borrowStatus", method = RequestMethod.GET)
+    public String bookStatus(){
+        try {
+            return "borrow_status";
+        } catch (NumberFormatException e) {
+            return "redirect:error";
+        }
+    }
+
+    @RequestMapping(value ="/borrowedBookListCount", method = RequestMethod.GET)
+    @ResponseBody
+    public int borrowedBookListCount(String username){
+
+        return bookService.getBorrowedBookListCount(username);
+
+    }
+
+    @RequestMapping(value ="/borrowedBooksList", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Borrow> borrowedBooksList(String username, String pagenumber){
+
+        return bookService.getBorrowedBookList(username, pagenumber);
+
     }
 }

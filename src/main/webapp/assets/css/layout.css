@@ -67,3 +67,17 @@ textarea {
 .search-box {
     margin-top:10px;
 }
+
+#borrowed-book-list tr th {
+    text-align: center;
+}
+
+#borrowed-book-list tr td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#borrowed-book-list tr td img {
+    max-width: 100px;
+    max-height: 100px;
+}

@@ -58,6 +58,7 @@ public class BookServiceTest extends AbstractUnitTest {
         when(bookMapper.getBookCount(query)).thenReturn(3);
         when(bookMapper.getBooks(queryMap)).thenReturn(Lists.newArrayList(books.values()));
         when(bookMapper.addBook(books.get(1))).thenReturn(books.get(1).getId());
+        when(bookMapper.getBorrowedBookListCount("zhoujie")).thenReturn(1);
     }
 
     @Test
@@ -125,6 +126,11 @@ public class BookServiceTest extends AbstractUnitTest {
         bookService.borrowBook(bookId, userName);
 
         verify(bookMapper,times(1)).borrowBook(anyInt(), anyString());
+    }
+
+    @Test
+    public void shouldGetBorrowedBookListCount(){
+        assertEquals(1, bookService.getBorrowedBookListCount("zhoujie"));
     }
 
     private Map<Integer,Book> prepareBooks(){

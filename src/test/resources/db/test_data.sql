@@ -131,3 +131,5 @@ insert into books (book_name, author, isbn, publisher, cover_image_id, introduct
 
 insert into books (book_name, author, isbn, publisher, cover_image_id, introduction, create_time) values ('looks to increase exports outside Europe', 'Cathy Wu', '2308089-20349380_42', 'dsfas', 42, 'asdfasdfasdfasdf',now());
 
+
+insert into borrows (user_name, book_id, borrow_date) values ("zhoujie", 1, now());

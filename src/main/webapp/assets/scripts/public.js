@@ -6,4 +6,10 @@ $(function(){
             }
         }
     });
+
+    $("#myBorrowed a").on("click",function(){
+
+        window.location.href = basePath + "/borrowStatus.do";
+    })
 });
+

@@ -2,6 +2,7 @@ package com.thoughtworks.dolphin.service;
 
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
+import com.thoughtworks.dolphin.model.Borrow;
 
 import java.util.List;
 
@@ -22,4 +23,9 @@ public interface BookService {
     int updateBook(Book book);
 
     String borrowBook(int bookId, String userName);
+
+    int getBorrowedBookListCount(String username);
+
+    List<Borrow> getBorrowedBookList(String username, String pagenumber);
+
 }
