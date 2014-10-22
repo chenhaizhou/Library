@@ -1,12 +1,12 @@
 var editBook = {
 
     ajaxFileUpload: function(){
-        function shouldNotUpload() {
+        function upload() {
             var newFileName = $('#edit-photocover').val();
-            return (newFileName == "" || newFileName == editBook.image.filename);
+            return (newFileName != "" && newFileName != editBook.image.filename);
         }
 
-        if(shouldNotUpload()) {
+        if(!upload()) {
             editBook.ajaxSubmitForm();
         } else if(addBookFun.validateImage($('#edit-photocover'))){
             addBookFun.addButtonDisabled(true);
