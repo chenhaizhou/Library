@@ -80,6 +80,36 @@ var editBook = {
     }
 }
 
+var borrowBook = {
+    borrowBook : function() {
+        var borrowData = {
+            bookId: $('#book-id').val(),
+            userName: $('#inputUsername').val()
+        };
+        $.ajax({
+            type: "post",
+            url: basePath + "/borrowBook.do",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(borrowData),
+            dataType: 'json',
+            success: function (result) {
+                var resultCode = result.resultCode;
+                if (resultCode === 'success') {
+                    alert("Borrow Success!");
+                } else if (resultCode === 'fail') {
+                    alert("Borrow failure!");
+                } else {
+                    alert("Book not available!")
+                }
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            }
+        });
+    }
+
+}
+
 $(function(){
 
     $('#editBtn').click(function(){
@@ -104,29 +134,27 @@ $(function(){
     });
 
     $('#borrowBtn').click(function(){
-        var borrowData = {
-            bookId:$('#book-id').val(),
-            userName: $('#inputUsername').val()
-        };
 
-        $.ajax({
-            type: "post",
-            url: basePath + "/borrowBook.do",
+        var userName = $('#inputUsername').val();
+
+            $.ajax({
+            type: "GET",
+            url: basePath + "/borrowedBookListCount.do",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(borrowData),
-            dataType: 'json',
-            success: function(result){
-                var resultCode = result.resultCode;
-                if(resultCode === 'success'){
-                    alert("Borrow Success!");
-                } else if (resultCode === 'fail'){
-                    alert("Borrow failure!");
+            data : "username=" + userName,
+            success: function (result) {
+                if(result >= 5){
+                    alert('You have borrowed 5 books, please return first and then borrow the new ones');
                 } else {
-                    alert("Book not available!")
+                    borrowBook.borrowBook();
                 }
-                setTimeout(function() {window.location.reload();}, 1000);
+            },
+            error: function () {
+                alert("borrow book wrong");
             }
         });
+
+
     });
 
     $('#edit-cover').change(function() {
