@@ -161,6 +161,16 @@ public class BookControllerTest extends AbstractUnitTest {
     }
 
     @Test
+    public void shouldBorrowedBookListCount(){
+
+        String username = "zhoujie";
+
+        when(bookService.getBorrowedBookListCount(username)).thenReturn(1);
+        assertEquals(1,bookController.borrowedBookListCount(username));
+
+    }
+
+    @Test
     public void shouldBorrowedBooksList(){
 
         String username = "zhoujie";

@@ -8,6 +8,7 @@ import com.thoughtworks.dolphin.dao.BookDAO;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
+import com.thoughtworks.dolphin.model.Borrow;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -131,6 +133,27 @@ public class BookServiceTest extends AbstractUnitTest {
     @Test
     public void shouldGetBorrowedBookListCount(){
         assertEquals(1, bookService.getBorrowedBookListCount("zhoujie"));
+    }
+
+    @Test
+    public void shouldGetBorrowedBookList(){
+
+        String username = "zhoujie";
+        String pagenumber = "1";
+
+        int fromIdx = 0;
+        int len = 10;
+
+        List<Borrow> expectedResult = new ArrayList<Borrow>();
+        Borrow borrow = new Borrow();
+        borrow.setUsername("zhoujie");
+        borrow.setBookId("123");
+        expectedResult.add(borrow);
+
+        when(bookMapper.getBorrowedBookList(username, fromIdx, len)).thenReturn(expectedResult);
+
+        assertEquals(expectedResult, bookService.getBorrowedBookList(username, pagenumber));
+
     }
 
     private Map<Integer,Book> prepareBooks(){

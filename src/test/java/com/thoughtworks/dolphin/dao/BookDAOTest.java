@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -118,6 +119,17 @@ public class BookDAOTest extends AbstractUnitTest {
     public void shouldGetBorrowedBookListCount() throws Exception{
 
         assertEquals(1,bookMapper.getBorrowedBookListCount("zhoujie"));
+
+    }
+
+    @Test
+    public void shouldGetBorrowedBookList() throws Exception{
+
+        String username = "zhoujie";
+        int fromIdx = 0;
+        int len = 10;
+
+        assertEquals(1,bookMapper.getBorrowedBookList(username, fromIdx, len).size());
 
     }
 
