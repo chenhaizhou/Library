@@ -82,8 +82,7 @@ var userLogin = {
     },
 
     remember: function (username, password) {
-        alert('username:' + username);
-        if ($("#remember").prop("checked") == true) {
+        if ($("#remember").prop("checked")) {
             $.cookie('username', username, { expires: 7 });
         } else {
             $.removeCookie('username');
