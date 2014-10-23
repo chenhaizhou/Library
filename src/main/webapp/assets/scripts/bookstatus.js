@@ -1,7 +1,5 @@
 var bookstatus = {
-
-    username : $.cookie('username'),
-
+    username : $('#username').text(),
     loadBorrowBookList : function(totalCount, itemCountInEachPage) {
         $('#smart-paginator').smartpaginator({ totalrecords: totalCount, recordsperpage: itemCountInEachPage, initval: 0, next: 'Next', prev: 'Prev', first: 'First', last: 'Last', theme: 'black', onchange: bookstatus.onChange,
 
@@ -15,12 +13,12 @@ var bookstatus = {
 
     loadBorrowedBookList : function(pageNumber){
 
-        var template = $.templates("#borrowedBookListTmpl");
+        var template = $.templates("#borrowedBookListTmpl"),username = $('#username').text();
         $.ajax({
             type: "GET",
             url: basePath + "/borrowedBooksList.do",
             contentType: "application/text; charset=utf-8",
-            data:"username=" + bookstatus.username +"&pagenumber=" + pageNumber,
+            data:"username=" + username +"&pagenumber=" + pageNumber,
             dataType: 'json',
             success: function (result) {
 
@@ -41,12 +39,12 @@ var bookstatus = {
 
     },
     loadBorrowBookListInfo : function(){
-
+        var username = $('#username').text();
         $.ajax({
             type: "GET",
             url: basePath + "/borrowedBookListCount.do",
             contentType: "application/json; charset=utf-8",
-            data : "username=" + bookstatus.username,
+            data : "username=" + username,
             success: function (result) {
 
                 var totalCnt = parseInt(result);
@@ -75,6 +73,9 @@ var bookstatus = {
 
 $(function(){
     $('.navbar-nav li').removeClass('active').siblings('#myBorrowed').addClass('active');
-    bookstatus.loadBorrowBookListInfo();
+    $.when(userLogin.checkUserInfo()).done(function(){
+        bookstatus.loadBorrowBookListInfo();
+
+    });
 
 })

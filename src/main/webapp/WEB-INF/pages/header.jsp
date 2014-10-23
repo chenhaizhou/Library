@@ -11,7 +11,7 @@
             </ul>
             <div class="navbar-right">
                 <div id="login-area">
-                    <strong class="login-user">username</strong>
+                    <strong class="login-user"></strong>
                     <a class="login-btn" href="###" data-toggle="modal" data-target=".login-modal">Login</a>
                     <a class="logout-btn" href="###" >Log out</a>
                 </div>

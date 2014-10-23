@@ -26,7 +26,7 @@ var userLogin = {
         $(".logout-btn").show();
         $(".login-btn").hide();
         $(".login-user").show();
-        $(".login-user").text("Welcome: " + username);
+        $(".login-user").html('Welcome: <em id="username">' + username + '</em>');
         $("#inputUsername").val(username);
         userLogin.operateBtn(username);
     },
@@ -70,8 +70,7 @@ var userLogin = {
 
                     }
 
-                    // borrow book
-                    var redoUrl = $.cookie('redo_url');
+                    var redoUrl = $.cookie('redo_url') || '';
                     if(redoUrl.indexOf('borrowBook') > 0){
                         $('#borrowBtn').click();
                     }
@@ -83,6 +82,7 @@ var userLogin = {
     },
 
     remember: function (username, password) {
+        alert('username:' + username);
         if ($("#remember").prop("checked") == true) {
             $.cookie('username', username, { expires: 7 });
         } else {
@@ -131,7 +131,7 @@ var userLogin = {
     checkCookie: function () {
         if (typeof $.cookie('username') == "string") {
             $("#inputUsername").val($.cookie('username'));
-            $("#remember").attr("checked", true);
+            $("#remember").prop("checked", true);
         } else {
             $("#inputUsername").val("");
         }
@@ -174,7 +174,7 @@ var userLogin = {
 
 
     checkUserInfo: function () {
-        $.ajax(
+        return $.ajax(
             {
                 type: "POST",
                 url: basePath + "/user/getUserInfo.do",
@@ -189,6 +189,7 @@ var userLogin = {
 
                         userLogin.login(name);
                     }
+
                 },
                 error: function () {
                     alert("check userInfo error");
@@ -205,4 +206,6 @@ var userLogin = {
     }
 }
 
-userLogin.init();
+$(function(){
+    userLogin.init();
+});
