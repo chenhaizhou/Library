@@ -55,3 +55,8 @@ REFERENCES books(book_Id);
 ALTER TABLE borrows
 ADD FOREIGN KEY (user_name)
 REFERENCES users(user_name);
+
+
+ALTER TABLE borrows
+ADD COLUMN return_date DATETIME NULL AFTER borrow_date,
+ADD COLUMN is_returned INT(1) NOT NULL DEFAULT 0 AFTER return_date;
