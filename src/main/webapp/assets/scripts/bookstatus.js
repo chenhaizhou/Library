@@ -95,7 +95,7 @@ $(function(){
 
     $('.btn-group button').click(function() {
         $(this).addClass('active').siblings('button').removeClass('active');
-        bookstatus.loadBorrowBookListInfo(btnEvent[$(this).attr('id')]);
+        bookstatus.loadBorrowBookListInfo(btnEvent[$(this).attr('id').replace('Btn','')]);
     });
 
 })

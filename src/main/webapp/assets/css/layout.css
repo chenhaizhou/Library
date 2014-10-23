@@ -39,6 +39,7 @@ h2 {
 
 .banner {
     position: fixed;
+    z-index: 999;
     left: 0;
     width: 100%;
     background-color: #fff;
