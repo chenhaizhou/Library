@@ -6,7 +6,6 @@ import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
-import com.thoughtworks.dolphin.model.Borrow;
 import com.thoughtworks.dolphin.model.Image;
 import org.junit.Before;
 import org.junit.Test;
@@ -172,18 +171,5 @@ public class BookDAOTest extends AbstractUnitTest {
         imageList.add(image2);
         imageList.add(image3);
         return imageList;
-    }
-
-    private Borrow prepareOneBorrow(String username, String bookId, Date borrowDate, String bookName, String author, Image image ){
-
-        Borrow borrow = new Borrow();
-        borrow.setUsername(username);
-        borrow.setBookId(bookId);
-        borrow.setBorrowDate(borrowDate);
-        borrow.setBookName(bookName);
-        borrow.setAuthor(author);
-        borrow.setImage(image);
-        return borrow;
-
     }
 }

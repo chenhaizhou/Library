@@ -3,7 +3,7 @@ package com.thoughtworks.dolphin.controller;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
-import com.thoughtworks.dolphin.model.Borrow;
+import com.thoughtworks.dolphin.model.BorrowBook;
 import com.thoughtworks.dolphin.service.BookService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -153,7 +153,7 @@ public class BookController {
 
     @RequestMapping(value ="/borrowedBooksList", method = RequestMethod.GET)
     @ResponseBody
-    public List<Borrow> borrowedBooksList(String username, String pagenumber){
+    public List<BorrowBook> borrowedBooksList(String username, String pagenumber){
 
         return bookService.getBorrowedBookList(username, pagenumber);
 

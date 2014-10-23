@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
          <typeAlias alias="UserEntity" type="com.thoughtworks.dolphin.model.UserEntity"/>
          <typeAlias alias="Book" type="com.thoughtworks.dolphin.model.Book"/>
          <typeAlias alias="Image" type="com.thoughtworks.dolphin.model.Image"/>
-         <typeAlias alias="Borrow" type="com.thoughtworks.dolphin.model.Borrow"/>
+         <typeAlias alias="BorrowBook" type="com.thoughtworks.dolphin.model.BorrowBook"/>
     </typeAliases>
 
     <!-- 映射map -->

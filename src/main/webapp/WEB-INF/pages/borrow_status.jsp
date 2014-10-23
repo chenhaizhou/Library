@@ -17,8 +17,8 @@
 <script id="borrowedBookListTmpl" type="text/x-jsrender">
     <tr>
         <td>{{:index}}</td>
-        <td class="w150"><a href="${basePath}/bookDetail.do?bookId={{:bookId}}" class="img"><img src="${basePath}/{{:coverImageUrl}}"/></a></td>
-        <td class="text-left"><a href="${basePath}/bookDetail.do?bookId={{:bookId}}">{{:bookName}}</a></td>
+        <td class="w150"><a href="${basePath}/bookDetail.do?bookId={{:id}}" class="img"><img src="${basePath}/{{:coverImageUrl}}"/></a></td>
+        <td class="text-left"><a href="${basePath}/bookDetail.do?bookId={{:id}}">{{:name}}</a></td>
         <td>{{:author}}</td>
         <td class="color-gray">{{:borrowDate}}</td>
     </tr>

@@ -1,13 +1,12 @@
 package com.thoughtworks.dolphin.controller;
 
+import com.google.common.collect.Lists;
 import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
-import com.thoughtworks.dolphin.model.Borrow;
+import com.thoughtworks.dolphin.model.BorrowBook;
 import com.thoughtworks.dolphin.model.Image;
 import com.thoughtworks.dolphin.service.BookService;
-import junit.framework.Assert;
-import junit.framework.TestCase;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,10 +16,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.springframework.ui.ModelMap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertTrue;
@@ -179,18 +175,29 @@ public class BookControllerTest extends AbstractUnitTest {
         String username = "zhoujie";
         String pagenumber = "1";
 
-        List<Borrow> expectedResult = new ArrayList<Borrow>();
-        Borrow borrow = new Borrow();
-        borrow.setUsername("zhoujie");
-        borrow.setBookId("123");
-        expectedResult.add(borrow);
+        List<BorrowBook> expectedResult = Lists.newArrayList();
+        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date());
+        expectedResult.add(borrowBook);
 
         when(bookService.getBorrowedBookList(username, pagenumber)).thenReturn(expectedResult);
 
-        List<Borrow> actualResult = bookController.borrowedBooksList(username, pagenumber);
+        List<BorrowBook> actualResult = bookController.borrowedBooksList(username, pagenumber);
         assertEquals(expectedResult.size(), actualResult.size());
         assertEquals(expectedResult, actualResult);
 
+    }
+
+    private BorrowBook prepareOneBorrowedBook(int bookId, String author, String name, String isbn, String publisher, String introduction, Date borrowDate) {
+        BorrowBook book = new BorrowBook();
+        book.setId(bookId);
+        book.setAuthor(author);
+        book.setName(name);
+        book.setIsbn(isbn);
+        book.setPublisher(publisher);
+        book.setIntroduction(introduction);
+        book.setCreatedTime(new Date());
+        book.setBorrowDate(borrowDate);
+        return book;
     }
 
 }

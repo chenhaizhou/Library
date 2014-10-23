@@ -8,7 +8,7 @@ import com.thoughtworks.dolphin.dao.BookDAO;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
-import com.thoughtworks.dolphin.model.Borrow;
+import com.thoughtworks.dolphin.model.BorrowBook;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -16,14 +16,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 public class BookServiceTest extends AbstractUnitTest {
@@ -145,11 +143,9 @@ public class BookServiceTest extends AbstractUnitTest {
         int fromIdx = 0;
         int len = 10;
 
-        List<Borrow> expectedResult = new ArrayList<Borrow>();
-        Borrow borrow = new Borrow();
-        borrow.setUsername("zhoujie");
-        borrow.setBookId("123");
-        expectedResult.add(borrow);
+        List<BorrowBook> expectedResult = Lists.newArrayList();
+        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date());
+        expectedResult.add(borrowBook);
 
         when(bookMapper.getBorrowedBookList(username, fromIdx, len)).thenReturn(expectedResult);
 
@@ -178,6 +174,19 @@ public class BookServiceTest extends AbstractUnitTest {
         book.setPublisher(publisher);
         book.setIntroduction(introduction);
         book.setCreatedTime(new Date());
+        return book;
+    }
+
+    private BorrowBook prepareOneBorrowedBook(int bookId, String author, String name, String isbn, String publisher, String introduction, Date borrowDate) {
+        BorrowBook book = new BorrowBook();
+        book.setId(bookId);
+        book.setAuthor(author);
+        book.setName(name);
+        book.setIsbn(isbn);
+        book.setPublisher(publisher);
+        book.setIntroduction(introduction);
+        book.setCreatedTime(new Date());
+        book.setBorrowDate(borrowDate);
         return book;
     }
 

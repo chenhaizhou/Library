@@ -43,13 +43,8 @@
         <association property="image" javaType="Image" column="cover_image_id" select="com.thoughtworks.dolphin.dao.ImageDAO.getImage"/>
     </resultMap>
 
-    <resultMap id="getBorrowsResultMap" type="Borrow">
-        <result column="user_name" property="username"/>
-        <result column="book_id" property="bookId"/>
+    <resultMap id="borrowBookMap" type="BorrowBook" extends="getBooksResultMap">
         <result column="borrow_date" property="borrowDate"/>
-        <result column="book_name" property="bookName"/>
-        <result column="author" property="author"/>
-        <association property="image" javaType="Image" column="cover_image_id" select="com.thoughtworks.dolphin.dao.ImageDAO.getImage"/>
     </resultMap>
 
     <select id="getBooks" resultMap="getBooksResultMap" parameterType="java.util.Map">
@@ -108,8 +103,8 @@
         select count(*) from borrows where user_name = #{username}
     </select>
 
-    <select id="getBorrowedBookList" resultMap="getBorrowsResultMap" >
-        select a.book_id, a.borrow_date, b.cover_image_id, b.book_name, b.author from borrows a, books b where a.user_name = #{username} and b.book_id = a.book_id  order by borrow_date desc limit #{fromIdx}, #{len}
+    <select id="getBorrowedBookList" resultMap="borrowBookMap">
+        select b.book_id, b.book_name, b.author, b.isbn, b.publisher, b.cover_image_id, b.introduction, br.borrow_date from books b, borrows br where b.book_id = br.book_id and br.user_name=#{username} order by borrow_date desc limit #{fromIdx}, #{len}
     </select>
 
 </mapper>

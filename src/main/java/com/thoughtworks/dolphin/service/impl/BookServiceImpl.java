@@ -5,7 +5,7 @@ import com.thoughtworks.dolphin.dao.BookDAO;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
-import com.thoughtworks.dolphin.model.Borrow;
+import com.thoughtworks.dolphin.model.BorrowBook;
 import com.thoughtworks.dolphin.service.BookService;
 import com.thoughtworks.dolphin.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +106,7 @@ public class BookServiceImpl implements BookService{
 
     }
 
-    public List<Borrow> getBorrowedBookList(String username, String pagenumber) {
+    public List<BorrowBook> getBorrowedBookList(String username, String pagenumber) {
 
         int pageNumber = Integer.parseInt(pagenumber);
         int fromIdx = (pageNumber - 1) * Constants.ITEM_COUNT_IN_EACH_BORROW_PAGE;
