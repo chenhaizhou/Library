@@ -132,7 +132,8 @@ public class BookServiceTest extends AbstractUnitTest {
 
     @Test
     public void shouldGetBorrowedBookListCount(){
-        assertEquals(1, bookService.getBorrowedBookListCount("zhoujie"));
+        when(bookMapper.getBorrowedBookListCount("jack")).thenReturn(1);
+        assertEquals(1, bookService.getBorrowedBookListCount("jack"));
     }
 
     @Test

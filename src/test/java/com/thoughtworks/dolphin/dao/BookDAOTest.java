@@ -80,7 +80,7 @@ public class BookDAOTest extends AbstractUnitTest {
 
     @Test
     public void shouldAddBook() throws Exception {
-        Book book = prepareOneBook("Jason", "abc", "004-004", "ppp", "xxx", new Date(), images.get(2));
+        Book book = prepareOneBook("Jason", "abc", "004-004", "ppp", "xxx", new Date(), images.get(2), 10);
         bookMapper.addBook(book);
         assertNotNull(book);
         assertTrue(book.getId() > 0);
@@ -116,9 +116,14 @@ public class BookDAOTest extends AbstractUnitTest {
     }
 
     @Test
-    public void shouldGetBorrowedBookListCount() throws Exception{
+    public void shouldGetBorrowedBookListCount() throws Exception {
+        final String username = "zhoujie";
 
-        assertEquals(1,bookMapper.getBorrowedBookListCount("zhoujie"));
+        int borrowedCount = bookMapper.getBorrowedBookListCount(username);
+
+        bookMapper.borrowBook(books.get(1).getId(), username);
+
+        assertEquals(borrowedCount + 1, bookMapper.getBorrowedBookListCount(username));
 
     }
 
@@ -133,7 +138,7 @@ public class BookDAOTest extends AbstractUnitTest {
 
     }
 
-    private Book prepareOneBook(String author, String name, String isbn, String publisher, String introduction, Date createTime, Image image) {
+    private Book prepareOneBook(String author, String name, String isbn, String publisher, String introduction, Date createTime, Image image, int totalQty) {
         Book book = new Book();
         book.setImage(image);
         book.setCoverImageId(image.getImageId());
@@ -143,14 +148,15 @@ public class BookDAOTest extends AbstractUnitTest {
         book.setPublisher(publisher);
         book.setIntroduction(introduction);
         book.setCreatedTime(createTime);
+        book.setTotalNumber(totalQty);
         return book;
     }
 
     private List<Book> prepareBooks() {
         List<Book> books = Lists.newArrayList();
-        books.add(prepareOneBook("Catherine 1", "Thinking in Java", "001-001", "publisher 1", "xxx xxx", new Date(), images.get(0)));
-        books.add(prepareOneBook("Catherine 2", "Thinking in Ruby", "002-002", "publisher 2", "xxx xxx", new Date(), images.get(1)));
-        books.add(prepareOneBook("Catherine 3", "Thinking in VB", "003-003", "publisher 3", "xxx xxx", new Date(), images.get(2)));
+        books.add(prepareOneBook("Catherine 1", "Thinking in Java", "001-001", "publisher 1", "xxx xxx", new Date(), images.get(0), 10));
+        books.add(prepareOneBook("Catherine 2", "Thinking in Ruby", "002-002", "publisher 2", "xxx xxx", new Date(), images.get(1), 10));
+        books.add(prepareOneBook("Catherine 3", "Thinking in VB", "003-003", "publisher 3", "xxx xxx", new Date(), images.get(2), 10));
         return books;
     }
 

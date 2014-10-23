@@ -57,6 +57,10 @@ public class BookControllerTest extends AbstractUnitTest {
         JSONObject expectecResult = new JSONObject();
         expectecResult.put("resultCode", "success");
 
+
+
+
+
         assertTrue(resultStr.equals(expectecResult.toString()));
     }
 
@@ -184,8 +188,8 @@ public class BookControllerTest extends AbstractUnitTest {
         when(bookService.getBorrowedBookList(username, pagenumber)).thenReturn(expectedResult);
 
         List<Borrow> actualResult = bookController.borrowedBooksList(username, pagenumber);
-        actualResult.add(borrow);
         assertEquals(expectedResult.size(), actualResult.size());
+        assertEquals(expectedResult, actualResult);
 
     }
 
