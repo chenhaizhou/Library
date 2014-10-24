@@ -66,8 +66,8 @@ var userLogin = {
                     } else if (result.result === 'UserLoginSuccess') {
                         $(".login-modal").modal("hide");
 
-                        userLogin.login(loginData.username);
                         userLogin.remember(loginData.username, loginData.password);
+                        window.location.reload();
 
                     }
 
@@ -77,7 +77,6 @@ var userLogin = {
                     }
                     $.cookie('redo_url', '');
 
-                    window.location.reload();
                 }
             })
         }
