@@ -214,7 +214,7 @@ var userSignUp = {
 
         $('#signUp-modal').on('show.bs.modal', function () {
             $("#signUp-form").find("input").val("");
-            $(".error-msg").empty();
+            $('#sign-successTips').addClass('hide');
             $('#signUp-form div').removeClass('has-error has-success').find('em.error').remove();
             userSignUp.validateForm("signUp-form");
         });
@@ -226,7 +226,6 @@ var userSignUp = {
         $("#" + formId).validate({
             rules: {
                 'sign-username': "required",
-                'sign-name': "required",
                 'sign-password': {
                     required: true,
                     minlength: 3
@@ -238,7 +237,6 @@ var userSignUp = {
             },
             messages: {
                 'sign-username': "This username is required.",
-                'sign-name': "This name is required.",
                 'sign-password': {
                     required: "This password is required",
                     minlength: "At least 3 characters required!"
@@ -269,7 +267,7 @@ var userSignUp = {
 
         var signUpData = {
             username : $("#sign-inputUsername").val(),
-            name : $("#sign-inputName").val(),
+            name : $("#sign-inputName").val() != "" ? $("#sign-inputName").val() : $("#sign-inputUsername").val(),
             password : $("#sign-inputPassword").val()
         };
 
@@ -283,8 +281,11 @@ var userSignUp = {
                 if (result == 'SignUpError') {
                     $(".error-msg").text("The username is exist, please try another one.");
                 } else if (result === 'SignUpSuccess') {
-                    $('#signUp-modal').modal('hide');
-                    userLogin.login(signUpData.username);
+                    $(".error-msg").empty();
+                    $('#sign-successTips').removeClass('hide').text('sign up successfully.');
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 1000);
                 }
             }
         })
