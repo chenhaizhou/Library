@@ -8,7 +8,7 @@
 }
 
 .login-btn {
-    float: right;
+    float: left;
 }
 
 .login-user {
@@ -27,4 +27,8 @@
 
 #addBook-li,#myBorrowed {
     display: none;
+}
+
+.signUp-btn {
+    display: none; padding-left: 10px;
 }

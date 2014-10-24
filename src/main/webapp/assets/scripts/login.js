@@ -23,6 +23,7 @@ var userLogin = {
         }else{
             $('#myBorrowed').show();
         }
+        $(".signUp-btn").hide();
         $(".logout-btn").show();
         $(".login-btn").hide();
         $(".login-user").show();
@@ -102,10 +103,10 @@ var userLogin = {
     logout: function () {
         $("#addBook-li,#myBorrowed").hide();
         $(".logout-btn").hide();
-        $(".login-btn").show();
-
         $(".login-user").hide();
         $("#deleteBtn").hide();
+        $(".login-btn").show();
+        $(".signUp-btn").show();
 
         $("#editBtn").hide();
         userLogin.setBorrowStatus();
@@ -205,6 +206,77 @@ var userLogin = {
     }
 }
 
+var userSignUp = {
+
+    addEvent: function () {
+
+        $('#signUp-modal').on('show.bs.modal', function () {
+            $("#signUp-form").find("input").val("");
+            $('#signUp-form div').removeClass('has-error has-success').find('em.error').remove();
+            userSignUp.validateForm("signUp-form");
+        });
+
+    },
+
+    validateForm: function (formId) {
+
+        $("#" + formId).validate({
+            rules: {
+                'sign-username': "required",
+                'sign-name': "required",
+                'sign-password': {
+                    required: true,
+                    minlength: 3
+                },
+                'sign-confirm-password': {
+                    required: true,
+                    equalTo: "#sign-inputPassword"
+                }
+            },
+            messages: {
+                'sign-username': "This username is required.",
+                'sign-name': "This name is required.",
+                'sign-password': {
+                    required: "This password is required",
+                    minlength: "At least 3 characters required!"
+                },
+                'sign-confirm-password': {
+                    required: "This confirm password is required.",
+                    equalTo: "The password should be the same with the first one you entered."
+                }
+            },
+            errorElement: "em",
+            onfocusout: function (element) {
+                $(element).valid();
+            },
+            success: function (element) {
+                $(element).parent().removeClass('has-error').addClass('has-success');
+            },
+            highlight: function (element) {
+                $(element).parent().removeClass('has-success').addClass('has-error');
+            },
+            submitHandler: function () {
+                userSignUp.submit();
+            }
+        })
+
+    },
+
+    submit : function () {
+
+        //submit
+
+    },
+
+    init: function () {
+
+        userSignUp.addEvent();
+
+    }
+
+};
+
 $(function(){
     userLogin.init();
+    userSignUp.init();
 });
