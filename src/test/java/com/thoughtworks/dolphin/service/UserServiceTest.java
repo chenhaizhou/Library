@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 public class UserServiceTest {
@@ -71,5 +72,19 @@ public class UserServiceTest {
         assertEquals("UserNameError",actualResult);
     }
 
+    @Test
+    public void shouldSignUpSuccess(){
+
+        UserEntity entity = new UserEntity();
+        entity.setUsername("jack");
+        entity.setName("jack");
+        entity.setPassword("123");
+
+        when(userDAO.insertUserByUsername(entity)).thenReturn(1);
+
+        String actualResult = userService.signUp(entity);
+
+        assertEquals("SignUpSuccess",actualResult);
+    }
 
 }

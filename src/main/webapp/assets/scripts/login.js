@@ -212,6 +212,7 @@ var userSignUp = {
 
         $('#signUp-modal').on('show.bs.modal', function () {
             $("#signUp-form").find("input").val("");
+            $(".error-msg").empty();
             $('#signUp-form div').removeClass('has-error has-success').find('em.error').remove();
             userSignUp.validateForm("signUp-form");
         });
@@ -264,7 +265,27 @@ var userSignUp = {
 
     submit : function () {
 
-        //submit
+        var signUpData = {
+            username : $("#sign-inputUsername").val(),
+            name : $("#sign-inputName").val(),
+            password : $("#sign-inputPassword").val()
+        };
+
+        $.ajax({
+            type : "post",
+            url : basePath + "/user/signUpSubmit.do",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(signUpData),
+            dataType : "text",
+            success : function(result){
+                if (result == 'SignUpError') {
+                    $(".error-msg").text("The username is exist, please try another one.");
+                } else if (result === 'SignUpSuccess') {
+                    $('#signUp-modal').modal('hide');
+                    userLogin.login(signUpData.username);
+                }
+            }
+        })
 
     },
 

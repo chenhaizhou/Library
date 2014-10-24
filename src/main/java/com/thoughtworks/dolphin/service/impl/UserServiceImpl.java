@@ -1,6 +1,7 @@
 package com.thoughtworks.dolphin.service.impl;
 
 import com.thoughtworks.dolphin.model.UserEntity;
+import com.thoughtworks.dolphin.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,17 @@ public class UserServiceImpl implements UserService{
             return "UserLoginSuccess";
         }
         return "UserLoginError";
+    }
+
+    public String signUp(UserEntity signUpData) {
+
+        signUpData.setPassword(EncryptUtil.encrypt(signUpData.getPassword().trim()));
+        try {
+            userDAO.insertUserByUsername(signUpData);
+            return "SignUpSuccess";
+        } catch (Exception e) {
+            return "SignUpError";
+        }
     }
 
 }

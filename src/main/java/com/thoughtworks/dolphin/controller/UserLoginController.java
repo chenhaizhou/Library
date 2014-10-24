@@ -74,4 +74,17 @@ public class UserLoginController {
         }
     }
 
+    @RequestMapping(value = "/signUpSubmit", method = RequestMethod.POST)
+    @ResponseBody
+    public String signUpSubmit(HttpServletRequest req, HttpServletResponse resp, @RequestBody UserEntity signUpData){
+
+        String result = userService.signUp(signUpData);
+        if(result.equals("SignUpSuccess")){
+            String sessionId = req.getRequestedSessionId();
+            CookieUtil.saveCookie(resp, Constants.COOKIE_SESSION_ID_KEY, sessionId, Constants.COOKIE_LOGIN_MAXAGE);
+            CacheUtil.getInstance().put(sessionId, new UserView(signUpData.getUsername()));
+        }
+        return result;
+    }
+
 }
