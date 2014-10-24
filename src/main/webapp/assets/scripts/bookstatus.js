@@ -22,7 +22,7 @@ var bookstatus = {
 
     loadBorrowedBookList : function(pageNumber, status){
 
-        status = status ? status : $('.btn-group button.active').attr('id').replace('Btn','');
+        status = status ? status : $('.btn-group button.btn-primary').attr('id').replace('Btn','');
         var template = $.templates("#"+ status +"BookListTmpl"),username = $('#username').text();
         $.ajax({
             type: "GET",
