@@ -76,6 +76,8 @@ var userLogin = {
                         $('#borrowBtn').click();
                     }
                     $.cookie('redo_url', '');
+
+                    window.location.reload();
                 }
             })
         }
