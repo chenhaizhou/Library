@@ -6,7 +6,7 @@ var bookstatus = {
     },
     loadBorrowBookList : function(status, totalCount, itemCountInEachPage) {
         if(status !== 'borrowing') {
-            $('#smart-paginator').empty().smartpaginator({ totalrecords: totalCount, recordsperpage: itemCountInEachPage, initval: 0, next: 'Next', prev: 'Prev', first: 'First', last: 'Last', theme: 'black', onchange: bookstatus.onChange
+            $('#smart-paginator').empty().smartpaginator({ totalrecords: totalCount, recordsperpage: itemCountInEachPage, initval: 0, theme: '', onchange: bookstatus.onChange
 
             });
         } else {
@@ -96,7 +96,7 @@ $(function(){
     });
 
     $('.btn-group button').click(function() {
-        $(this).addClass('active').siblings('button').removeClass('active');
+        $(this).addClass('btn-primary').removeClass('btn-default').siblings('button').removeClass('btn-primary').addClass('btn-default');
         bookstatus.loadBorrowBookListInfo(btnEvent[$(this).attr('id').replace('Btn','')]);
     });
 

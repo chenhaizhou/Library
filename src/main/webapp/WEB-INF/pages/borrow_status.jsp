@@ -43,12 +43,12 @@
 <section class="container container_main">
     <div class="main" style="width: 980px; margin: 0 auto;">
         <div class="btn-group">
-            <button class="btn btn-default active" id="borrowingBtn">Current Borrowed</button>
+            <button class="btn btn-primary" id="borrowingBtn">Current Borrowed</button>
             <button class="btn btn-default" id="returnedBtn">Returned History</button>
         </div>
-        <div id="smart-paginator" ></div>
         <table id="borrowed-book-list" class="table table-list">
         </table>
+        <div id="smart-paginator" ></div>
     </div>
 </section>
 <%@ include file="/WEB-INF/pages/add_book.jsp" %>
