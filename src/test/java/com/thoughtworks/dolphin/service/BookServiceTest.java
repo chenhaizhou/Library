@@ -4,18 +4,23 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.common.Constants;
+import com.thoughtworks.dolphin.common.SearchResult;
 import com.thoughtworks.dolphin.dao.BookDAO;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.BorrowBook;
+import com.thoughtworks.dolphin.util.CacheUtil;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +32,6 @@ import static org.mockito.Mockito.*;
 public class BookServiceTest extends AbstractUnitTest {
 
     @InjectMocks
-    @Autowired
     private BookService bookService;
 
     @Mock
@@ -36,10 +40,19 @@ public class BookServiceTest extends AbstractUnitTest {
     @Mock
     private ImageDAO imageDAO;
 
+    private CacheUtil cacheUtil;
+
     private Map<Integer, Book> books;
 
     private BookQuery query;
-    private Map<String,Object> queryMap;
+
+    @BeforeClass
+    public static void before() throws Exception {
+        File dir = new File(Constants.INDEX_DIRECTORY + File.separator + Book.class.getSimpleName());
+        if (dir.exists()) {
+            dir.delete();
+        }
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -54,11 +67,12 @@ public class BookServiceTest extends AbstractUnitTest {
         }
 
         query = prepareQuery();
-        queryMap = prepareQueryMap();
-        when(bookMapper.getBookCount(query)).thenReturn(3);
-        when(bookMapper.getBooks(queryMap)).thenReturn(Lists.newArrayList(books.values()));
+        when(bookMapper.getAllBooks()).thenReturn(Lists.newArrayList(books.values()));
         when(bookMapper.addBook(books.get(1))).thenReturn(books.get(1).getId());
         when(bookMapper.getBorrowedBookListCount("zhoujie")).thenReturn(1);
+
+        cacheUtil = mock(CacheUtil.class);
+        when(cacheUtil.get("books")).thenReturn(books);
     }
 
     @Test
@@ -76,15 +90,11 @@ public class BookServiceTest extends AbstractUnitTest {
     }
 
     @Test
-    public void shouldGetBookCount() throws Exception {
-
-        assertEquals(3, bookService.getBookCount(query));
-    }
-
-    @Test
     public void shouldGetBooks() throws Exception {
-        List<Book> resultBooks= bookService.getBooks(query);
-        assertEquals(3,resultBooks.size());
+        BookQuery bookQuery = new BookQuery();
+        bookQuery.setPageNumber(1);
+        SearchResult<Book> resultBooks= bookService.getBooks(bookQuery);
+        assertEquals(3, resultBooks.getResultData().size());
     }
 
     @Test
@@ -195,14 +205,5 @@ public class BookServiceTest extends AbstractUnitTest {
         query.setKeyword("Catherine");
         query.setPageNumber(1);
         return query;
-    }
-
-    private Map<String,Object> prepareQueryMap(){
-        Map<String,Object> queryMap = Maps.newHashMap();
-
-        queryMap.put("keyword", "Catherine");
-        queryMap.put("fromIdx", 0);
-        queryMap.put("len", Constants.ITEM_COUNT_IN_EACH_PAGE);
-        return  queryMap;
     }
 }

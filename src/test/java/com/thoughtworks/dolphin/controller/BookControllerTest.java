@@ -2,6 +2,7 @@ package com.thoughtworks.dolphin.controller;
 
 import com.google.common.collect.Lists;
 import com.thoughtworks.dolphin.AbstractUnitTest;
+import com.thoughtworks.dolphin.common.SearchResult;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.BorrowBook;
@@ -13,13 +14,13 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
 import org.springframework.ui.ModelMap;
 
 import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -74,19 +75,18 @@ public class BookControllerTest extends AbstractUnitTest {
     public void shouldListBooks() throws Exception{
 
         BookQuery query = mock(BookQuery.class);
-        PowerMockito.whenNew(BookQuery.class).withAnyArguments().thenReturn(query);
 
         List<Book> expectBookList = new ArrayList<Book>();
         Book book = new Book();
         book.setIsbn("3241234234");
-        book.setName("bookname_test");
+        book.setName("book Name");
         expectBookList.add(book);
 
-        when(bookService.getBooks(query)).thenReturn(expectBookList);
+        when(bookService.getBooks(any(BookQuery.class))).thenReturn(new SearchResult<Book>(expectBookList, 1));
 
-        List<Book> actualBookList = bookController.listBooks(1, "name");
-        actualBookList.add(book);
-        assertTrue(actualBookList.size() == expectBookList.size());
+        SearchResult<Book> actualBookList = bookController.listBooks(1, "Name");
+
+        assertTrue(actualBookList.getResultData().size() == expectBookList.size());
         assertTrue(actualBookList.equals(expectBookList));
     }
 

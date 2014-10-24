@@ -1,20 +1,15 @@
 package com.thoughtworks.dolphin.dao;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.thoughtworks.dolphin.AbstractUnitTest;
-import com.thoughtworks.dolphin.common.Constants;
-import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.Image;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import static junit.framework.Assert.*;
 
@@ -59,22 +54,9 @@ public class BookDAOTest extends AbstractUnitTest {
     }
 
     @Test
-    public void shouldGetBookCount() throws Exception {
-        BookQuery condition = new BookQuery();
-        condition.setKeyword("Asia");
-        condition.setPageNumber(1);
-        assertEquals(1, bookMapper.getBookCount(condition));
-    }
-
-    @Test
     public void shouldGetBooks() {
-        Map<String, Object> paramMap = Maps.newHashMap();
-        paramMap.put("keyword", "Asia");
-        paramMap.put("fromIdx", 0);
-        paramMap.put("len", Constants.ITEM_COUNT_IN_EACH_PAGE);
-        int count = bookMapper.getBooks(paramMap).size();
+        int count = bookMapper.getAllBooks().size();
         assertTrue(count > 0);
-        assertTrue(count <= Constants.ITEM_COUNT_IN_EACH_PAGE);
     }
 
     @Test

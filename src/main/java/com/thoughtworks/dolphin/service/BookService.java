@@ -1,5 +1,6 @@
 package com.thoughtworks.dolphin.service;
 
+import com.thoughtworks.dolphin.common.SearchResult;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.BorrowBook;
@@ -10,9 +11,7 @@ public interface BookService {
 
     int insertBook(Book book);
 
-    int getBookCount(BookQuery condition);
-
-    List<Book> getBooks(BookQuery condition);
+    SearchResult<Book> getBooks(BookQuery condition);
 
     boolean isExist(String isbn);
 

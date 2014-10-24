@@ -11,10 +11,6 @@ import java.util.Map;
 public interface BookDAO {
     int addBook(Book book);
 
-    List<Book> getBooks(Map<String, Object> map);
-
-    int getBookCount(BookQuery condition);
-
     Book getBookByISBN(String isbn);
 
     Book getBookById(int bookId);
@@ -28,5 +24,7 @@ public interface BookDAO {
     int getBorrowedBookListCount(@Param("username")String username);
 
     List<BorrowBook> getBorrowedBookList(@Param("username")String username, @Param("fromIdx")int fromIdx, @Param("len")int len);
+
+    List<Book> getAllBooks();
 
 }

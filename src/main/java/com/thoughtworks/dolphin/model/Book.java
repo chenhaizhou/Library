@@ -1,9 +1,12 @@
 package com.thoughtworks.dolphin.model;
 
+import com.google.common.primitives.Ints;
+import com.thoughtworks.dolphin.common.IndexTarget;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Book implements Serializable {
+public class Book extends IndexTarget<Book> implements Serializable {
 
     private int id;
     private String name;
@@ -114,5 +117,13 @@ public class Book implements Serializable {
 
     public void setBorrowedNumber(int borrowedNumber) {
         this.borrowedNumber = borrowedNumber;
+    }
+
+    @Override
+    public int compare(Book o) {
+        if (o == null) {
+            return -1;
+        }
+        return Ints.compare(this.getId(), o.getId());
     }
 }

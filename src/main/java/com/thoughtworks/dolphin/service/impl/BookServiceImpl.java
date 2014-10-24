@@ -1,6 +1,12 @@
 package com.thoughtworks.dolphin.service.impl;
 
+import com.google.common.base.Function;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.thoughtworks.dolphin.common.Constants;
+import com.thoughtworks.dolphin.common.IndexConfig;
+import com.thoughtworks.dolphin.common.SearchResult;
 import com.thoughtworks.dolphin.dao.BookDAO;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.dto.BookQuery;
@@ -8,11 +14,19 @@ import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.BorrowBook;
 import com.thoughtworks.dolphin.service.BookService;
 import com.thoughtworks.dolphin.service.UploadService;
+import com.thoughtworks.dolphin.util.CacheUtil;
+import com.thoughtworks.dolphin.util.IndexUtil;
+import org.apache.log4j.Logger;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.IntField;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,29 +38,51 @@ public class BookServiceImpl implements BookService{
     @Autowired
     private ImageDAO imageDAO;
 
+    private static Logger LOG = Logger.getLogger(BookServiceImpl.class);
+
     @Autowired
     private UploadService uploadService;
 
+    private IndexConfig<Book> bookIndexConfig;
+
     public int insertBook(Book book) {
         book.setCreatedTime(new Date(System.currentTimeMillis()));
-        return bookMapper.addBook(book);
+        int insertValue = bookMapper.addBook(book);
+        addOrUpdateBookCache(book.getId());
+        return insertValue;
     }
 
-    public int getBookCount(BookQuery condition) {
-        return bookMapper.getBookCount(condition);
+
+    public SearchResult<Book> getBooks(BookQuery condition) {
+        int fromIdx = Constants.ITEM_COUNT_IN_EACH_PAGE * (condition.getPageNumber() - 1);
+        int toIdx = fromIdx + Constants.ITEM_COUNT_IN_EACH_PAGE;
+
+        try {
+            List<Book> allBooks = Lists.newArrayList(getBooksFromCache().values());
+            if (Strings.isNullOrEmpty(condition.getKeyword())) {
+                return new SearchResult<Book>(subList(allBooks, fromIdx, toIdx), getBooksFromCache().values().size());
+            }
+            return IndexUtil.getInstance().search(Constants.SEARCH_BOOK_FIELDS, condition.getKeyword(), bookIndexConfig, fromIdx, toIdx);
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
+            return new SearchResult<Book>(null, 0);
+        } catch (ParseException e) {
+            LOG.error(e.getMessage());
+            return new SearchResult<Book>(null, 0);
+        }
     }
 
-
-    public List<Book> getBooks(BookQuery condition) {
-        int pageIndex = Constants.ITEM_COUNT_IN_EACH_PAGE * (condition.getPageNumber() - 1);
-
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("keyword", condition.getKeyword());
-        paramMap.put("fromIdx", pageIndex);
-        paramMap.put("len", Constants.ITEM_COUNT_IN_EACH_PAGE);
-        List<Book> books = bookMapper.getBooks(paramMap);
-
-        return books;
+    public <T> List<T> subList(List<T> list, int fromIdx, int toIdx) {
+        if (list == null || list.size() == 0) {
+            return Lists.newArrayList();
+        }
+        if (list.size() < fromIdx) {
+            return Lists.newArrayList();
+        }
+        if (list.size() < toIdx) {
+            toIdx = list.size();
+        }
+        return list.subList(fromIdx, toIdx);
     }
 
 
@@ -70,19 +106,22 @@ public class BookServiceImpl implements BookService{
 
             String imageUrl = book.getCoverImageUrl();
 
-           String fileName = imageUrl.substring(imageUrl.indexOf("/") + 1);
+            String fileName = imageUrl.substring(imageUrl.indexOf("/") + 1);
 
             bookMapper.deleteBook(isbn);
             imageDAO.deleteImage(book.getCoverImageId());
 
-            uploadService.deleteImage(path,fileName);
+            uploadService.deleteImage(path, fileName);
+
+            removeBookFromCache(book);
         }
 
     }
 
     public int updateBook(Book book) {
-
-        return bookMapper.updateBook(book);
+        int updateResult = bookMapper.updateBook(book);
+        addOrUpdateBookCache(book.getId());
+        return updateResult;
 
     }
 
@@ -94,6 +133,7 @@ public class BookServiceImpl implements BookService{
         }
         boolean success = bookMapper.borrowBook(bookId, userName) > 0;
         if(success) {
+            addOrUpdateBookCache(bookId);
             return "success";
         } else {
             return "fail";
@@ -118,4 +158,80 @@ public class BookServiceImpl implements BookService{
         return book.getTotalNumber() - book.getBorrowedNumber();
     }
 
+
+    private Map<Integer, Book> getBooksFromCache() {
+        CacheUtil cacheUtil = CacheUtil.getInstance();
+        if (cacheUtil.get("books") == null) {
+            initBookCache();
+        }
+        return (Map<Integer, Book>) cacheUtil.get("books");
+    }
+
+    private void initBookCache() {
+        try {
+            CacheUtil cacheUtil = CacheUtil.getInstance();
+            List<Book> allBooks = bookMapper.getAllBooks();
+
+            Map<Integer, Book> bookMap = Maps.newTreeMap();
+            for (Book book : allBooks) {
+                bookMap.put(book.getId(), book);
+            }
+            cacheUtil.put("books", bookMap);
+            buildIndex(Lists.newArrayList(bookMap.values()));
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+        }
+    }
+
+    private void buildIndex(List<Book> books) {
+        try {
+            IndexUtil indexUtil = IndexUtil.getInstance();
+            bookIndexConfig = IndexConfig.newConfig(Book.class);
+            bookIndexConfig.setKeyField("id");
+            bookIndexConfig.setDocTranslator(new Function<Book, Document>() {
+                public Document apply(Book book) {
+                    Document doc = new Document();
+                    doc.add(new IntField("id", book.getId(), Field.Store.YES));
+                    doc.add(new TextField("name", book.getName(), Field.Store.YES));
+                    doc.add(new TextField("author", book.getAuthor(), Field.Store.YES));
+                    doc.add(new TextField("isbn", book.getIsbn(), Field.Store.YES));
+                    doc.add(new TextField("publisher", book.getPublisher(), Field.Store.YES));
+                    return doc;
+                }
+            });
+            bookIndexConfig.setTargetTranslator(new Function<Document, Book>() {
+                public Book apply(Document doc) {
+                    return ((Map<Integer, Book>) CacheUtil.getInstance().get("books")).get(Integer.parseInt(doc.get("id")));
+                }
+            });
+            indexUtil.createIndex(bookIndexConfig, books);
+            LOG.info("initialize index successfully.");
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
+        }
+    }
+
+    private void addOrUpdateBookCache(int bookId) {
+        CacheUtil cacheUtil = CacheUtil.getInstance();
+        Map<Integer, Book> bookMap = (Map<Integer, Book>) cacheUtil.get("books");
+        Book book = bookMapper.getBookById(bookId);
+        bookMap.put(bookId, book);
+        updateIndexForBook(bookId, Lists.newArrayList(bookMap.values()));
+    }
+
+    private void removeBookFromCache(Book book) {
+        CacheUtil cacheUtil = CacheUtil.getInstance();
+        Map<Integer, Book> bookMap = (Map<Integer, Book>) cacheUtil.get("books");
+        bookMap.remove(book.getId());
+        updateIndexForBook(book.getId(), Lists.newArrayList(bookMap.values()));
+    }
+
+    private void updateIndexForBook(int bookId, List<Book> books) {
+        IndexUtil indexUtil = IndexUtil.getInstance();
+        try {
+            indexUtil.updateIndex(bookIndexConfig, String.valueOf(bookId), books);
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
+        }
+    }
 }

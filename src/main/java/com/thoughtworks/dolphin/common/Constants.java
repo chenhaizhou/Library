@@ -16,4 +16,10 @@ public class Constants {
 
     public static final String COOKIE_SESSION_ID_KEY = "sessionId";
 
+    public static final String INDEX_DIRECTORY = "index";
+
+    public static final int MAX_SEARCH_COUNT = 1000;
+
+    public static final String[] SEARCH_BOOK_FIELDS = new String[] {"name", "author", "isbn", "publisher"};
+
 }

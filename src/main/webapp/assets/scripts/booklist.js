@@ -19,6 +19,7 @@ function onChange(newPageValue) {
 
 function loadBooksByPage(fliter) {
     var template = $.templates("#bookTmpl");
+    var pageNum = fliter.pageNumber;
     $.ajax({
         type: "GET",
         url: basePath + "/listBooks.do",
@@ -26,7 +27,13 @@ function loadBooksByPage(fliter) {
         data:"keyword=" + fliter.keyword +"&pageNumber="+ fliter.pageNumber,
         dataType: 'json',
         success: function (result) {
-            var htmlOutput = template.render(result);
+            var totalCount = result.totalCount;
+            var itemCountInEachPage = 20;
+            $('#smart-paginator').smartpaginator({ totalrecords: totalCount, recordsperpage: itemCountInEachPage, initval: pageNum, next: 'Next', prev: 'Prev', first: 'First', last: 'Last', theme: 'black', onchange: onChange,
+
+            });
+
+            var htmlOutput = template.render(result.resultData);
             $("#booklist").html(htmlOutput);
             console.log(result);
         },
@@ -37,22 +44,12 @@ function loadBooksByPage(fliter) {
 }
 
 function loadBookInfos() {
-    var fliterx = {
+    var fliter = {
+        pageNumber:1,
         keyword:$('[name=searchKey]').val()
     };
-    $.ajax({
-        type: "POST",
-        url: basePath + "/booksCount.do",
-        contentType: "application/json; charset=utf-8",
-        data:JSON.stringify(fliterx),
-        success: function (result) {
-            var totalCnt = parseInt(result);
-            loadBookList(totalCnt, 20);
-        },
-        error: function () {
-            alert("wrong");
-        }
-    });
+
+    loadBooksByPage(fliter);
 }
 
 $(document).ready(function() {

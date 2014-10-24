@@ -13,9 +13,6 @@
 
     <context:component-scan base-package="com.thoughtworks.dolphin.dao"/>
 
-    <bean id="bookService" class="com.thoughtworks.dolphin.service.impl.BookServiceImpl">
-    </bean>
-
     <bean id = "userService" class="com.thoughtworks.dolphin.service.impl.UserServiceImpl">
     </bean>
 
@@ -34,4 +31,6 @@
         </property>
     </bean>
 
+    <bean id="bookService" class="com.thoughtworks.dolphin.service.impl.BookServiceImpl" init-method="initBookCache">
+    </bean>
 </beans>
