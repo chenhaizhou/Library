@@ -47,22 +47,4 @@ public class UserEntity implements Serializable{
 
     }
 
-    public UserEntity(String username,String password){
-        this.username = username;
-        this.password = password;
-    }
-
-    public UserEntity(String username, String password, boolean isBuildInAdmin) {
-        this.username = username;
-        this.password = password;
-        this.isBuildInAdmin = isBuildInAdmin;
-    }
-
-    public UserEntity(String username, String name, String password, boolean isBuildInAdmin) {
-        this.username = username;
-        this.name = name;
-        this.password = password;
-        if (isBuildInAdmin) this.isBuildInAdmin = true;
-        else this.isBuildInAdmin = false;
-    }
 }
