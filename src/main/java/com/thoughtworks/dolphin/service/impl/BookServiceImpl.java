@@ -100,18 +100,28 @@ public class BookServiceImpl implements BookService{
         }
     }
 
-    public int getBorrowedBookListCount(String username) {
+    public int getBorrowedBookListCount(String userName, String status) {
+        int statusCode = 0;
+        if(status.equals("returned")){
+            statusCode = 1;
+        }
 
-        return bookMapper.getBorrowedBookListCount(username);
-
+        return bookMapper.getBorrowedBookListCount(userName, statusCode);
     }
 
-    public List<BorrowBook> getBorrowedBookList(String username, String pagenumber) {
+    public List<BorrowBook> getBorrowedBookList(String username, String pagenumber, String status) {
+        if(status.equals("borrowing")) {
+            return bookMapper.getBorrowingBookList(username, 0);
+        }
 
         int pageNumber = Integer.parseInt(pagenumber);
         int fromIdx = (pageNumber - 1) * Constants.ITEM_COUNT_IN_EACH_BORROW_PAGE;
         int len = Constants.ITEM_COUNT_IN_EACH_BORROW_PAGE;
-        return bookMapper.getBorrowedBookList(username, fromIdx, len);
+        int statusCode = 0;
+        if(status.equals("returned")){
+            statusCode = 1;
+        }
+        return bookMapper.getBorrowedBookList(username, fromIdx, len, statusCode);
     }
 
     private int remainNumber(Book book) {

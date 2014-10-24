@@ -1,8 +1,7 @@
 var bookstatus = {
     username : $('#username').text(),
     columnModel: {
-        borrowed : '<tr><th class="w60">#</th><th colspan="2">Book Name</th><th class="w220">Author</th><th class="w160">Borrow time</th></tr>',
-        borrowing : '<tr><th class="w60">#</th><th colspan="2">Book Name</th><th class="w220">Author</th><th class="w160">Borrow time</th><th class="w100"></th></tr>',
+        borrowing : '<tr><th class="w60">#</th><th colspan="2">Book Name</th><th class="w220">Author</th><th class="w160">Borrow time</th><th class="w160"></th></tr>',
         returned : '<tr><th class="w60">#</th><th colspan="2">Book Name</th><th class="w220">Author</th><th class="w160">Borrow time</th><th class="w160">Return time</th></tr>'
     },
     loadBorrowBookList : function(status, totalCount, itemCountInEachPage) {
@@ -11,7 +10,7 @@ var bookstatus = {
 
             });
         } else {
-            $('#smart-paginator').empty();
+            $('#smart-paginator').empty().removeAttr('class');
         }
 
         bookstatus.loadBorrowedBookList(1,status);
@@ -36,6 +35,9 @@ var bookstatus = {
                 $.each(result,function(i){
                     result[i]["index"] = (pageNumber-1)*10 + i + 1;
                     result[i]["borrowDate"] = bookstatus.getTime(result[i]["borrowDate"]);
+                    if(result[i]["returnDate"]){
+                        result[i]["returnDate"] = bookstatus.getTime(result[i]["returnDate"]);
+                    }
                 });
 
                 var htmlOutput = bookstatus.columnModel[status]
@@ -90,7 +92,7 @@ var btnEvent = {
 $(function(){
     $('.navbar-nav li').removeClass('active').siblings('#myBorrowed').addClass('active');
     $.when(userLogin.checkUserInfo()).done(function(){
-        bookstatus.loadBorrowBookListInfo('borrowed');
+        bookstatus.loadBorrowBookListInfo('borrowing');
     });
 
     $('.btn-group button').click(function() {

@@ -145,17 +145,23 @@ public class BookController {
 
     @RequestMapping(value ="/borrowedBookListCount", method = RequestMethod.GET)
     @ResponseBody
-    public int borrowedBookListCount(String username){
+    public int borrowedBookListCount(String username, String status){
+        LOGGER.info("enter borrowedBookListCount");
+        LOGGER.info("status:" + status);
 
-        return bookService.getBorrowedBookListCount(username);
-
+        if(status.equals("borrowing")){
+            return 0;
+        } else {
+            return bookService.getBorrowedBookListCount(username, status);
+        }
     }
 
     @RequestMapping(value ="/borrowedBooksList", method = RequestMethod.GET)
     @ResponseBody
-    public List<BorrowBook> borrowedBooksList(String username, String pagenumber){
+    public List<BorrowBook> borrowedBooksList(String username, String pagenumber, String status){
 
-        return bookService.getBorrowedBookList(username, pagenumber);
+        return bookService.getBorrowedBookList(username, pagenumber, status);
 
     }
+
 }

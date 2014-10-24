@@ -6,12 +6,12 @@ import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
+import com.thoughtworks.dolphin.model.BorrowBook;
 import com.thoughtworks.dolphin.model.Image;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -118,23 +118,32 @@ public class BookDAOTest extends AbstractUnitTest {
     public void shouldGetBorrowedBookListCount() throws Exception {
         final String username = "zhoujie";
 
-        int borrowedCount = bookMapper.getBorrowedBookListCount(username);
-
-        bookMapper.borrowBook(books.get(1).getId(), username);
-
-        assertEquals(borrowedCount + 1, bookMapper.getBorrowedBookListCount(username));
-
+        int borrowedCount = bookMapper.getBorrowedBookListCount(username, 1);
+        //TODO
+        assertEquals(borrowedCount, bookMapper.getBorrowedBookListCount(username, 1));
     }
 
     @Test
-    public void shouldGetBorrowedBookList() throws Exception{
+    public void shouldGetBorrowedBookListWhenReturned() throws Exception{
 
         String username = "zhoujie";
         int fromIdx = 0;
         int len = 10;
 
-        assertEquals(1,bookMapper.getBorrowedBookList(username, fromIdx, len).size());
+        // TODO
+        List<BorrowBook> bookList = bookMapper.getBorrowedBookList(username, fromIdx, len, 1);
+        assertEquals(1, bookMapper.getBorrowedBookList(username, fromIdx, len, 1).size());
+        BorrowBook resultBook = bookList.get(0) ;
+        assertTrue(resultBook.getReturnDate() != null);
+    }
 
+    @Test
+    public void shouldGetBorrowingBook() throws Exception {
+
+        String username = "zhoujie";
+
+        // TODO
+        assertEquals(1, bookMapper.getBorrowingBookList(username, 1).size());
     }
 
     private Book prepareOneBook(String author, String name, String isbn, String publisher, String introduction, Date createTime, Image image, int totalQty) {

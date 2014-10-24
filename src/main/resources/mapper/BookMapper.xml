@@ -45,6 +45,8 @@
 
     <resultMap id="borrowBookMap" type="BorrowBook" extends="getBooksResultMap">
         <result column="borrow_date" property="borrowDate"/>
+        <result column="return_date" property="returnDate"/>
+        <result column="id" property="borrowId"/>
     </resultMap>
 
     <select id="getBooks" resultMap="getBooksResultMap" parameterType="java.util.Map">
@@ -100,11 +102,16 @@
     </update>
 
     <select id="getBorrowedBookListCount" resultType="java.lang.Integer">
-        select count(*) from borrows where user_name = #{username}
+        select count(*) from borrows where user_name = #{username} and is_returned = #{status}
     </select>
 
     <select id="getBorrowedBookList" resultMap="borrowBookMap">
-        select b.book_id, b.book_name, b.author, b.isbn, b.publisher, b.cover_image_id, b.introduction, br.borrow_date from books b, borrows br where b.book_id = br.book_id and br.user_name=#{username} order by borrow_date desc limit #{fromIdx}, #{len}
+        select b.book_id, b.book_name, b.author, b.isbn, b.publisher, b.cover_image_id, b.introduction, br.borrow_date, br.return_date from books b, borrows br where b.book_id = br.book_id and br.user_name=#{username} and is_returned = #{status} order by borrow_date desc limit #{fromIdx}, #{len}
+    </select>
+
+    <select id="getBorrowingBookList" resultMap="borrowBookMap">
+        select b.book_id, b.book_name, b.author, b.isbn, b.publisher, b.cover_image_id, b.introduction, br.borrow_date, br.id from books b, borrows br where b.book_id = br.book_id and br.user_name=#{username} and is_returned = #{status} order by borrow_date desc;
+
     </select>
 
 </mapper>

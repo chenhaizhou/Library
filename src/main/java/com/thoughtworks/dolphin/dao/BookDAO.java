@@ -25,8 +25,9 @@ public interface BookDAO {
 
     int borrowBook(@Param("id")int bookId, @Param("userName")String userName);
 
-    int getBorrowedBookListCount(@Param("username")String username);
+    int getBorrowedBookListCount(@Param("username")String username, @Param("status") int status);
 
-    List<BorrowBook> getBorrowedBookList(@Param("username")String username, @Param("fromIdx")int fromIdx, @Param("len")int len);
+    List<BorrowBook> getBorrowedBookList(@Param("username") String username, @Param("fromIdx") int fromIdx, @Param("len") int len, @Param("status")int status);
 
+    List<BorrowBook> getBorrowingBookList(@Param("username") String username, @Param("status")int status);
 }
