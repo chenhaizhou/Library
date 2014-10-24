@@ -186,7 +186,7 @@ public class BookControllerTest extends AbstractUnitTest {
         String status = "borrowing";
 
         when(bookService.getBorrowedBookListCount(username, status)).thenReturn(100);
-        assertEquals(0, bookController.borrowedBookListCount(username, status));
+        assertEquals(100, bookController.borrowedBookListCount(username, status));
     }
 
     @Test

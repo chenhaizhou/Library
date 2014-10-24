@@ -149,11 +149,7 @@ public class BookController {
         LOGGER.info("enter borrowedBookListCount");
         LOGGER.info("status:" + status);
 
-        if(status.equals("borrowing")){
-            return 0;
-        } else {
-            return bookService.getBorrowedBookListCount(username, status);
-        }
+        return bookService.getBorrowedBookListCount(username, status);
     }
 
     @RequestMapping(value ="/borrowedBooksList", method = RequestMethod.GET)
