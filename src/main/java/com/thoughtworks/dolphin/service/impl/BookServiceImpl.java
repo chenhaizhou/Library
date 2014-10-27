@@ -1,9 +1,9 @@
 package com.thoughtworks.dolphin.service.impl;
 
-import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.thoughtworks.dolphin.common.BookIndexConfig;
 import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.common.IndexConfig;
 import com.thoughtworks.dolphin.common.SearchResult;
@@ -17,10 +17,6 @@ import com.thoughtworks.dolphin.service.UploadService;
 import com.thoughtworks.dolphin.util.CacheUtil;
 import com.thoughtworks.dolphin.util.IndexUtil;
 import org.apache.log4j.Logger;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.IntField;
-import org.apache.lucene.document.TextField;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -206,30 +202,15 @@ public class BookServiceImpl implements BookService{
 
     private void buildIndex(List<Book> books) {
         try {
-            bookIndexConfig = IndexConfig.newConfig(Book.class);
-            bookIndexConfig.setKeyField("id");
-            bookIndexConfig.setDocTranslator(new Function<Book, Document>() {
-                public Document apply(Book book) {
-                    Document doc = new Document();
-                    doc.add(new IntField("id", book.getId(), Field.Store.YES));
-                    doc.add(new TextField("name", book.getName(), Field.Store.YES));
-                    doc.add(new TextField("author", book.getAuthor(), Field.Store.YES));
-                    doc.add(new TextField("isbn", book.getIsbn(), Field.Store.YES));
-                    doc.add(new TextField("publisher", book.getPublisher(), Field.Store.YES));
-                    return doc;
-                }
-            });
-            bookIndexConfig.setTargetTranslator(new Function<Document, Book>() {
-                public Book apply(Document doc) {
-                    return ((Map<Integer, Book>) CacheUtil.getInstance().get("books")).get(Integer.parseInt(doc.get("id")));
-                }
-            });
+            bookIndexConfig = BookIndexConfig.getBookIndexConfig();
             indexUtil.createIndex(bookIndexConfig, books);
             LOG.info("initialize index successfully.");
         } catch (IOException e) {
             LOG.error(e.getMessage());
         }
     }
+
+
 
     private void addOrUpdateBookCache(int bookId) {
         CacheUtil cacheUtil = CacheUtil.getInstance();
