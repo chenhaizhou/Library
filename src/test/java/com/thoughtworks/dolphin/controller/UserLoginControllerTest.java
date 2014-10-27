@@ -131,5 +131,45 @@ public class UserLoginControllerTest {
 
     }
 
+    @Test
+    public void shouldUserSignUpSuccess(){
+
+        UserEntity userEntity = mock(UserEntity.class);
+
+        HttpServletRequest req = mock(HttpServletRequest.class);
+        HttpServletResponse rep = mock(HttpServletResponse.class);
+
+        when(userService.signUp(userEntity)).thenReturn("SignUpSuccess");
+
+        mockStatic(CookieUtil.class);
+        mockStatic(CacheUtil.class);
+
+        CacheUtil instance = mock(CacheUtil.class);
+        when(CacheUtil.getInstance()).thenReturn(instance);
+
+        String expectedResult = "SignUpSuccess";
+
+        String actualResult = userLoginController.signUpSubmit(req,rep,userEntity);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void shouldUserSignUpError(){
+
+        UserEntity userEntity = mock(UserEntity.class);
+
+        HttpServletRequest req = mock(HttpServletRequest.class);
+        HttpServletResponse rep = mock(HttpServletResponse.class);
+
+        when(userService.signUp(userEntity)).thenReturn("SignUpError");
+
+        String expectedResult = "SignUpError";
+
+        String actualResult = userLoginController.signUpSubmit(req,rep,userEntity);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 
 }

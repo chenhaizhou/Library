@@ -158,34 +158,72 @@ public class BookControllerTest extends AbstractUnitTest {
     }
 
     @Test
-    public void shouldBorrowedBookListCount(){
+    public void shouldBorrowedBookListCountWhenBorrowed(){
 
         String username = "zhoujie";
+        String status = "borrowed";
 
-        when(bookService.getBorrowedBookListCount(username)).thenReturn(1);
-        assertEquals(1,bookController.borrowedBookListCount(username));
-
+        when(bookService.getBorrowedBookListCount(username, status)).thenReturn(1);
+        assertEquals(1, bookController.borrowedBookListCount(username, status));
     }
 
     @Test
-    public void shouldBorrowedBooksList(){
+    public void shouldBorrowedBookListCountWhenReturned(){
+
+        String username = "zhoujie";
+        String status = "returned";
+
+        when(bookService.getBorrowedBookListCount(username, status)).thenReturn(1);
+        assertEquals(1, bookController.borrowedBookListCount(username, status));
+    }
+
+    @Test
+    public void shouldBorrowedBookListCountWhenBorrowing(){
+
+        String username = "zhoujie";
+        String status = "borrowing";
+
+        when(bookService.getBorrowedBookListCount(username, status)).thenReturn(100);
+        assertEquals(100, bookController.borrowedBookListCount(username, status));
+    }
+
+    @Test
+    public void shouldBorrowedBooksListWhenBorrowing(){
 
         String username = "zhoujie";
         String pagenumber = "1";
+        String status = "borrowing";
 
         List<BorrowBook> expectedResult = Lists.newArrayList();
-        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date());
+        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(), 1, new Date());
         expectedResult.add(borrowBook);
 
-        when(bookService.getBorrowedBookList(username, pagenumber)).thenReturn(expectedResult);
+        when(bookService.getBorrowedBookList(username, pagenumber, status)).thenReturn(expectedResult);
 
-        List<BorrowBook> actualResult = bookController.borrowedBooksList(username, pagenumber);
+        List<BorrowBook> actualResult = bookController.borrowedBooksList(username, pagenumber, status);
         assertEquals(expectedResult.size(), actualResult.size());
         assertEquals(expectedResult, actualResult);
-
     }
 
-    private BorrowBook prepareOneBorrowedBook(int bookId, String author, String name, String isbn, String publisher, String introduction, Date borrowDate) {
+    @Test
+    public void shouldBorrowedBooksListWhenReturned(){
+
+        String username = "zhoujie";
+        String pagenumber = "1";
+        String status = "returned";
+
+        List<BorrowBook> expectedResult = Lists.newArrayList();
+        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(), 1, new Date());
+        expectedResult.add(borrowBook);
+
+        when(bookService.getBorrowedBookList(username, pagenumber, status)).thenReturn(expectedResult);
+
+        List<BorrowBook> actualResult = bookController.borrowedBooksList(username, pagenumber, status);
+        assertEquals(expectedResult.size(), actualResult.size());
+        assertEquals(expectedResult, actualResult);
+    }
+
+    private BorrowBook prepareOneBorrowedBook(int bookId, String author, String name, String isbn, String publisher, String introduction, Date borrowDate, int borrowId, Date returnDate) {
         BorrowBook book = new BorrowBook();
         book.setId(bookId);
         book.setAuthor(author);
@@ -195,6 +233,9 @@ public class BookControllerTest extends AbstractUnitTest {
         book.setIntroduction(introduction);
         book.setCreatedTime(new Date());
         book.setBorrowDate(borrowDate);
+        book.setReturnDate(returnDate);
+        book.setBorrowId(borrowId);
+
         return book;
     }
 

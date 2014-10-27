@@ -1,5 +1,5 @@
 function loadBookList(totalCount, itemCountInEachPage) {
-    $('#smart-paginator').smartpaginator({ totalrecords: totalCount, recordsperpage: itemCountInEachPage, initval: 0, next: 'Next', prev: 'Prev', first: 'First', last: 'Last', theme: 'black', onchange: onChange,
+    $('#smart-paginator').smartpaginator({ totalrecords: totalCount, recordsperpage: itemCountInEachPage, initval: 0, theme: '', onchange: onChange
 
     });
     var fliter = {

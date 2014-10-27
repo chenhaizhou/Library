@@ -23,8 +23,8 @@ public interface BookService {
 
     String borrowBook(int bookId, String userName);
 
-    int getBorrowedBookListCount(String username);
+    int getBorrowedBookListCount(String userName, String status);
 
-    List<BorrowBook> getBorrowedBookList(String username, String pagenumber);
+    List<BorrowBook> getBorrowedBookList(String username, String pagenumber, String status);
 
 }

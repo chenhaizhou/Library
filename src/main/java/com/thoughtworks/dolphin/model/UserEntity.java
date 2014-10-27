@@ -22,6 +22,16 @@ public class UserEntity implements Serializable{
 
     String username;
     String password;
+    String name;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+
+        return name;
+    }
 
     public boolean isBuildInAdmin() {
         return isBuildInAdmin;
@@ -37,14 +47,4 @@ public class UserEntity implements Serializable{
 
     }
 
-    public UserEntity(String username,String password){
-        this.username = username;
-        this.password = password;
-    }
-
-    public UserEntity(String username, String password, boolean isBuildInAdmin) {
-        this.username = username;
-        this.password = password;
-        this.isBuildInAdmin = isBuildInAdmin;
-    }
 }

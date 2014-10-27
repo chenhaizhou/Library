@@ -12,4 +12,7 @@
         select * from users where user_name = #{username}
     </select>
 
+    <insert id="insertUserByUsername" parameterType="map">
+        insert into users (user_name, name, password, is_built_admin) values(#{username}, #{name}, #{password}, 0)
+    </insert>
 </mapper>

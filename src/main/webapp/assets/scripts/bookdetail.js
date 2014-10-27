@@ -147,7 +147,7 @@ $(function(){
             type: "GET",
             url: basePath + "/borrowedBookListCount.do",
             contentType: "application/json; charset=utf-8",
-            data : "username=" + userName,
+            data : "username=" + userName + "&status=borrowing",
             success: function (result) {
                 if(result >= 5){
                     alert('You can borrow 5 books at most.');

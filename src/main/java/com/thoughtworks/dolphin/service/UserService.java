@@ -6,6 +6,7 @@ public interface UserService {
 
     public String login(UserEntity userEntity);
 
+    String signUp(UserEntity signUpData);
 }
 
 

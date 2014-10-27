@@ -13,7 +13,15 @@
 
 .login-user {
     display: none;
-    color: #ffffff;
+    font-weight:normal;
+    color: #666;
+}
+
+.login-user em {
+    font-style:normal;
+    font-weight: bold;
+    margin:0 10px;
+    color:#fff;
 }
 
 .logout-btn {
@@ -30,5 +38,5 @@
 }
 
 .signUp-btn {
-    display: none; padding-left: 10px;
+    display: none; padding-left: 20px;
 }

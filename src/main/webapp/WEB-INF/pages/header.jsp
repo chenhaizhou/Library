@@ -80,13 +80,13 @@
                     <div class="form-group">
                         <label for="sign-inputUsername" class="col-sm-3 control-label">Username</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="sign-inputUsername" name="sign-username" placeholder="Enter username" tabindex="1" required>
+                            <input type="text" class="form-control" id="sign-inputUsername" name="sign-username" placeholder="Enter username for login." tabindex="1" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="sign-inputName" class="col-sm-3 control-label">Name</label>
+                        <label for="sign-inputName" class="col-sm-3 control-label">Nickname</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="sign-inputName" name="sign-name" placeholder="Enter name" tabindex="2" required>
+                            <input type="text" class="form-control" id="sign-inputName" name="sign-name" placeholder="Enter nickname for display." tabindex="2" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -106,9 +106,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-8">
+                        <div class="col-sm-offset-3 col-sm-4">
                             <button type="submit" class="signUp-submit btn btn-success" tabindex="5" >Submit</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="6" >Cancel</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <div id="sign-successTips" class="alert alert-success hide" role="alert"></div>
                         </div>
                     </div>
                 </form>

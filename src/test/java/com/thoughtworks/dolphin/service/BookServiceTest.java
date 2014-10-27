@@ -25,10 +25,10 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +87,8 @@ public class BookServiceTest extends AbstractUnitTest {
 
         when(bookMapper.getAllBooks()).thenReturn(Lists.newArrayList(books.values()));
         when(bookMapper.addBook(books.get(1))).thenReturn(books.get(1).getId());
-        when(bookMapper.getBorrowedBookListCount("zhoujie")).thenReturn(1);
+
+        when(bookMapper.getBorrowedBookListCount("zhoujie", 0)).thenReturn(1);
 
         IndexConfig<Book> indexConfig = prepareBookConfig();
         bookIndexConfig = mock(IndexConfig.class);
@@ -110,7 +111,6 @@ public class BookServiceTest extends AbstractUnitTest {
         when(uploadService.deleteImage(anyString(), anyString())).thenReturn(true);
         bookService.setIndexUtil(indexUtil);
     }
-
     private IndexConfig<Book> prepareBookConfig() {
         try {
             IndexConfig<Book> bookIndexConfig = IndexConfig.newConfig(Book.class);
@@ -135,6 +135,7 @@ public class BookServiceTest extends AbstractUnitTest {
         } catch (IOException e) {
             return null;
         }
+
     }
 
     @Test
@@ -202,28 +203,81 @@ public class BookServiceTest extends AbstractUnitTest {
     }
 
     @Test
-    public void shouldGetBorrowedBookListCount(){
-        when(bookMapper.getBorrowedBookListCount("jack")).thenReturn(1);
-        assertEquals(1, bookService.getBorrowedBookListCount("jack"));
+    public void shouldGetBorrowedBookListCountWhenBorrowed(){
+        String userName = "jack";
+        String status = "borrowed";
+
+        when(bookMapper.getBorrowedBookListCount(userName, 0)).thenReturn(1);
+        assertEquals(1, bookService.getBorrowedBookListCount(userName, status));
     }
 
     @Test
-    public void shouldGetBorrowedBookList(){
+    public void shouldGetBorrowedBookListCountWhenReturned(){
+        String userName = "jack";
+        String status = "returned";
+
+        when(bookMapper.getBorrowedBookListCount(userName, 1)).thenReturn(2);
+        assertEquals(2, bookService.getBorrowedBookListCount(userName, status));
+    }
+
+    @Test
+    public void shouldGetBorrowedBookListWhenBorrowing(){
 
         String username = "zhoujie";
         String pagenumber = "1";
 
+        String status = "borrowing";
+
+        List<BorrowBook> borrowingList = Lists.newArrayList();
+        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(), 1, new Date());
+        borrowingList.add(borrowBook);
+        when(bookMapper.getBorrowingBookList(username, 0)).thenReturn(borrowingList);
+
+        List<BorrowBook> actualBorrowingList = bookService.getBorrowedBookList(username, pagenumber, status);
+
+
+        List<BorrowBook> expectedBorrowingList = new ArrayList<BorrowBook>();
+        BorrowBook expectedBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(), 1, new Date());
+        expectedBorrowingList.add(expectedBook);
+
+        assertEquals(expectedBorrowingList.size(), actualBorrowingList.size());
+        BorrowBook actualBook = actualBorrowingList.get(0);
+
+        assertEquals(expectedBook.getBorrowId(), actualBook.getBorrowId());
+        assertEquals(expectedBook.getAuthor(), actualBook.getAuthor());
+
+    }
+
+    @Test
+    public void shouldGetBorrowedBookListWhenReturned(){
+
+        String username = "zhoujie";
+        String pagenumber = "1";
+
+        String status = "returned";
         int fromIdx = 0;
         int len = 10;
 
-        List<BorrowBook> expectedResult = Lists.newArrayList();
-        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date());
-        expectedResult.add(borrowBook);
+        List<BorrowBook> borrowingList = Lists.newArrayList();
+        final long timestamp = System.currentTimeMillis();
+        final long returnTimestamp = timestamp + 10;
+        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(timestamp), 1, new Date(returnTimestamp));
+        borrowingList.add(borrowBook);
+        when(bookMapper.getBorrowedBookList(username, fromIdx, len, 1)).thenReturn(borrowingList);
 
-        when(bookMapper.getBorrowedBookList(username, fromIdx, len)).thenReturn(expectedResult);
+        List<BorrowBook> actualBorrowingList = bookService.getBorrowedBookList(username, pagenumber, status);
 
-        assertEquals(expectedResult, bookService.getBorrowedBookList(username, pagenumber));
 
+        List<BorrowBook> expectedBorrowingList = new ArrayList<BorrowBook>();
+        BorrowBook expectedBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(timestamp), 1, new Date(returnTimestamp));
+        expectedBorrowingList.add(expectedBook);
+
+
+        assertEquals(expectedBorrowingList.size(), actualBorrowingList.size());
+        BorrowBook actualBook = actualBorrowingList.get(0);
+
+        assertEquals(expectedBook.getReturnDate(), actualBook.getReturnDate());
+        assertEquals(expectedBook.getAuthor(), actualBook.getAuthor());
     }
 
     private Map<Integer,Book> prepareBooks(){
@@ -250,7 +304,7 @@ public class BookServiceTest extends AbstractUnitTest {
         return book;
     }
 
-    private BorrowBook prepareOneBorrowedBook(int bookId, String author, String name, String isbn, String publisher, String introduction, Date borrowDate) {
+    private BorrowBook prepareOneBorrowedBook(int bookId, String author, String name, String isbn, String publisher, String introduction, Date borrowDate, int borrowId, Date returnDate) {
         BorrowBook book = new BorrowBook();
         book.setId(bookId);
         book.setAuthor(author);
@@ -260,6 +314,9 @@ public class BookServiceTest extends AbstractUnitTest {
         book.setIntroduction(introduction);
         book.setCreatedTime(new Date());
         book.setBorrowDate(borrowDate);
+        book.setReturnDate(returnDate);
+        book.setBorrowId(borrowId);
+
         return book;
     }
 }

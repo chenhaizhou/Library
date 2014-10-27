@@ -14,20 +14,11 @@
     <script>
         var basePath = '${basePath}';
     </script>
-<script id="borrowedBookListTmpl" type="text/x-jsrender">
+    <script id="borrowingBookListTmpl" type="text/x-jsrender">
     <tr>
         <td>{{:index}}</td>
         <td class="w150"><a href="${basePath}/bookDetail.do?bookId={{:id}}" class="img"><img src="${basePath}/{{:coverImageUrl}}"/></a></td>
         <td class="text-left"><a href="${basePath}/bookDetail.do?bookId={{:id}}">{{:name}}</a></td>
-        <td>{{:author}}</td>
-        <td class="color-gray">{{:borrowDate}}</td>
-    </tr>
-</script>
-    <script id="borrowingBookListTmpl" type="text/x-jsrender">
-    <tr>
-        <td>{{:index}}</td>
-        <td class="w150"><a href="${basePath}/bookDetail.do?bookId={{:bookId}}" class="img"><img src="${basePath}/{{:coverImageUrl}}"/></a></td>
-        <td class="text-left"><a href="${basePath}/bookDetail.do?bookId={{:bookId}}">{{:bookName}}</a></td>
         <td>{{:author}}</td>
         <td class="color-gray">{{:borrowDate}}</td>
         <td class="color-gray"><button class="btn btn-primary">Return</button><input type="hidden" value="{{:id}}"></td>
@@ -36,8 +27,8 @@
 <script id="returnedBookListTmpl" type="text/x-jsrender">
     <tr>
         <td>{{:index}}</td>
-        <td class="w150"><a href="${basePath}/bookDetail.do?bookId={{:bookId}}" class="img"><img src="${basePath}/{{:coverImageUrl}}"/></a></td>
-        <td class="text-left"><a href="${basePath}/bookDetail.do?bookId={{:bookId}}">{{:bookName}}</a></td>
+        <td class="w150"><a href="${basePath}/bookDetail.do?bookId={{:id}}" class="img"><img src="${basePath}/{{:coverImageUrl}}"/></a></td>
+        <td class="text-left"><a href="${basePath}/bookDetail.do?bookId={{:id}}">{{:name}}</a></td>
         <td>{{:author}}</td>
         <td class="color-gray">{{:borrowDate}}</td>
         <td class="color-gray">{{:returnDate}}</td>
@@ -52,13 +43,12 @@
 <section class="container container_main">
     <div class="main" style="width: 980px; margin: 0 auto;">
         <div class="btn-group">
-            <button class="btn btn-default active" id="borrowedBtn">Borrowed History</button>
-            <button class="btn btn-default" id="borrowingBtn">Current Borrowed</button>
+            <button class="btn btn-primary" id="borrowingBtn">Current Borrowed</button>
             <button class="btn btn-default" id="returnedBtn">Returned History</button>
         </div>
-        <div id="smart-paginator" ></div>
         <table id="borrowed-book-list" class="table table-list">
         </table>
+        <div id="smart-paginator" ></div>
     </div>
 </section>
 <%@ include file="/WEB-INF/pages/add_book.jsp" %>

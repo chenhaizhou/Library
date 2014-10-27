@@ -39,10 +39,9 @@
 </div>
 <section class="container container_main">
     <div class="main" style="width: 980px; margin: 0 auto;">
-        <div id="smart-paginator" > </div>
         <ul id="booklist" class="clear" style="list-style: none;">
-
         </ul>
+        <div id="smart-paginator" > </div>
     </div>
 </section>
 <%@ include file="/WEB-INF/pages/add_book.jsp" %>

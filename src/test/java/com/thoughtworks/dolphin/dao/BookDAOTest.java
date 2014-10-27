@@ -3,6 +3,7 @@ package com.thoughtworks.dolphin.dao;
 import com.google.common.collect.Lists;
 import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.model.Book;
+import com.thoughtworks.dolphin.model.BorrowBook;
 import com.thoughtworks.dolphin.model.Image;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 import static junit.framework.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class BookDAOTest extends AbstractUnitTest {
 
@@ -100,23 +103,32 @@ public class BookDAOTest extends AbstractUnitTest {
     public void shouldGetBorrowedBookListCount() throws Exception {
         final String username = "zhoujie";
 
-        int borrowedCount = bookMapper.getBorrowedBookListCount(username);
-
-        bookMapper.borrowBook(books.get(1).getId(), username);
-
-        assertEquals(borrowedCount + 1, bookMapper.getBorrowedBookListCount(username));
-
+        int borrowedCount = bookMapper.getBorrowedBookListCount(username, 1);
+        //TODO
+        assertEquals(borrowedCount, bookMapper.getBorrowedBookListCount(username, 1));
     }
 
     @Test
-    public void shouldGetBorrowedBookList() throws Exception{
+    public void shouldGetBorrowedBookListWhenReturned() throws Exception{
 
         String username = "zhoujie";
         int fromIdx = 0;
         int len = 10;
 
-        assertEquals(1,bookMapper.getBorrowedBookList(username, fromIdx, len).size());
+        List<BorrowBook> bookList = bookMapper.getBorrowedBookList(username, fromIdx, len, 1);
+        assertEquals(0, bookList.size());
+//        BorrowBook resultBook = bookList.get(0) ;
+//        assertTrue(resultBook.getReturnDate() != null);
+    }
 
+    @Test
+    public void shouldGetBorrowingBook() throws Exception {
+
+        String username = "zhoujie";
+
+        bookMapper.borrowBook(books.get(2).getId(), username);
+
+        assertEquals(2, bookMapper.getBorrowingBookList(username, 0).size());
     }
 
     private Book prepareOneBook(String author, String name, String isbn, String publisher, String introduction, Date createTime, Image image, int totalQty) {
@@ -153,5 +165,21 @@ public class BookDAOTest extends AbstractUnitTest {
         imageList.add(image2);
         imageList.add(image3);
         return imageList;
+    }
+
+    private BorrowBook prepareOneBorrowedBook(int bookId, String author, String name, String isbn, String publisher, String introduction, Date borrowDate, int borrowId, Date returnDate) {
+        BorrowBook book = new BorrowBook();
+        book.setId(bookId);
+        book.setAuthor(author);
+        book.setName(name);
+        book.setIsbn(isbn);
+        book.setPublisher(publisher);
+        book.setIntroduction(introduction);
+        book.setCreatedTime(new Date());
+        book.setBorrowDate(borrowDate);
+        book.setReturnDate(returnDate);
+        book.setBorrowId(borrowId);
+
+        return book;
     }
 }
