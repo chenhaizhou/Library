@@ -74,8 +74,6 @@ public class BookControllerTest extends AbstractUnitTest {
     @Test
     public void shouldListBooks() throws Exception{
 
-        BookQuery query = mock(BookQuery.class);
-
         List<Book> expectBookList = new ArrayList<Book>();
         Book book = new Book();
         book.setIsbn("3241234234");
@@ -87,7 +85,7 @@ public class BookControllerTest extends AbstractUnitTest {
         SearchResult<Book> actualBookList = bookController.listBooks(1, "Name");
 
         assertTrue(actualBookList.getResultData().size() == expectBookList.size());
-        assertTrue(actualBookList.equals(expectBookList));
+        assertTrue(actualBookList.getResultData().equals(expectBookList));
     }
 
     @Test

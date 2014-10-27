@@ -1,19 +1,26 @@
 package com.thoughtworks.dolphin.service;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.thoughtworks.dolphin.AbstractUnitTest;
 import com.thoughtworks.dolphin.common.Constants;
+import com.thoughtworks.dolphin.common.IndexConfig;
 import com.thoughtworks.dolphin.common.SearchResult;
 import com.thoughtworks.dolphin.dao.BookDAO;
 import com.thoughtworks.dolphin.dao.ImageDAO;
 import com.thoughtworks.dolphin.dto.BookQuery;
 import com.thoughtworks.dolphin.model.Book;
 import com.thoughtworks.dolphin.model.BorrowBook;
+import com.thoughtworks.dolphin.service.impl.BookServiceImpl;
 import com.thoughtworks.dolphin.util.CacheUtil;
+import com.thoughtworks.dolphin.util.IndexUtil;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.IntField;
+import org.apache.lucene.document.TextField;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -21,6 +28,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +40,8 @@ import static org.mockito.Mockito.*;
 public class BookServiceTest extends AbstractUnitTest {
 
     @InjectMocks
-    private BookService bookService;
+//    @Autowired
+    private BookServiceImpl bookService;
 
     @Mock
     private BookDAO bookMapper;
@@ -40,11 +49,19 @@ public class BookServiceTest extends AbstractUnitTest {
     @Mock
     private ImageDAO imageDAO;
 
+    @Mock
+    IndexConfig<Book> bookIndexConfig;
+
+    @Mock
     private CacheUtil cacheUtil;
 
-    private Map<Integer, Book> books;
+    @Mock
+    private IndexUtil indexUtil;
 
-    private BookQuery query;
+    @Mock
+    private UploadService uploadService;
+
+    private Map<Integer, Book> books;
 
     @BeforeClass
     public static void before() throws Exception {
@@ -57,6 +74,8 @@ public class BookServiceTest extends AbstractUnitTest {
     @Before
     public void setUp() throws Exception {
 
+        bookService = new BookServiceImpl();
+
         MockitoAnnotations.initMocks(this);
 
         books= prepareBooks();
@@ -66,18 +85,61 @@ public class BookServiceTest extends AbstractUnitTest {
             when(bookMapper.getBookByISBN(book.getIsbn())).thenReturn(book);
         }
 
-        query = prepareQuery();
         when(bookMapper.getAllBooks()).thenReturn(Lists.newArrayList(books.values()));
         when(bookMapper.addBook(books.get(1))).thenReturn(books.get(1).getId());
         when(bookMapper.getBorrowedBookListCount("zhoujie")).thenReturn(1);
 
-        cacheUtil = mock(CacheUtil.class);
-        when(cacheUtil.get("books")).thenReturn(books);
+        IndexConfig<Book> indexConfig = prepareBookConfig();
+        bookIndexConfig = mock(IndexConfig.class);
+        when(bookIndexConfig.getDirectory()).thenReturn(indexConfig.getDirectory());
+        when(bookIndexConfig.getDocumentTranslateFunction()).thenReturn(indexConfig.getDocumentTranslateFunction());
+        when(bookIndexConfig.getKeyField()).thenReturn(indexConfig.getKeyField());
+        when(bookIndexConfig.getTargetTranslateFunction()).thenReturn(indexConfig.getTargetTranslateFunction());
+
+        bookService.setBookIndexConfig(bookIndexConfig);
+
+        IndexUtil.getInstance().createIndex(indexConfig, Lists.newArrayList(books.values()));
+
+        cacheUtil = CacheUtil.getInstance();
+        cacheUtil.put("books", books);
+
+        List<Book> bookList = Lists.newArrayList(books.values());
+        indexUtil = mock(IndexUtil.class);
+        doNothing().when(indexUtil).createIndex(bookIndexConfig, bookList);
+        doNothing().when(indexUtil).updateIndex(bookIndexConfig, "1", bookList);
+        when(uploadService.deleteImage(anyString(), anyString())).thenReturn(true);
+        bookService.setIndexUtil(indexUtil);
+    }
+
+    private IndexConfig<Book> prepareBookConfig() {
+        try {
+            IndexConfig<Book> bookIndexConfig = IndexConfig.newConfig(Book.class);
+            bookIndexConfig.setKeyField("id");
+            bookIndexConfig.setDocTranslator(new Function<Book, Document>() {
+                public Document apply(Book book) {
+                    Document doc = new Document();
+                    doc.add(new IntField("id", book.getId(), Field.Store.YES));
+                    doc.add(new TextField("name", book.getName(), Field.Store.YES));
+                    doc.add(new TextField("author", book.getAuthor(), Field.Store.YES));
+                    doc.add(new TextField("isbn", book.getIsbn(), Field.Store.YES));
+                    doc.add(new TextField("publisher", book.getPublisher(), Field.Store.YES));
+                    return doc;
+                }
+            });
+            bookIndexConfig.setTargetTranslator(new Function<Document, Book>() {
+                public Book apply(Document doc) {
+                    return ((Map<Integer, Book>) CacheUtil.getInstance().get("books")).get(Integer.parseInt(doc.get("id")));
+                }
+            });
+            return bookIndexConfig;
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     @Test
     public void shouldGetBookById() throws Exception {
-        final  int bookId =1;
+        final int bookId = 1;
 
         assertEquals(books.get(bookId).getIsbn(), bookService.getBook(bookId).getIsbn());
     }
@@ -107,6 +169,7 @@ public class BookServiceTest extends AbstractUnitTest {
     public void shouldUpdateBook() throws Exception {
         Book book = mock(Book.class);
         when(bookMapper.updateBook(book)).thenReturn(1);
+        when(bookMapper.getBookById(anyInt())).thenReturn(book);
         assertEquals(1, bookService.updateBook(book));
     }
 
@@ -169,9 +232,9 @@ public class BookServiceTest extends AbstractUnitTest {
         Book book2 = prepareOneBook(2, "Catherine 2", "Thinking in Ruby", "002-002", "publisher 2", "xxx xxx");
         Book book3 = prepareOneBook(3, "Catherine 3", "Thinking in Net", "003-003", "publisher 3", "xxx xxx");
 
-        books.put(1,book1);
-        books.put(2,book2);
-        books.put(3,book3);
+        books.put(1, book1);
+        books.put(2, book2);
+        books.put(3, book3);
         return books;
     }
 
@@ -198,12 +261,5 @@ public class BookServiceTest extends AbstractUnitTest {
         book.setCreatedTime(new Date());
         book.setBorrowDate(borrowDate);
         return book;
-    }
-
-    private BookQuery prepareQuery() {
-        BookQuery query = new BookQuery();
-        query.setKeyword("Catherine");
-        query.setPageNumber(1);
-        return query;
     }
 }

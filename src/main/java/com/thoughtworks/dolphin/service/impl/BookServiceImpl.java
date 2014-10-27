@@ -38,12 +38,23 @@ public class BookServiceImpl implements BookService{
     @Autowired
     private ImageDAO imageDAO;
 
+    private IndexUtil indexUtil = IndexUtil.getInstance();
+
     private static Logger LOG = Logger.getLogger(BookServiceImpl.class);
 
     @Autowired
     private UploadService uploadService;
 
     private IndexConfig<Book> bookIndexConfig;
+
+
+    public void setBookIndexConfig(IndexConfig<Book> bookIndexConfig) {
+        this.bookIndexConfig = bookIndexConfig;
+    }
+
+    public void setIndexUtil(IndexUtil indexUtil) {
+        this.indexUtil = indexUtil;
+    }
 
     public int insertBook(Book book) {
         book.setCreatedTime(new Date(System.currentTimeMillis()));
@@ -62,7 +73,7 @@ public class BookServiceImpl implements BookService{
             if (Strings.isNullOrEmpty(condition.getKeyword())) {
                 return new SearchResult<Book>(subList(allBooks, fromIdx, toIdx), getBooksFromCache().values().size());
             }
-            return IndexUtil.getInstance().search(Constants.SEARCH_BOOK_FIELDS, condition.getKeyword(), bookIndexConfig, fromIdx, toIdx);
+            return indexUtil.search(Constants.SEARCH_BOOK_FIELDS, condition.getKeyword(), bookIndexConfig, fromIdx, toIdx);
         } catch (IOException e) {
             LOG.error(e.getMessage());
             return new SearchResult<Book>(null, 0);
@@ -185,7 +196,6 @@ public class BookServiceImpl implements BookService{
 
     private void buildIndex(List<Book> books) {
         try {
-            IndexUtil indexUtil = IndexUtil.getInstance();
             bookIndexConfig = IndexConfig.newConfig(Book.class);
             bookIndexConfig.setKeyField("id");
             bookIndexConfig.setDocTranslator(new Function<Book, Document>() {
@@ -227,7 +237,6 @@ public class BookServiceImpl implements BookService{
     }
 
     private void updateIndexForBook(int bookId, List<Book> books) {
-        IndexUtil indexUtil = IndexUtil.getInstance();
         try {
             indexUtil.updateIndex(bookIndexConfig, String.valueOf(bookId), books);
         } catch (IOException e) {
