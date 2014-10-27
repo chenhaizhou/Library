@@ -229,7 +229,7 @@ public class BookServiceTest extends AbstractUnitTest {
         String status = "borrowing";
 
         List<BorrowBook> borrowingList = Lists.newArrayList();
-        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(), 1, new Date());
+        BorrowBook borrowBook = TestObject.prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(), 1, new Date());
         borrowingList.add(borrowBook);
         when(bookMapper.getBorrowingBookList(username, 0)).thenReturn(borrowingList);
 
@@ -237,7 +237,7 @@ public class BookServiceTest extends AbstractUnitTest {
 
 
         List<BorrowBook> expectedBorrowingList = new ArrayList<BorrowBook>();
-        BorrowBook expectedBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(), 1, new Date());
+        BorrowBook expectedBook = TestObject.prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(), 1, new Date());
         expectedBorrowingList.add(expectedBook);
 
         assertEquals(expectedBorrowingList.size(), actualBorrowingList.size());
@@ -261,7 +261,7 @@ public class BookServiceTest extends AbstractUnitTest {
         List<BorrowBook> borrowingList = Lists.newArrayList();
         final long timestamp = System.currentTimeMillis();
         final long returnTimestamp = timestamp + 10;
-        BorrowBook borrowBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(timestamp), 1, new Date(returnTimestamp));
+        BorrowBook borrowBook = TestObject.prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(timestamp), 1, new Date(returnTimestamp));
         borrowingList.add(borrowBook);
         when(bookMapper.getBorrowedBookList(username, fromIdx, len, 1)).thenReturn(borrowingList);
 
@@ -269,7 +269,7 @@ public class BookServiceTest extends AbstractUnitTest {
 
 
         List<BorrowBook> expectedBorrowingList = new ArrayList<BorrowBook>();
-        BorrowBook expectedBook = prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(timestamp), 1, new Date(returnTimestamp));
+        BorrowBook expectedBook = TestObject.prepareOneBorrowedBook(1, "ABC", "Thinking in Java", "11-234324", "one", "abc", new Date(timestamp), 1, new Date(returnTimestamp));
         expectedBorrowingList.add(expectedBook);
 
 
@@ -282,41 +282,13 @@ public class BookServiceTest extends AbstractUnitTest {
 
     private Map<Integer,Book> prepareBooks(){
         Map<Integer,Book> books = Maps.newHashMap();
-        Book book1 = prepareOneBook(1, "Catherine 1", "Thinking in Java", "001-001", "publisher 1", "xxx xxx");
-        Book book2 = prepareOneBook(2, "Catherine 2", "Thinking in Ruby", "002-002", "publisher 2", "xxx xxx");
-        Book book3 = prepareOneBook(3, "Catherine 3", "Thinking in Net", "003-003", "publisher 3", "xxx xxx");
+        Book book1 = TestObject.prepareOneBook(1, "Catherine 1", "Thinking in Java", "001-001", "publisher 1", "xxx xxx");
+        Book book2 = TestObject.prepareOneBook(2, "Catherine 2", "Thinking in Ruby", "002-002", "publisher 2", "xxx xxx");
+        Book book3 = TestObject.prepareOneBook(3, "Catherine 3", "Thinking in Net", "003-003", "publisher 3", "xxx xxx");
 
         books.put(1, book1);
         books.put(2, book2);
         books.put(3, book3);
         return books;
-    }
-
-    private Book prepareOneBook(int bookId, String author, String name, String isbn, String publisher, String introduction) {
-        Book book = new Book();
-        book.setId(bookId);
-        book.setAuthor(author);
-        book.setName(name);
-        book.setIsbn(isbn);
-        book.setPublisher(publisher);
-        book.setIntroduction(introduction);
-        book.setCreatedTime(new Date());
-        return book;
-    }
-
-    private BorrowBook prepareOneBorrowedBook(int bookId, String author, String name, String isbn, String publisher, String introduction, Date borrowDate, int borrowId, Date returnDate) {
-        BorrowBook book = new BorrowBook();
-        book.setId(bookId);
-        book.setAuthor(author);
-        book.setName(name);
-        book.setIsbn(isbn);
-        book.setPublisher(publisher);
-        book.setIntroduction(introduction);
-        book.setCreatedTime(new Date());
-        book.setBorrowDate(borrowDate);
-        book.setReturnDate(returnDate);
-        book.setBorrowId(borrowId);
-
-        return book;
     }
 }

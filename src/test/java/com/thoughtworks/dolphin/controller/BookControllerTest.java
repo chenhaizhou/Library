@@ -67,8 +67,7 @@ public class BookControllerTest extends AbstractUnitTest {
         String isbn = "aslfjasldfkasldfj";
         when(bookService.isExist(isbn)).thenReturn(false);
 
-        boolean resultStr = bookController.checkISBN(isbn, null);
-        assertTrue(resultStr == true);
+        assertTrue(bookController.checkISBN(isbn, null));
     }
 
     @Test
