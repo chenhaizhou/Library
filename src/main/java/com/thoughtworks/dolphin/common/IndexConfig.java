@@ -27,6 +27,8 @@ public class IndexConfig<T extends IndexTarget> {
         File dir = new File(path);
         if (!dir.exists()) {
             dir.mkdirs();
+            dir.setReadable(true);
+            dir.setWritable(true);
         }
         directory = FSDirectory.open(dir);
     }
