@@ -53,17 +53,13 @@ public class IndexUtilTest {
 
     @Test
     public void shouldSearchKeywordNoSizeLimit() throws Exception {
-        try {
-            SearchResult<TestObject> result = this.indexUtil.search(new String[] {"name"}, "Cathy", this.indexConfig);
-            assertEquals(3, result.getTotalCount());
-            assertEquals(3, result.getResultData().size());
+        SearchResult<TestObject> result = this.indexUtil.search(new String[]{"name"}, "Cathy", this.indexConfig);
+        assertEquals(3, result.getTotalCount());
+        assertEquals(3, result.getResultData().size());
 
-            result = this.indexUtil.search(new String[] {"name"}, "John", this.indexConfig);
-            assertEquals(1, result.getTotalCount());
-            assertEquals(2, result.getResultData().get(0).getId());
-        } catch (Exception e) {
-            throw new Exception(e.getMessage() + "======for dir:" + indexConfig.getDirectory());
-        }
+        result = this.indexUtil.search(new String[]{"name"}, "John", this.indexConfig);
+        assertEquals(1, result.getTotalCount());
+        assertEquals(2, result.getResultData().get(0).getId());
     }
 
     @Test
