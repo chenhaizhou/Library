@@ -3,6 +3,7 @@ package com.thoughtworks.dolphin.util;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import com.thoughtworks.dolphin.common.Constants;
 import com.thoughtworks.dolphin.common.IndexConfig;
 import com.thoughtworks.dolphin.common.IndexTarget;
 import com.thoughtworks.dolphin.common.SearchResult;
@@ -11,8 +12,10 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.IntField;
 import org.apache.lucene.document.TextField;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -34,6 +37,11 @@ public class IndexUtilTest {
         this.testDatas = prepareDatas();
     }
 
+    @BeforeClass
+    public static void setUpForClass() {
+        cleanIndexDir();
+    }
+
     @Test
     public void shouldCreateIndex() throws Exception {
         try {
@@ -45,13 +53,17 @@ public class IndexUtilTest {
 
     @Test
     public void shouldSearchKeywordNoSizeLimit() throws Exception {
-        SearchResult<TestObject> result = this.indexUtil.search(new String[] {"name"}, "Cathy", this.indexConfig);
-        assertEquals(3, result.getTotalCount());
-        assertEquals(3, result.getResultData().size());
+        try {
+            SearchResult<TestObject> result = this.indexUtil.search(new String[] {"name"}, "Cathy", this.indexConfig);
+            assertEquals(3, result.getTotalCount());
+            assertEquals(3, result.getResultData().size());
 
-        result = this.indexUtil.search(new String[] {"name"}, "John", this.indexConfig);
-        assertEquals(1, result.getTotalCount());
-        assertEquals(2, result.getResultData().get(0).getId());
+            result = this.indexUtil.search(new String[] {"name"}, "John", this.indexConfig);
+            assertEquals(1, result.getTotalCount());
+            assertEquals(2, result.getResultData().get(0).getId());
+        } catch (Exception e) {
+            throw new Exception(e.getMessage() + "======for dir:" + indexConfig.getDirectory());
+        }
     }
 
     @Test
@@ -126,5 +138,13 @@ public class IndexUtilTest {
         datas.add(new TestObject(4, "ABC"));
         datas.add(new TestObject(5, "Cathy in Tencent."));
         return datas;
+    }
+
+    private static void cleanIndexDir() {
+        String path = Constants.INDEX_DIRECTORY + File.separator + TestObject.class.getSimpleName();
+        File dir = new File(path);
+        if (dir.exists()) {
+            dir.delete();
+        }
     }
 }
