@@ -8,6 +8,8 @@ public class BorrowBook extends Book {
     private int borrowId;
     private Date returnDate;
 
+    private BorrowStatus status;
+
     public Date getBorrowDate() {
         return borrowDate;
     }
@@ -30,5 +32,13 @@ public class BorrowBook extends Book {
 
     public Date getReturnDate() {
         return returnDate;
+    }
+
+    public BorrowStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(int val) {
+        this.status = BorrowStatus.fromValue(val);
     }
 }

@@ -35,10 +35,9 @@ function loadBooksByPage(fliter) {
 
             var htmlOutput = template.render(result.resultData);
             $("#booklist").html(htmlOutput);
-            console.log(result);
         },
         error :function() {
-            alert("show book wrong");
+
         }
     });
 }

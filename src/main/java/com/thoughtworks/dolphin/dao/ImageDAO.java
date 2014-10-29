@@ -7,7 +7,7 @@ public interface ImageDAO {
 
     void addImage(Image image);
 
-    public Image getImage(int imageId);
+    Image getImage(int imageId);
 
     void deleteImage(int coverImageId);
 }
